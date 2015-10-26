@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &136828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 423302}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &159668
 GameObject:
   m_ObjectHideFlags: 0
@@ -20,6 +35,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &423302
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136828}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.38000011, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 433890}
+  m_RootOrder: 0
 --- !u!4 &433890
 Transform:
   m_ObjectHideFlags: 1
@@ -29,7 +56,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 423302}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!50 &5018654
@@ -41,7 +69,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 159668}
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: .0500000007
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_IsKinematic: 0
   m_Interpolate: 1
@@ -60,7 +88,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: .639999986, y: .639999986}
+  m_Size: {x: 6.4000001, y: 6.4000001}
 --- !u!95 &9586368
 Animator:
   serializedVersion: 3
@@ -89,10 +117,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f758a724dc8cb4be3a8aef2cd6956816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MaxSpeed: {x: 0, y: 0}
-  m_Acceleration: {x: 0, y: 0}
-  m_JumpHighSpeed: 12
-  m_Gravity: -30
+  m_JumpHighSpeed: 120
+  m_WalkSpeed: 36
+  m_WalkAcc: 112
+  m_WalkSlowAcc: 57
+  m_GroundCheck: {fileID: 423302}
+  m_GroundCheckMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!212 &21222322
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -191,6 +223,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Constraints
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_GroundCheck
+      value: 
+      objectReference: {fileID: 423302}
+    - target: {fileID: 0}
+      propertyPath: m_GroundCheckMask.m_Bits
+      value: 256
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

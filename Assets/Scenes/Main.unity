@@ -115,7 +115,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 671137529}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.20000005, z: 0}
+  m_LocalPosition: {x: 0, y: -32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 204485345}
@@ -224,7 +224,7 @@ Camera:
   far clip plane: 1000
   field of view: 52.5624275
   orthographic: 1
-  orthographic size: 4.48000002
+  orthographic size: 44.7999992
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -250,6 +250,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!1 &1975390837 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 149104, guid: 3ba232cfeb9a246bead0d66fc202ae8f, type: 2}
+  m_PrefabInternal: {fileID: 1996321026}
+--- !u!61 &1975390838
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1975390837}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: -55.4440002, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 8.48720932, y: 89.5999985}
+--- !u!61 &1975390839
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1975390837}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 55.4440002, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 8.48720932, y: 89.5999985}
 --- !u!1001 &1996321026
 Prefab:
   m_ObjectHideFlags: 0
@@ -263,7 +293,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 414004, guid: 3ba232cfeb9a246bead0d66fc202ae8f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.20000005
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 414004, guid: 3ba232cfeb9a246bead0d66fc202ae8f, type: 2}
       propertyPath: m_LocalPosition.z
