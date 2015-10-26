@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: bb3bf7cee90eb4d4f84df0690e0752e7
-timeCreated: 1445804493
+timeCreated: 1445809632
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
@@ -8,7 +8,10 @@ TextureImporter:
     21300002: mario_small_walk_1
     21300004: mario_small_walk_2
     21300006: mario_small_walk_3
-    21300008: mario_small_walk_4
+    21300008: mario_small_jump
+    21300010: mario_small_idle
+    21300012: mario_small_stop
+    21300014: mario_small_dead
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -55,7 +58,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: mario_small_still
+    - name: mario_small_idle
       rect:
         serializedVersion: 2
         x: 0
@@ -95,10 +98,30 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: mario_small_walk_4
+    - name: mario_small_jump
       rect:
         serializedVersion: 2
         x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: mario_small_stop
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: mario_small_dead
+      rect:
+        serializedVersion: 2
+        x: 384
         y: 0
         width: 64
         height: 64

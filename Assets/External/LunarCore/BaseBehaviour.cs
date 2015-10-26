@@ -110,6 +110,12 @@ namespace LunarCore
             }
         }
 
+        public Vector2 position2D
+        {
+            get { return transform.localPosition; }
+            set { transform.localPosition = value; }
+        }
+
         #endregion
     }
 

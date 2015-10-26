@@ -9,7 +9,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 433890}
   - 212: {fileID: 21222322}
+  - 50: {fileID: 5018654}
   - 61: {fileID: 6122246}
+  - 114: {fileID: 11422178}
+  - 95: {fileID: 9586368}
   m_Layer: 0
   m_Name: Mario
   m_TagString: Untagged
@@ -29,6 +32,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!50 &5018654
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159668}
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: .0500000007
+  m_GravityScale: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!61 &6122246
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -42,6 +61,38 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: .639999986, y: .639999986}
+--- !u!95 &9586368
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159668}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 76fe7cd6dd6a845378a7604e2d1a10d2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 1
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11422178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f758a724dc8cb4be3a8aef2cd6956816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaxSpeed: {x: 0, y: 0}
+  m_Acceleration: {x: 0, y: 0}
+  m_JumpHighSpeed: 12
+  m_Gravity: -30
 --- !u!212 &21222322
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -66,7 +117,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bb3bf7cee90eb4d4f84df0690e0752e7, type: 3}
+  m_Sprite: {fileID: 21300010, guid: bb3bf7cee90eb4d4f84df0690e0752e7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
@@ -74,7 +125,73 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Animations.m_Sequences.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Animations.m_Sequences.Array.data[0].m_Frames.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Animations.m_Sequences.Array.data[1].m_Frames.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Animations.m_Sequences.Array.data[0].m_Name
+      value: Idle
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Animations.m_Sequences.Array.data[1].m_Name
+      value: Walk
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Animations.m_Sequences.Array.data[0].m_Frames.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: bb3bf7cee90eb4d4f84df0690e0752e7,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Animations.m_Sequences.Array.data[1].m_Frames.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300002, guid: bb3bf7cee90eb4d4f84df0690e0752e7,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Animations.m_Sequences.Array.data[1].m_Frames.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300004, guid: bb3bf7cee90eb4d4f84df0690e0752e7,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Animations.m_Sequences.Array.data[1].m_Frames.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300006, guid: bb3bf7cee90eb4d4f84df0690e0752e7,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Animations.m_Sequences.Array.data[1].m_Frames.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300008, guid: bb3bf7cee90eb4d4f84df0690e0752e7,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300010, guid: bb3bf7cee90eb4d4f84df0690e0752e7,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_GravityScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 159668}
