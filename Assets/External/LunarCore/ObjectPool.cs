@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 namespace LunarCore
@@ -32,7 +32,7 @@ namespace LunarCore
 
         public void Put(T obj)
         {
-            Assert.IsNotNull(obj);
+            assert.IsNotNull(obj);
             obj.Recycle();
             objects.Add(obj);
         }

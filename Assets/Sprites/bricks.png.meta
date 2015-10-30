@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b378d48ee90cb4aacaf3f91af7c3462b
-timeCreated: 1445847091
+timeCreated: 1445931261
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
@@ -10,6 +10,7 @@ TextureImporter:
     21300006: bricks_empty
     21300008: brick
     21300010: mushroom
+    21300012: ground
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -66,6 +67,9 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      packingTag: 
     - name: bricks_question_2
       rect:
         serializedVersion: 2
@@ -76,6 +80,9 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      packingTag: 
     - name: bricks_question_3
       rect:
         serializedVersion: 2
@@ -86,6 +93,9 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      packingTag: 
     - name: bricks_empty
       rect:
         serializedVersion: 2
@@ -96,6 +106,9 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      packingTag: 
     - name: brick
       rect:
         serializedVersion: 2
@@ -106,6 +119,9 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      packingTag: 
     - name: mushroom
       rect:
         serializedVersion: 2
@@ -116,6 +132,24 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      packingTag: 
+    - name: ground
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      packingTag: 
+    outline: []
+    physicsShape: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

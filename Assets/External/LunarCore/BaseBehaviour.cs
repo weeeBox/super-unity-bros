@@ -77,7 +77,7 @@ namespace LunarCore
         protected T GetRequiredComponent<T>()
         {
             T component = GetComponent<T>();
-            Assert.IsNotNull(component, "Missing required component: {0}", typeof(T));
+            assert.IsNotNull(component, "Missing required component: {0}", typeof(T));
             return component;
         }
 

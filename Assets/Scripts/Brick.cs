@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 using LunarCore;
@@ -12,14 +12,22 @@ public class Brick : BaseBehaviour2D
     [SerializeField]
     private Mushroom m_Mushroom;
 
+    private BoxCollider2D m_Collider;
+
     protected override void OnStart()
     {
-        Assert.IsNotNull(m_Mushroom);
+        assert.IsNotNull(m_Mushroom);
+        m_Collider = GetRequiredComponent<BoxCollider2D>();
     }
     
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.transform.position.y < transform.position.y)
+        BoxCollider2D collider = coll.collider as BoxCollider2D;
+        assert.IsNotNull(collider);
+
+        float dx = collider.bounds.center.x - m_Collider.bounds.center.x;
+        float dy = collider.bounds.center.y - m_Collider.bounds.center.y;
+        if (dy < 0 && Mathf.Abs(dx) <= 0.25f * collider.bounds.size.x)
         {
             Hit();
         }

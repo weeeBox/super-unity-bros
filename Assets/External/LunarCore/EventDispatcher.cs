@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -36,8 +36,8 @@ namespace LunarCore
 
         public void DispatchEvent(object sender, string name, object data)
         {
-            Assert.IsNotNull(sender);
-            Assert.IsNotNull(name);
+            assert.IsNotNull(sender);
+            assert.IsNotNull(name);
 
             EventListenerList list = FindEventListenerList(name);
             if (list != null)
@@ -60,8 +60,8 @@ namespace LunarCore
 
         public void AddListener(string name, EventListener listener)
         {
-            Assert.IsNotNull(name);
-            Assert.IsNotNull(listener);
+            assert.IsNotNull(name);
+            assert.IsNotNull(listener);
 
             if (listenersLookup == null)
             {
@@ -95,7 +95,7 @@ namespace LunarCore
 
         internal void Dispatch(Event evt)
         {
-            Assert.IsTrue(listeners != null && listeners.Count > 0);
+            assert.IsTrue(listeners != null && listeners.Count > 0);
             for (int i = 0; i < listeners.Count; ++i)
             {
                 listeners[i](evt);
@@ -104,13 +104,13 @@ namespace LunarCore
 
         public void Add(EventListener listener)
         {
-            Assert.IsNotNull(listener);
+            assert.IsNotNull(listener);
             if (listeners == null)
             {
                 listeners = new List<EventListener>(2);
             }
 
-            Assert.NotContains(listener, listeners);
+            assert.NotContains(listener, listeners);
             listeners.Add(listener);
         }
     }
