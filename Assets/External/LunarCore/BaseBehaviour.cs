@@ -4,10 +4,6 @@ using System.Collections;
 
 namespace LunarCore
 {
-    #if UNIT_TESTING
-    using MonoBehaviour = MonoBehaviourMock;
-    #endif
-
     public class BaseBehaviour : MonoBehaviour
     {
         #region Life Cycle
@@ -116,53 +112,28 @@ namespace LunarCore
             set { transform.localPosition = value; }
         }
 
+        public float posX
+        {
+            get { return transform.localPosition.x; }
+            set
+            {
+                Vector3 position = transform.localPosition;
+                position.x = value;
+                transform.localPosition = position;
+            }
+        }
+
+        public float posY
+        {
+            get { return transform.localPosition.y; }
+            set
+            {
+                Vector3 position = transform.localPosition;
+                position.y = value;
+                transform.localPosition = position;
+            }
+        }
+
         #endregion
     }
-
-    #if UNIT_TESTING
-
-    public class MonoBehaviourMock : Object
-    {
-        private TransformMock transformRef;
-
-        public MonoBehaviourMock()
-        {
-            transformRef = new TransformMock();
-        }
-     
-        public T GetComponent<T>()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public TransformMock transform
-        {
-            get { return transformRef; }
-        }
-
-        public GameObject gameObject
-        {
-            get { throw new System.NotImplementedException(); }
-        }
-
-        public bool enabled
-        {
-            get { throw new System.NotImplementedException(); }
-            set { throw new System.NotImplementedException(); }
-        }
-
-        public class TransformMock : Transform
-        {
-            public TransformMock()
-            {
-            }
-
-            public new Vector3 localPosition
-            {
-                get; set;
-            }
-        }
-    }
-
-    #endif
 }

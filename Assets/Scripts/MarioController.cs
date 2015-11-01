@@ -5,7 +5,7 @@ using System.Collections;
 
 using LunarCore;
 
-public class MarioController : BaseBehaviour2D
+public class MarioController : BaseBehaviour2D, IMapCollider
 {
     private const int DIR_LEFT = -1;
     private const int DIR_RIGHT = 1;
@@ -23,136 +23,95 @@ public class MarioController : BaseBehaviour2D
     private float m_WalkSlowAcc = 57.0f;
 
     [SerializeField]
-    private Transform m_GroundCheck;
+    private Rect m_ColliderRect;
 
-    [SerializeField]
-    private LayerMask m_GroundCheckMask;
+    private Vector2 m_MoveInput;
 
-    private Collider2D[] m_GroundCheckResult;
     private bool m_Jumping;
     private Vector3 m_Velocity;
+
+    private ColliderPosition m_Position;
+    private ColliderPosition m_LastPosition;
+
     private int m_Direction;
     private bool m_Grounded;
 
     private Animator m_Animator;
-    private Rigidbody2D m_Rigidbody;
-    private BoxCollider2D m_Collider;
-    private Vector2 m_ColliderSize;
 
     protected override void OnAwake()
     {
-        assert.IsNotNull(m_GroundCheck);
-
         m_Animator = GetRequiredComponent<Animator>();
-        m_Rigidbody = GetRequiredComponent<Rigidbody2D>();
-        m_Collider = GetRequiredComponent<BoxCollider2D>();
-        
         m_Direction = DIR_RIGHT;
-        m_GroundCheckResult = new Collider2D[1];
+    }
 
-        m_ColliderSize = m_Collider.size;
+    protected override void OnEnabled()
+    {
+        m_LastPosition = new ColliderPosition(transform.localPosition, m_ColliderRect);
     }
 
     protected override void OnFixedUpdate(float deltaTime)
     {
-//        bool wasGrounded = m_Grounded;
-//        m_Grounded = Physics2D.OverlapCircleNonAlloc(m_GroundCheck.position, 0.2f, m_GroundCheckResult, m_GroundCheckMask) > 0;
-//        if (!wasGrounded && m_Grounded && m_Jumping)
-//        {
-//            m_Jumping = false;
-//            m_Animator.SetBool("Jump", false);
-//        }
+        float vx = m_Velocity.x;
+        float vy = m_Velocity.y;
+        float moveX = m_MoveInput.x;
+        float moveY = m_MoveInput.y;
 
-        float moveX = Input.GetAxisRaw("Horizontal");
-		float moveY = Input.GetAxisRaw("Vertical");
+        if (Mathf.Approximately(moveX, 0.0f))
+        {
+            vx += -m_Direction * m_WalkSlowAcc * deltaTime;
+            vx = m_Direction > 0 ? Mathf.Max(vx, 0) : Mathf.Min(vx, 0);
+        }
+        else
+        {
+            vx += moveX * m_WalkAcc * deltaTime;
+            if (vx > 0)
+            {
+                vx = Mathf.Min(vx, m_WalkSpeed);
+            }
+            else if (vx < 0)
+            {
+                vx = Mathf.Max(vx, -m_WalkSpeed);
+            }
+        }
 
-//        float vx = m_Velocity.x;
-//        float vy = m_Velocity.y;
-//
-//        if (Mathf.Approximately(moveX, 0.0f))
-//        {
-//            vx += -m_Direction * m_WalkSlowAcc * deltaTime;
-//            vx = m_Direction > 0 ? Mathf.Max(vx, 0) : Mathf.Min(vx, 0);
-//        }
-//        else
-//        {
-//            vx += moveX * m_WalkAcc * deltaTime;
-//            if (vx > 0)
-//            {
-//                vx = Mathf.Min(vx, m_WalkSpeed);
-//            }
-//            else if (vx < 0)
-//            {
-//                vx = Mathf.Max(vx, -m_WalkSpeed);
-//            }
-//        }
-//
-//		vy += -300 * deltaTime;
-//
-//        if (moveX >  Mathf.Epsilon && m_Direction == DIR_LEFT ||
-//            moveX < -Mathf.Epsilon && m_Direction == DIR_RIGHT)
-//        {
-//            Flip();
-//        }
-//
-//        if (m_Jumping)
-//        {
-//            m_Animator.SetBool("Jump", true);
-//        }
-//        else
-//        {
-//            m_Animator.SetFloat("Speed", Mathf.Abs(vx));
-//        }
+        vy += -300 * deltaTime;
 
-//        m_Velocity = new Vector2(vx, vy);
-        Vector2 position = transform.localPosition + new Vector3(moveX * m_WalkSpeed * deltaTime, moveY * m_WalkSpeed * deltaTime);
+        if (moveX >  Mathf.Epsilon && m_Direction == DIR_LEFT ||
+            moveX < -Mathf.Epsilon && m_Direction == DIR_RIGHT)
+        {
+            Flip();
+        }
 
-        CheckCollisions(ref position);
+        m_Velocity.x = vx;
+        m_Velocity.y = vy;
+        m_LastPosition.center = transform.localPosition;
 
-        transform.localPosition = position;
-        // m_Animator.SetBool("Stop", moveX > Mathf.Epsilon && vx < 0 || moveX < -Mathf.Epsilon && vx > 0);
+        transform.Translate(m_Velocity.x * deltaTime, m_Velocity.y * deltaTime);
+
+        m_Grounded = false;
+
+        HandleCollisions();
+
+        m_Animator.SetBool("Jump", m_Jumping);
+        m_Animator.SetFloat("Speed", Mathf.Abs(vx));
+        m_Animator.SetBool("Stop", moveX > Mathf.Epsilon && vx < 0 || moveX < -Mathf.Epsilon && vx > 0);
     }
 
     protected override void OnUpdate(float deltaTime)
     {
+        m_MoveInput.x = Input.GetAxisRaw("Horizontal");
+        m_MoveInput.y = Input.GetAxisRaw("Vertical");
+
         if (Input.GetKeyDown(KeyCode.Space) && m_Grounded && !m_Jumping)
         {
             m_Jumping = true;
-            m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x, m_JumpHighSpeed);
+            m_Velocity.y = m_JumpHighSpeed;
         }
     }
 
-    void CheckCollisions(ref Vector2 position)
+    void HandleCollisions()
     {
-        Map map = GameManager.map;
-
-        float minX = position.x - 0.5f * m_ColliderSize.x;
-		float maxX = position.x + 0.5f * m_ColliderSize.x;
-		float minY = position.y - 0.5f * m_ColliderSize.y;
-		float maxY = position.y + 0.5f * m_ColliderSize.y;
-
-        Cell c1 = map.GetCell(minX, maxY);
-        Cell c2 = map.GetCell(maxX, maxY);
-
-        if (c1 != null)
-        {
-            position.y = c1.y + 0.5f * (Constants.CELL_HEIGHT + m_ColliderSize.y);
-        }
-        else if (c2 != null)
-        {
-            position.y = c2.y + 0.5f * (Constants.CELL_HEIGHT + m_ColliderSize.y);
-        }
-    }
-
-    private bool CollidesCell(Cell cell)
-    {
-        if (cell == null) return false;
-
-        Vector2 size = m_Collider.size;
-        Vector2 pos = m_Collider.bounds.center;
-
-        return Math.Abs(pos.x - cell.x) < 0.5f * (size.x + Constants.CELL_WIDTH) && 
-               Math.Abs(pos.y - cell.y) < 0.5f * (size.y + Constants.CELL_HEIGHT);
+        GameManager.map.HandleCollisions(this);
     }
 
     private void Flip()
@@ -161,23 +120,127 @@ public class MarioController : BaseBehaviour2D
         flipX = !flipX;
     }
 
-    private float minX
+    #region IMapCollider implementation
+
+    public void OnCollision(Cell cell)
     {
-        get { return transform.localPosition.x - 0.5f * m_ColliderSize.x; }
+        float x = this.posX;
+        float y = this.posY;
+        float lastX = m_LastPosition.center.x;
+        float lastY = m_LastPosition.center.y;
+        float vx = m_Velocity.x;
+        float vy = m_Velocity.y;
+
+        bool hitVerticalObstacle = false;
+
+        if (y > cell.y) // player's center is higher than cell's center
+        {
+            if (m_LastPosition.bottom - cell.top > -0.01f) // player was higher than cell or standing on it
+            {
+                this.bottom = cell.top;
+                m_Grounded = true;
+                m_Jumping = false;
+
+                hitVerticalObstacle = true;
+            }
+        }
+        else if (y < cell.y) // player's center is lower than cell's center
+        {
+            if (m_LastPosition.top - cell.bottom < 0.01f) // player was lower than cell or right under if
+            {
+                this.top = cell.bottom;
+                hitVerticalObstacle = true;
+            }
+        }
+
+        if (x > cell.x)
+        {
+            if (m_LastPosition.left - cell.right > - 0.01f && !hitVerticalObstacle)
+            {
+                this.left = cell.right;
+                m_Velocity.x = 0.0f;
+            }
+        }
+        else if (x < cell.x)
+        {
+            if (m_LastPosition.right - cell.left < 0.01f && !hitVerticalObstacle)
+            {
+                this.right = cell.left;
+                m_Velocity.x = 0.0f;
+            }
+        }
+
+        if (hitVerticalObstacle)
+        {
+            m_Velocity.y = 0.0f;
+        }
     }
 
-    private float minY
+    public Rect colliderRect
     {
-        get { return transform.localPosition.y - 0.5f * m_ColliderSize.y; }
+        get
+        {
+            Rect rect = m_ColliderRect;
+            rect.center = transform.localPosition;
+            return rect;
+        }
     }
 
-    private float maxX
+    public float left
     {
-        get { return transform.localPosition.x + 0.5f * m_ColliderSize.x; }
+        get { return posX - 0.5f * m_ColliderRect.width; }
+        set { posX = value + 0.5f * m_ColliderRect.width; }
     }
 
-    private float maxY
+    public float right
     {
-        get { return transform.localPosition.y + 0.5f * m_ColliderSize.y; }
+        get { return posX + 0.5f * m_ColliderRect.width; }
+        set { posX = value - 0.5f * m_ColliderRect.width; }
+    }
+
+    public float top
+    {
+        get { return posY + 0.5f * m_ColliderRect.height; }
+        set { posY = value - 0.5f * m_ColliderRect.height; }
+    }
+
+    public float bottom
+    {
+        get { return posY - 0.5f * m_ColliderRect.height; }
+        set { posY = value + 0.5f * m_ColliderRect.height; }
+    }
+
+    #endregion
+
+    struct ColliderPosition
+    {
+        public Vector3 center;
+        Vector2 colliderHalfSize;
+
+        public ColliderPosition(Vector3 center, Rect colliderRect)
+        {
+            this.center = center;
+            this.colliderHalfSize = new Vector2(0.5f * colliderRect.width, 0.5f * colliderRect.height);
+        }
+
+        public float left
+        {
+            get { return center.x - colliderHalfSize.x; }
+        }
+
+        public float right
+        {
+            get { return center.x + colliderHalfSize.x; }
+        }
+
+        public float top
+        {
+            get { return center.y + colliderHalfSize.y; }
+        }
+        
+        public float bottom
+        {
+            get { return center.y - colliderHalfSize.y; }
+        }
     }
 }

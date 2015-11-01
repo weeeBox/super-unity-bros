@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 438590}
   - 212: {fileID: 21242744}
-  - 61: {fileID: 6137672}
   - 114: {fileID: 11461530}
   - 95: {fileID: 9515660}
   m_Layer: 8
@@ -26,24 +25,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 155806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 35.2000008, y: 35.2000008, z: 0}
+  m_LocalPosition: {x: 54.4000015, y: 35.2000008, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &6137672
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 155806}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 6.4000001, y: 6.4000001}
 --- !u!95 &9515660
 Animator:
   serializedVersion: 3
