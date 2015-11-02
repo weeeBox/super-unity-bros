@@ -17,6 +17,9 @@ public class MarioController : BaseBehaviour2D, IMapCollider
     private float m_WalkSpeed = 36.0f;
 
     [SerializeField]
+    private float m_PushCollisionSpeed = 24.0f;
+
+    [SerializeField]
     private float m_WalkAcc = 112.0f;
 
     [SerializeField]
@@ -111,7 +114,101 @@ public class MarioController : BaseBehaviour2D, IMapCollider
 
     void HandleCollisions()
     {
-        GameManager.map.HandleCollisions(this);
+        float x = this.posX;
+        float y = this.posY;
+        float vx = m_Velocity.x;
+        float vy = m_Velocity.y;
+
+        if (vy > Mathf.Epsilon) // moving up
+        {
+            Cell cell = GetCell(x, this.top);
+            if (cell != null && m_LastPosition.top - cell.bottom < 0.01f) // hit the block
+            {
+                this.top = cell.bottom;
+                m_Velocity.y = 0f;
+            }
+            else
+            {
+                cell = GetCell(this.left, this.top);
+                cell = cell != null ? cell : GetCell(this.right, this.top);
+
+                if (cell != null)
+                {
+                    if (m_LastPosition.top - cell.bottom < 0.01f) // hit from the bottom?
+                    {
+                        float dist = x - cell.x;
+                        float sign = dist < 0f ? -1f : 1f;
+                        float penetration = 0.5f * (Constants.CELL_WIDTH + m_ColliderRect.width) - Mathf.Abs(dist);
+                        float move = sign * Mathf.Min(m_PushCollisionSpeed * Time.fixedDeltaTime, penetration);
+                        
+                        transform.Translate(move, 0f);
+                    }
+                    else
+                    {
+                        HandleHorCollision(cell, x);
+                    }
+                }
+                else
+                {
+                    cell = GetCell(this.left, y);
+                    cell = cell != null ? cell : GetCell(this.right, y);
+
+                    if (cell != null)
+                    {
+                        HandleHorCollision(cell, x);
+                    }
+                }
+            }
+        }
+        else // moving down
+        {
+            Cell cell = GetCell(this.left, this.bottom);
+            cell = cell != null ? cell : GetCell(this.right, this.bottom);
+
+            if (cell != null)
+            {
+                if (GetCellAt(cell.i + 1, cell.j) != null) // there's a blocking cell on top
+                {
+                    HandleHorCollision(cell, x);
+                }
+                else if (m_LastPosition.bottom - cell.top > -0.01f) // jumping on the cell
+                {
+                    this.bottom = cell.top;
+                    
+                    m_Grounded = true;
+                    m_Jumping = false;
+                    m_Velocity.y = 0f;
+                }
+                else
+                {
+                    HandleHorCollision(cell, x);
+                }
+            }
+            else
+            {
+                cell = GetCell(this.left, y);
+                cell = cell != null ? cell : GetCell(this.right, y);
+
+                if (cell != null)
+                {
+                    HandleHorCollision(cell, x);
+                }
+            }
+        }
+    }
+
+    private void HandleHorCollision(Cell cell, float x)
+    {
+        if (x - cell.x > -Mathf.Epsilon)
+        {
+            this.left = cell.right;
+            m_Velocity.x = 0.0f;
+        }
+        else
+        {
+            this.right = cell.left;
+            m_Velocity.x = 0.0f;
+        }
     }
 
     private void Flip()
@@ -122,7 +219,7 @@ public class MarioController : BaseBehaviour2D, IMapCollider
 
     #region IMapCollider implementation
 
-    public void OnCollision(Cell cell)
+    public bool OnCollision(Cell cell)
     {
         float x = this.posX;
         float y = this.posY;
@@ -131,49 +228,77 @@ public class MarioController : BaseBehaviour2D, IMapCollider
         float vx = m_Velocity.x;
         float vy = m_Velocity.y;
 
-        bool hitVerticalObstacle = false;
-
         if (y > cell.y) // player's center is higher than cell's center
         {
             if (m_LastPosition.bottom - cell.top > -0.01f) // player was higher than cell or standing on it
             {
-                this.bottom = cell.top;
-                m_Grounded = true;
-                m_Jumping = false;
+                if (!Mathf.Approximately(Mathf.Abs(x - cell.x), 0.5f * (Constants.CELL_WIDTH + m_ColliderRect.width)))
+                {
+                    this.bottom = cell.top;
 
-                hitVerticalObstacle = true;
+                    m_Grounded = true;
+                    m_Jumping = false;
+                    m_Velocity.y = 0f;
+
+                    return true;
+                }
             }
         }
         else if (y < cell.y) // player's center is lower than cell's center
         {
             if (m_LastPosition.top - cell.bottom < 0.01f) // player was lower than cell or right under if
             {
-                this.top = cell.bottom;
-                hitVerticalObstacle = true;
+                if (cell == GetCell(x, this.top))
+                {
+                    this.top = cell.bottom;
+                    m_Velocity.y = 0f;
+                    
+                    return true;
+                }
+
+                float dist = x - cell.x;
+                float sign = dist < 0f ? -1f : 1f;
+                float penetration = 0.5f * (Constants.CELL_WIDTH + m_ColliderRect.width) - Mathf.Abs(dist);
+                float move = sign * Mathf.Min(m_PushCollisionSpeed * Time.fixedDeltaTime, penetration);
+
+                transform.Translate(move, 0f);
+
+                return true;
             }
         }
 
         if (x > cell.x)
         {
-            if (m_LastPosition.left - cell.right > - 0.01f && !hitVerticalObstacle)
+            if (m_LastPosition.left - cell.right > -0.01f)
             {
                 this.left = cell.right;
                 m_Velocity.x = 0.0f;
+
+                return true;
             }
         }
         else if (x < cell.x)
         {
-            if (m_LastPosition.right - cell.left < 0.01f && !hitVerticalObstacle)
+            if (m_LastPosition.right - cell.left < 0.01f)
             {
                 this.right = cell.left;
                 m_Velocity.x = 0.0f;
+
+                return true;
             }
         }
 
-        if (hitVerticalObstacle)
-        {
-            m_Velocity.y = 0.0f;
-        }
+        return false;
+    }
+
+    private Cell GetCell(float x, float y)
+    {
+        return GameManager.map.GetCell(x, y);
+    }
+
+    private Cell GetCellAt(int i, int j)
+    {
+        return GameManager.map.GetCellAt(i, j);
     }
 
     public Rect colliderRect

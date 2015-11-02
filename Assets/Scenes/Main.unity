@@ -163,6 +163,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 155806, guid: 7da65b3aff9e740a0824612649eec1e7, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7da65b3aff9e740a0824612649eec1e7, type: 2}
   m_IsPrefabParent: 0
@@ -286,18 +290,6 @@ Prefab:
     - target: {fileID: 433890, guid: 8d91ee45333844be09edc9abc39670ad, type: 2}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11422178, guid: 8d91ee45333844be09edc9abc39670ad, type: 2}
-      propertyPath: m_GroundCheck
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11422178, guid: 8d91ee45333844be09edc9abc39670ad, type: 2}
-      propertyPath: m_ColliderRect.width
-      value: 6.4000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 11422178, guid: 8d91ee45333844be09edc9abc39670ad, type: 2}
-      propertyPath: m_ColliderRect.height
-      value: 6.4000001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d91ee45333844be09edc9abc39670ad, type: 2}

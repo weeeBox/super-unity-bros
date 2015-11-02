@@ -36,7 +36,7 @@ namespace Testing
         {
             return new MockCollider(cx * CW, cy * CH, CW, CH, delegate(Cell cell)
             {
-
+                return false;
             });
         }
     }
@@ -62,7 +62,7 @@ namespace Testing
         }
     }
 
-    delegate void MockColliderCallback(Cell cell);
+    delegate bool MockColliderCallback(Cell cell);
 
     class MockCollider : IMapCollider
     {
@@ -81,9 +81,9 @@ namespace Testing
             m_CollisionCallback = collisionCallback;
         }
 
-        public void OnCollision(Cell cell)
+        public bool OnCollision(Cell cell)
         {
-            m_CollisionCallback(cell);
+            return m_CollisionCallback(cell);
         }
 
         public Rect colliderRect

@@ -5,7 +5,7 @@ using LunarCore;
 
 public interface IMapCollider
 {
-    void OnCollision(Cell cell);
+    bool OnCollision(Cell cell);
     Rect colliderRect { get; }
 }
 
@@ -54,21 +54,17 @@ public class Map : BaseBehaviour
         m_Rows = rows;
         m_Cols = cols;
 
-        float cy = 0.5f * Constants.CELL_HEIGHT;
         for (int i = 0; i < rows; ++i)
         {
-            float cx = 0.5f * Constants.CELL_WIDTH;
             for (int j = 0; j < cols; ++j)
             {
                 int index = (rows - 1 - i) * cols + j;
                 int type = data[index];
                 if (type != 0)
                 {
-                    m_Cells[i, j] = new Cell(cx, cy);
+                    m_Cells[i, j] = new Cell(i, j);
                 }
-                cx += Constants.CELL_WIDTH;
             }
-            cy += Constants.CELL_HEIGHT;
         }
     }
 
@@ -77,6 +73,9 @@ public class Map : BaseBehaviour
         Rect rect = collider.colliderRect;
 
         Cell cell;
+
+        cell = GetCell(rect.x, rect.y);
+        if (cell != null) collider.OnCollision(cell);
 
         cell = GetCell(rect.xMin, rect.yMax);
         if (cell != null) collider.OnCollision(cell);
@@ -93,9 +92,14 @@ public class Map : BaseBehaviour
 
     public Cell GetCell(float x, float y)
     {
-        int cx = (int) (x * Constants.CELL_WIDTH_INV);
-        int cy = (int) (y * Constants.CELL_HEIGHT_INV);
+        int i = (int) (y * Constants.CELL_HEIGHT_INV);
+        int j = (int) (x * Constants.CELL_WIDTH_INV);
 
-        return cx >= 0 && cx < m_Cols && cy >= 0 && cy < m_Cols ? m_Cells[cy, cx] : null;
+        return GetCellAt(i, j);
+    }
+
+    public Cell GetCellAt(int i, int j)
+    {
+        return i >= 0 && i < m_Rows && j >= 0 && j < m_Cols ? m_Cells[i, j] : null;
     }
 }

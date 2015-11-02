@@ -5,13 +5,17 @@ using LunarCore;
 
 public class Cell
 {
+    public readonly int i;
+    public readonly int j;
     public readonly float x;
     public readonly float y;
 
-    public Cell(float x, float y)
+    public Cell(int i, int j)
     {
-        this.x = x;
-        this.y = y;
+        this.i = i;
+        this.j = j;
+        this.x = (0.5f + j) * Constants.CELL_WIDTH;
+        this.y = (0.5f + i) * Constants.CELL_HEIGHT;
     }
 
     public float top
