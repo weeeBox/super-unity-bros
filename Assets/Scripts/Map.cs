@@ -25,8 +25,8 @@ public class Map : BaseBehaviour
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1,
     };
 
     private const int MAP_ROWS = 14;
@@ -66,28 +66,6 @@ public class Map : BaseBehaviour
                 }
             }
         }
-    }
-
-    public void HandleCollisions(IMapCollider collider)
-    {
-        Rect rect = collider.colliderRect;
-
-        Cell cell;
-
-        cell = GetCell(rect.x, rect.y);
-        if (cell != null) collider.OnCollision(cell);
-
-        cell = GetCell(rect.xMin, rect.yMax);
-        if (cell != null) collider.OnCollision(cell);
-
-        cell = GetCell(rect.xMax, rect.yMax);
-        if (cell != null) collider.OnCollision(cell);
-
-        cell = GetCell(rect.xMin, rect.yMin);
-        if (cell != null) collider.OnCollision(cell);
-        
-        cell = GetCell(rect.xMax, rect.yMin);
-        if (cell != null) collider.OnCollision(cell);
     }
 
     public Cell GetCell(float x, float y)

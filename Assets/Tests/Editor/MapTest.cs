@@ -26,10 +26,6 @@ namespace Testing
         [Test]
         public void TestGetCell()
         {
-            Map map = new MapMock(DATA, MAP_COLS, MAP_ROWS);
-
-            MockCollider collider = CreateCollider(0.5f, 1.5f);
-            map.HandleCollisions(collider);
         }
 
         private MockCollider CreateCollider(float cx, float cy)

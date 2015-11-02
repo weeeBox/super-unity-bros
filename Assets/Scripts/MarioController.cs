@@ -26,14 +26,17 @@ public class MarioController : BaseBehaviour2D, IMapCollider
     private float m_WalkSlowAcc = 57.0f;
 
     [SerializeField]
+    private float m_Gravity = -300.0f;
+
+    [SerializeField]
     private Rect m_ColliderRect;
 
+    /* User move input */
     private Vector2 m_MoveInput;
 
     private bool m_Jumping;
     private Vector3 m_Velocity;
 
-    private ColliderPosition m_Position;
     private ColliderPosition m_LastPosition;
 
     private int m_Direction;
@@ -77,7 +80,7 @@ public class MarioController : BaseBehaviour2D, IMapCollider
             }
         }
 
-        vy += -300 * deltaTime;
+        vy += m_Gravity * deltaTime;
 
         if (moveX >  Mathf.Epsilon && m_Direction == DIR_LEFT ||
             moveX < -Mathf.Epsilon && m_Direction == DIR_RIGHT)
