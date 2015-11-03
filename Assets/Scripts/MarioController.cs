@@ -41,20 +41,30 @@ public class MarioController : BaseBehaviour2D
 
     private int m_Direction;
     private bool m_Grounded;
+    private bool m_Dead;
+    private Vector3 m_InitialPos;
 
     private Animator m_Animator;
 
     protected override void OnAwake()
     {
         m_Animator = GetRequiredComponent<Animator>();
-        m_Direction = DIR_RIGHT;
+        m_InitialPos = transform.localPosition;
     }
 
     protected override void OnEnabled()
     {
         m_LastPosition = new ColliderPosition(transform.localPosition, m_ColliderRect);
-    }
 
+        flipX = false;
+        m_MoveInput = Vector2.zero;
+        m_Jumping = false;
+        m_Velocity = Vector3.zero;
+        m_Direction = DIR_RIGHT;
+        m_Grounded = false;
+        m_Dead = false;
+    }
+    
     protected override void OnFixedUpdate(float deltaTime)
     {
         float vx = m_Velocity.x;
@@ -97,6 +107,7 @@ public class MarioController : BaseBehaviour2D
         m_Grounded = false;
 
         HandleCollisions();
+        CheckDead();
 
         m_Animator.SetBool("Jump", m_Jumping);
         m_Animator.SetFloat("Speed", Mathf.Abs(m_Velocity.x));
@@ -105,6 +116,8 @@ public class MarioController : BaseBehaviour2D
 
     protected override void OnUpdate(float deltaTime)
     {
+        if (m_Dead) return;
+
         m_MoveInput.x = Input.GetAxisRaw("Horizontal");
         m_MoveInput.y = Input.GetAxisRaw("Vertical");
 
@@ -165,16 +178,20 @@ public class MarioController : BaseBehaviour2D
         }
         else // moving down
         {
-            Cell cell = GetCell(this.left, this.bottom);
+            Cell cell = GetCell(this.left, y);
+            cell = cell != null ? cell : GetCell(this.right, y);
+            
+            if (cell != null)
+            {
+                HandleHorCollision(cell, x);
+            }
+
+            cell = GetCell(this.left, this.bottom);
             cell = cell != null ? cell : GetCell(this.right, this.bottom);
 
             if (cell != null)
             {
-                if (GetCellAt(cell.i + 1, cell.j) != null) // there's a blocking cell on top
-                {
-                    HandleHorCollision(cell, x);
-                }
-                else if (m_LastPosition.bottom - cell.top > -0.01f) // jumping on the cell
+                if (m_LastPosition.bottom - cell.top > -0.01f) // jumping on the cell
                 {
                     this.bottom = cell.top;
                     
@@ -183,16 +200,6 @@ public class MarioController : BaseBehaviour2D
                     m_Velocity.y = 0f;
                 }
                 else
-                {
-                    HandleHorCollision(cell, x);
-                }
-            }
-            else
-            {
-                cell = GetCell(this.left, y);
-                cell = cell != null ? cell : GetCell(this.right, y);
-
-                if (cell != null)
                 {
                     HandleHorCollision(cell, x);
                 }
@@ -212,6 +219,24 @@ public class MarioController : BaseBehaviour2D
             this.right = cell.left;
             m_Velocity.x = 0.0f;
         }
+    }
+
+    void CheckDead()
+    {
+        if (!m_Dead && posY < -3.2) // FIXME: remove magic number
+        {
+            m_Dead = true;
+            StartCoroutine(Die());
+        }
+    }
+
+    IEnumerator Die()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        gameObject.SetActive(false);
+        transform.position = m_InitialPos;
+        gameObject.SetActive(true);
     }
 
     private void Flip()
