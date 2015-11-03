@@ -15,6 +15,8 @@ public class FollowTarget : BaseBehaviour
 
     protected override void OnUpdate(float deltaTime)
     {
-        transform.position = m_Target.position + m_Offset;
+        Vector3 position = m_Target.position + m_Offset;
+        position.y = 0;
+        transform.position = position;
     }
 }
