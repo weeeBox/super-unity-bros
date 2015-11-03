@@ -5,7 +5,7 @@ using System.Collections;
 
 using LunarCore;
 
-public class MarioController : BaseBehaviour2D, IMapCollider
+public class MarioController : BaseBehaviour2D
 {
     private const int DIR_LEFT = -1;
     private const int DIR_RIGHT = 1;
@@ -99,8 +99,8 @@ public class MarioController : BaseBehaviour2D, IMapCollider
         HandleCollisions();
 
         m_Animator.SetBool("Jump", m_Jumping);
-        m_Animator.SetFloat("Speed", Mathf.Abs(vx));
-        m_Animator.SetBool("Stop", moveX > Mathf.Epsilon && vx < 0 || moveX < -Mathf.Epsilon && vx > 0);
+        m_Animator.SetFloat("Speed", Mathf.Abs(m_Velocity.x));
+        m_Animator.SetBool("Stop", moveX > Mathf.Epsilon && m_Velocity.x < 0 || moveX < -Mathf.Epsilon && m_Velocity.x > 0);
     }
 
     protected override void OnUpdate(float deltaTime)
@@ -220,79 +220,7 @@ public class MarioController : BaseBehaviour2D, IMapCollider
         flipX = !flipX;
     }
 
-    #region IMapCollider implementation
-
-    public bool OnCollision(Cell cell)
-    {
-        float x = this.posX;
-        float y = this.posY;
-        float lastX = m_LastPosition.center.x;
-        float lastY = m_LastPosition.center.y;
-        float vx = m_Velocity.x;
-        float vy = m_Velocity.y;
-
-        if (y > cell.y) // player's center is higher than cell's center
-        {
-            if (m_LastPosition.bottom - cell.top > -0.01f) // player was higher than cell or standing on it
-            {
-                if (!Mathf.Approximately(Mathf.Abs(x - cell.x), 0.5f * (Constants.CELL_WIDTH + m_ColliderRect.width)))
-                {
-                    this.bottom = cell.top;
-
-                    m_Grounded = true;
-                    m_Jumping = false;
-                    m_Velocity.y = 0f;
-
-                    return true;
-                }
-            }
-        }
-        else if (y < cell.y) // player's center is lower than cell's center
-        {
-            if (m_LastPosition.top - cell.bottom < 0.01f) // player was lower than cell or right under if
-            {
-                if (cell == GetCell(x, this.top))
-                {
-                    this.top = cell.bottom;
-                    m_Velocity.y = 0f;
-                    
-                    return true;
-                }
-
-                float dist = x - cell.x;
-                float sign = dist < 0f ? -1f : 1f;
-                float penetration = 0.5f * (Constants.CELL_WIDTH + m_ColliderRect.width) - Mathf.Abs(dist);
-                float move = sign * Mathf.Min(m_PushCollisionSpeed * Time.fixedDeltaTime, penetration);
-
-                transform.Translate(move, 0f);
-
-                return true;
-            }
-        }
-
-        if (x > cell.x)
-        {
-            if (m_LastPosition.left - cell.right > -0.01f)
-            {
-                this.left = cell.right;
-                m_Velocity.x = 0.0f;
-
-                return true;
-            }
-        }
-        else if (x < cell.x)
-        {
-            if (m_LastPosition.right - cell.left < 0.01f)
-            {
-                this.right = cell.left;
-                m_Velocity.x = 0.0f;
-
-                return true;
-            }
-        }
-
-        return false;
-    }
+    #region Helpers
 
     private Cell GetCell(float x, float y)
     {
@@ -302,16 +230,6 @@ public class MarioController : BaseBehaviour2D, IMapCollider
     private Cell GetCellAt(int i, int j)
     {
         return GameManager.map.GetCellAt(i, j);
-    }
-
-    public Rect colliderRect
-    {
-        get
-        {
-            Rect rect = m_ColliderRect;
-            rect.center = transform.localPosition;
-            return rect;
-        }
     }
 
     public float left

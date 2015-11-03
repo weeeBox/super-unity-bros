@@ -11,6 +11,11 @@ namespace LunarCore
         {
         }
 
+        protected virtual void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+        }
+
         protected new T target
         {
             get { return (T) base.target; }

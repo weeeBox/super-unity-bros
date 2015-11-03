@@ -7,6 +7,16 @@ using LunarCore;
 [CustomEditor(typeof(Map))]
 public class MapEditor : BaseEditor<Map>
 {
+    protected override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        if (GUILayout.Button("Generate tilemap"))
+        {
+            target.GenerateTilemap();
+        }
+    }
+
     protected override void OnSceneGUI()
     {
         Map map = target;
@@ -18,9 +28,9 @@ public class MapEditor : BaseEditor<Map>
         float x = map.transform.position.x - 0.5f * Constants.CELL_WIDTH;
         float y = map.transform.position.y - 0.5f * Constants.CELL_HEIGHT;
 
-        for (int i = 0; i < 14; ++i)
+        for (int i = 0; i < map.m_Rows; ++i)
         {
-            for (int j = 0; j < 16; ++j)
+            for (int j = 0; j < map.m_Cols; ++j)
             {
                 Cell cell = cells [i, j];
                 if (cell != null)
