@@ -269,6 +269,16 @@ public class MarioController : BaseBehaviour2D
             this.colliderHalfSize = new Vector2(0.5f * colliderRect.width, 0.5f * colliderRect.height);
         }
 
+        public float x
+        {
+            get { return center.x; }
+        }
+
+        public float y
+        {
+            get { return center.y; }
+        }
+
         public float left
         {
             get { return center.x - colliderHalfSize.x; }
