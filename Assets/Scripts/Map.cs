@@ -5,13 +5,28 @@ using System.IO;
 
 using LunarCore;
 
+[System.Serializable]
+public class MapPrefabs
+{
+    public GameObject questionPrefab;
+}
+
 public class Map : BaseBehaviour
 {
+    const int CELL_GROUND = 0;
+    const int CELL_BRICK = 1;
+    const int CELL_QUESTION = 2;
+    const int CELL_QUESTION_EMPTY = 3;
+    const int CELL_SOLID = 4;
+
     [HideInInspector]
     public Cell[,] m_Cells;
 
     [SerializeField]
     private Sprite[] m_Sprites;
+
+    [SerializeField]
+    private MapPrefabs m_Prefabs;
 
     private TileMap m_TileMap;
 
@@ -43,10 +58,27 @@ public class Map : BaseBehaviour
                 if (index != -1)
                 {
                     m_TileMap.SetTile(new IntVector2(j, i), m_Sprites[index]);
-                    m_Cells[i, j] = new Cell(i, j);
+                    m_Cells[i, j] = CreateCell(index, i, j);
                 }
             }
         }
+    }
+
+    Cell CreateCell(int type, int i, int j)
+    {
+        Cell cell = new Cell(i, j);
+
+        switch (type)
+        {
+            case CELL_QUESTION:
+            {
+                GameObject obj = Instantiate(m_Prefabs.questionPrefab) as GameObject;
+                obj.transform.parent = transform;
+                obj.transform.localPosition = cell.position;
+                break;
+            }
+        }
+        return cell;
     }
 
     public Cell GetCell(float x, float y)

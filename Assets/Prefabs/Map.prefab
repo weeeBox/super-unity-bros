@@ -52,6 +52,8 @@ MonoBehaviour:
   - {fileID: 21300012, guid: ab88fae804bbf467e80009b33090101b, type: 3}
   - {fileID: 21300014, guid: ab88fae804bbf467e80009b33090101b, type: 3}
   - {fileID: 21300016, guid: ab88fae804bbf467e80009b33090101b, type: 3}
+  m_Prefabs:
+    questionPrefab: {fileID: 106798, guid: b5575e33a554c432c894daa8660dc196, type: 2}
   m_Rows: 15
   m_Cols: 212
 --- !u!310 &31087478

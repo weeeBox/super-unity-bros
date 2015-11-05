@@ -18,6 +18,11 @@ public class Cell
         this.y = (0.5f + i) * Constants.CELL_HEIGHT;
     }
 
+    public Vector3 position
+    {
+        get { return new Vector3(x, y, 0); }
+    }
+
     public float top
     {
         get { return y + 0.5f * Constants.CELL_HEIGHT; }
