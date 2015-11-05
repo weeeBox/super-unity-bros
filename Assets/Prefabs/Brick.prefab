@@ -85,6 +85,9 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300008, guid: b378d48ee90cb4aacaf3f91af7c3462b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_DrawMode: 0
+  m_9SliceSmartTilingThreshold: .5
+  m_9SliceSmartTiling: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

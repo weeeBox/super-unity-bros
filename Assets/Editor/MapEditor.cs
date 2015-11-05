@@ -7,7 +7,7 @@ using LunarCore;
 [CustomEditor(typeof(Map))]
 public class MapEditor : BaseEditor<Map>
 {
-    protected override void OnInspectorGUI()
+    public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
 

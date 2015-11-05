@@ -11,7 +11,7 @@ namespace LunarCore
         {
         }
 
-        protected virtual void OnInspectorGUI()
+        public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
         }

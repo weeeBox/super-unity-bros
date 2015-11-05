@@ -91,18 +91,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f758a724dc8cb4be3a8aef2cd6956816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpHighSpeed: 129
-  m_WalkSpeed: 36
-  m_PushCollisionSpeed: 24
-  m_WalkAcc: 112
-  m_WalkSlowAcc: 57
-  m_Gravity: -300
   m_ColliderRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 4.80000019
     height: 6.4000001
+  m_PushCollisionSpeed: 24
+  m_WalkSpeed: 36
+  m_JumpHighSpeed: 129
+  m_WalkAcc: 112
+  m_WalkSlowAcc: 57
 --- !u!212 &21222322
 SpriteRenderer:
   m_ObjectHideFlags: 1
