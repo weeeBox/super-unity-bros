@@ -119,9 +119,14 @@ public class MarioController : EntityController
 
     IEnumerator DieCoroutine()
     {
+        collisionsEnabled = false;
+        movementEnabled = false;
+
         yield return new WaitForSeconds(0.25f);
 
+        movementEnabled = true;
         m_Velocity.y = m_JumpHighSpeed; // FIXME: use anothe value
+
         yield return null;
     }
 
@@ -129,11 +134,34 @@ public class MarioController : EntityController
 
     #region Collisions
 
-    public override void OnJumpOnObject(MovingObject other)
+    void OnTriggerEnter2D(Collider2D other)
     {
+        assert.IsFalse(dead);
+
+        MovingObject obj = other.GetComponent<MovingObject>();
+        if (obj != null && !obj.dead)
+        {
+            if (bottom > obj.bottom)
+            {
+                OnJumpOnObject(obj);
+            }
+            else
+            {
+                OnHitByObject(obj);
+            }
+        }
     }
 
-    public override void OnJumpByObject(MovingObject other)
+    void OnJumpOnObject(MovingObject other)
+    {
+        EnemyController enemy = other as EnemyController;
+        if (enemy != null)
+        {
+            enemy.Die();
+        }
+    }
+
+    void OnHitByObject(MovingObject other)
     {
         EnemyController enemy = other as EnemyController;
         if (enemy != null)

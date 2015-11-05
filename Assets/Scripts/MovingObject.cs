@@ -24,6 +24,8 @@ public class MovingObject : BaseBehaviour2D
     int m_Direction;
     bool m_Grounded;
     bool m_Dead;
+    bool m_MovementEnabled;
+    bool m_CollisionsEnabled;
 
     #region Lifecycle
 
@@ -37,6 +39,8 @@ public class MovingObject : BaseBehaviour2D
         m_LastPosition = new ColliderPosition(transform.localPosition, m_ColliderRect);
 
         m_Collider.enabled = true;
+        m_CollisionsEnabled = true;
+        m_MovementEnabled = true;
         m_Velocity = Vector3.zero;
         m_Direction = DIR_RIGHT;
         m_Grounded = false;
@@ -45,10 +49,16 @@ public class MovingObject : BaseBehaviour2D
     
     protected override void OnFixedUpdate(float deltaTime)
     {
-        UpdateVelocity(deltaTime);
-        UpdatePosition(deltaTime);
+        if (m_MovementEnabled)
+        {
+            UpdateVelocity(deltaTime);
+            UpdatePosition(deltaTime);
+        }
 
-        HandleCollisions();
+        if (m_CollisionsEnabled)
+        {
+            HandleCollisions();
+        }
     }
 
     #endregion
@@ -166,24 +176,6 @@ public class MovingObject : BaseBehaviour2D
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        MovingObject movingObject = other.GetComponent<MovingObject>();
-        if (movingObject != null)
-        {
-            if (bottom > movingObject.bottom)
-            {
-                OnJumpOnObject(movingObject);
-                movingObject.OnJumpByObject(this);
-            }
-            else
-            {
-                movingObject.OnJumpOnObject(this);
-                OnJumpByObject(movingObject);
-            }
-        }
-    }
-
     #endregion
 
     #region Death
@@ -202,14 +194,6 @@ public class MovingObject : BaseBehaviour2D
     #endregion
 
     #region Callbacks
-
-    public virtual void OnJumpOnObject(MovingObject other)
-    {
-    }
-    
-    public virtual void OnJumpByObject(MovingObject other)
-    {
-    }
 
     protected virtual void OnGrounded()
     {
@@ -287,6 +271,18 @@ public class MovingObject : BaseBehaviour2D
     {
         get { return m_Dead; }
         protected set { m_Dead = true; }
+    }
+
+    public bool collisionsEnabled
+    {
+        get { return m_CollisionsEnabled; }
+        protected set { m_CollisionsEnabled = value; }
+    }
+
+    public bool movementEnabled
+    {
+        get { return m_MovementEnabled; }
+        protected set { m_MovementEnabled = value; }
     }
 
     #endregion

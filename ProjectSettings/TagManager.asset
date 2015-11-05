@@ -44,4 +44,10 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Enemies
+    uniqueID: 770940025
+    locked: 0
+  - name: Players
+    uniqueID: 3577875067
+    locked: 0
   m_SpritePackingTags: []
