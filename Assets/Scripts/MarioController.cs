@@ -179,13 +179,15 @@ public class MarioController : EntityController
         float targetY = enemy.posY;
 
         // player's bottom should be at the center of an enemy
-        while (bottom > targetY)
+        while (bottom > targetY && !dead)
         {
             yield return null;
         }
 
-        // jump on a dead enemy
-        m_Velocity.y = m_JumpSquashSpeed; // FIXME: create a convenience method
+        if (!dead)
+        {
+            m_Velocity.y = m_JumpSquashSpeed; // FIXME: create a convenience method
+        }
     }
 
     #endregion
