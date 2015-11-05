@@ -20,8 +20,9 @@ public class MarioController : EntityController
     private Vector2 m_MoveInput;
 
     private bool m_Jumping;
-    private bool m_Dead;
     private Vector3 m_InitialPos;
+
+    #region Lifecycle
 
     protected override void OnAwake()
     {
@@ -37,8 +38,25 @@ public class MarioController : EntityController
         flipX = false;
         m_MoveInput = Vector2.zero;
         m_Jumping = false;
-        m_Dead = false;
     }
+
+    protected override void OnUpdate(float deltaTime)
+    {
+        if (dead) return;
+        
+        m_MoveInput.x = Input.GetAxisRaw("Horizontal");
+        m_MoveInput.y = Input.GetAxisRaw("Vertical");
+        
+        if (Input.GetKeyDown(KeyCode.Space) && grounded && !m_Jumping)
+        {
+            m_Jumping = true;
+            m_Velocity.y = m_JumpHighSpeed;
+        }
+    }
+
+    #endregion
+
+    #region Inheritance
 
     protected override void UpdateVelocity(float deltaTime)
     {
@@ -49,24 +67,24 @@ public class MarioController : EntityController
         
         if (Mathf.Approximately(moveX, 0.0f))
         {
-            vx += -m_Direction * m_WalkSlowAcc * deltaTime;
-            vx = m_Direction > 0 ? Mathf.Max(vx, 0) : Mathf.Min(vx, 0);
+            vx += -direction * m_WalkSlowAcc * deltaTime;
+            vx = direction > 0 ? Mathf.Max(vx, 0) : Mathf.Min(vx, 0);
         }
         else
         {
             vx += moveX * m_WalkAcc * deltaTime;
             if (vx > 0)
             {
-                vx = Mathf.Min(vx, m_WalkSpeed);
+                vx = Mathf.Min(vx, walkSpeed);
             }
             else if (vx < 0)
             {
-                vx = Mathf.Max(vx, -m_WalkSpeed);
+                vx = Mathf.Max(vx, -walkSpeed);
             }
         }
         
-        if (moveX >  Mathf.Epsilon && m_Direction == DIR_LEFT ||
-            moveX < -Mathf.Epsilon && m_Direction == DIR_RIGHT)
+        if (moveX >  Mathf.Epsilon && direction == DIR_LEFT ||
+            moveX < -Mathf.Epsilon && direction == DIR_RIGHT)
         {
             Flip();
         }
@@ -76,30 +94,9 @@ public class MarioController : EntityController
 
     protected override void UpdateAnimation(float deltaTime)
     {
-        m_Animator.SetBool("Jump", m_Jumping);
-        m_Animator.SetFloat("Speed", Mathf.Abs(m_Velocity.x));
-        m_Animator.SetBool("Stop", m_MoveInput.x > Mathf.Epsilon && m_Velocity.x < 0 || m_MoveInput.x < -Mathf.Epsilon && m_Velocity.x > 0);
-    }
-
-    protected override void OnFixedUpdate(float deltaTime)
-    {
-        base.OnFixedUpdate(deltaTime);
-
-        CheckDead();
-    }
-
-    protected override void OnUpdate(float deltaTime)
-    {
-        if (m_Dead) return;
-
-        m_MoveInput.x = Input.GetAxisRaw("Horizontal");
-        m_MoveInput.y = Input.GetAxisRaw("Vertical");
-
-        if (Input.GetKeyDown(KeyCode.Space) && m_Grounded && !m_Jumping)
-        {
-            m_Jumping = true;
-            m_Velocity.y = m_JumpHighSpeed;
-        }
+        animator.SetBool("Jump", m_Jumping);
+        animator.SetFloat("Speed", Mathf.Abs(m_Velocity.x));
+        animator.SetBool("Stop", m_MoveInput.x > Mathf.Epsilon && m_Velocity.x < 0 || m_MoveInput.x < -Mathf.Epsilon && m_Velocity.x > 0);
     }
 
     protected override void OnGrounded()
@@ -108,21 +105,42 @@ public class MarioController : EntityController
         m_Jumping = false;
     }
 
-    void CheckDead()
+    protected override void OnDie(bool animated)
     {
-        if (!m_Dead && posY < -3.2) // FIXME: remove magic number
+        base.OnDie(animated);
+
+        m_MoveInput = Vector2.zero;
+        StartCoroutine(DieCoroutine());
+    }
+
+    #endregion
+
+    #region Death
+
+    IEnumerator DieCoroutine()
+    {
+        yield return new WaitForSeconds(0.25f);
+
+        m_Velocity.y = m_JumpHighSpeed; // FIXME: use anothe value
+        yield return null;
+    }
+
+    #endregion
+
+    #region Collisions
+
+    public override void OnJumpOnObject(MovingObject other)
+    {
+    }
+
+    public override void OnJumpByObject(MovingObject other)
+    {
+        EnemyController enemy = other as EnemyController;
+        if (enemy != null)
         {
-            m_Dead = true;
-            StartCoroutine(Die());
+            Die();
         }
     }
 
-    IEnumerator Die()
-    {
-        yield return new WaitForSeconds(1.5f);
-
-        gameObject.SetActive(false);
-        transform.position = m_InitialPos;
-        gameObject.SetActive(true);
-    }
+    #endregion
 }

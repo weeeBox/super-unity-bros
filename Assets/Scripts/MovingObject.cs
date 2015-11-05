@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 using System;
 using System.Collections;
@@ -19,26 +19,41 @@ public class MovingObject : BaseBehaviour2D
     protected Vector3 m_Velocity;
     
     ColliderPosition m_LastPosition;
-    
-    protected int m_Direction;
-    protected bool m_Grounded;
+    Collider2D m_Collider;
+
+    int m_Direction;
+    bool m_Grounded;
+    bool m_Dead;
+
+    #region Lifecycle
+
+    protected override void OnAwake()
+    {
+        m_Collider = GetRequiredComponent<BoxCollider2D>();
+    }
 
     protected override void OnEnabled()
     {
         m_LastPosition = new ColliderPosition(transform.localPosition, m_ColliderRect);
-        
+
+        m_Collider.enabled = true;
         m_Velocity = Vector3.zero;
         m_Direction = DIR_RIGHT;
         m_Grounded = false;
+        m_Dead = false;
     }
     
     protected override void OnFixedUpdate(float deltaTime)
     {
         UpdateVelocity(deltaTime);
         UpdatePosition(deltaTime);
-        
+
         HandleCollisions();
     }
+
+    #endregion
+
+    #region Inheritance
 
     protected virtual void UpdateVelocity(float deltaTime)
     {
@@ -51,7 +66,11 @@ public class MovingObject : BaseBehaviour2D
         transform.Translate(m_Velocity.x * deltaTime, m_Velocity.y * deltaTime);
     }
 
-    protected virtual void HandleCollisions()
+    #endregion
+
+    #region Collisions
+
+    void HandleCollisions()
     {
         float x = this.posX;
         float y = this.posY;
@@ -133,7 +152,7 @@ public class MovingObject : BaseBehaviour2D
         }
     }
     
-    private void HandleHorCollision(Cell cell, float x)
+    void HandleHorCollision(Cell cell, float x)
     {
         if (x - cell.x > -Mathf.Epsilon)
         {
@@ -147,13 +166,50 @@ public class MovingObject : BaseBehaviour2D
         }
     }
 
-    protected void Flip()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        m_Direction = -m_Direction;
-        flipX = !flipX;
+        MovingObject movingObject = other.GetComponent<MovingObject>();
+        if (movingObject != null)
+        {
+            if (bottom > movingObject.bottom)
+            {
+                OnJumpOnObject(movingObject);
+                movingObject.OnJumpByObject(this);
+            }
+            else
+            {
+                movingObject.OnJumpOnObject(this);
+                OnJumpByObject(movingObject);
+            }
+        }
     }
 
-    #region Inheritance
+    #endregion
+
+    #region Death
+
+    public void Die(bool animated = true)
+    {
+        assert.IsTrue(!m_Dead);
+
+        m_Dead = true;
+        m_Velocity = Vector2.zero;
+        m_Collider.enabled = false;
+
+        OnDie(animated);
+    }
+
+    #endregion
+
+    #region Callbacks
+
+    public virtual void OnJumpOnObject(MovingObject other)
+    {
+    }
+    
+    public virtual void OnJumpByObject(MovingObject other)
+    {
+    }
 
     protected virtual void OnGrounded()
     {
@@ -165,9 +221,19 @@ public class MovingObject : BaseBehaviour2D
         m_Velocity.x = 0f;
     }
 
+    protected virtual void OnDie(bool animated)
+    {
+    }
+
     #endregion
 
     #region Helpers
+
+    protected void Flip()
+    {
+        m_Direction = -m_Direction;
+        flipX = !flipX;
+    }
     
     private Cell GetCell(float x, float y)
     {
@@ -179,6 +245,10 @@ public class MovingObject : BaseBehaviour2D
         return GameManager.map.GetCellAt(i, j);
     }
     
+    #endregion
+
+    #region Properties
+
     public float left
     {
         get { return posX - 0.5f * m_ColliderRect.width; }
@@ -202,9 +272,25 @@ public class MovingObject : BaseBehaviour2D
         get { return posY - 0.5f * m_ColliderRect.height; }
         set { posY = value + 0.5f * m_ColliderRect.height; }
     }
-    
+
+    public bool grounded
+    {
+        get { return m_Grounded; }
+    }
+
+    public int direction
+    {
+        get { return m_Direction; }
+    }
+
+    public bool dead
+    {
+        get { return m_Dead; }
+        protected set { m_Dead = true; }
+    }
+
     #endregion
-    
+
     struct ColliderPosition
     {
         public Vector3 center;

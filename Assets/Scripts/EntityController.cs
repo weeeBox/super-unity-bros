@@ -4,12 +4,15 @@ using System.Collections;
 public class EntityController : MovingObject
 {
     [SerializeField]
-    protected float m_WalkSpeed;
+    float m_WalkSpeed;
 
-    protected Animator m_Animator;
-    
+    Animator m_Animator;
+
+    #region Lifecycle
+
     protected override void OnAwake()
     {
+        base.OnAwake();
         m_Animator = GetRequiredComponent<Animator>();
     }
 
@@ -18,9 +21,53 @@ public class EntityController : MovingObject
         base.OnFixedUpdate(deltaTime);
 
         UpdateAnimation(deltaTime);
+        CheckFallingOffMap();
     }
+
+    #endregion
+
+    #region Inheritance
 
     protected virtual void UpdateAnimation(float deltaTime)
     {
     }
+
+    #endregion
+
+    #region Callbacks
+
+    protected override void OnDie(bool animated)
+    {
+        base.OnDie(animated);
+
+        animator.SetBool("Dead", true);
+    }
+
+    #endregion
+
+    #region Death
+
+    private void CheckFallingOffMap()
+    {
+        if (!dead && top < -3.2f) // FIXME: remove magic number
+        {
+            Die(false);
+        }
+    }
+
+    #endregion
+
+    #region Properties
+
+    protected Animator animator
+    {
+        get { return m_Animator; }
+    }
+
+    protected float walkSpeed
+    {
+        get { return m_WalkSpeed; }
+    }
+
+    #endregion
 }
