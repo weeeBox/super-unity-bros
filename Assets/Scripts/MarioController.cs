@@ -11,6 +11,9 @@ public class MarioController : EntityController
     private float m_JumpHighSpeed = 120.0f;
 
     [SerializeField]
+    private float m_JumpSquashSpeed = 70.0f;
+
+    [SerializeField]
     private float m_WalkAcc = 112.0f;
 
     [SerializeField]
@@ -157,6 +160,7 @@ public class MarioController : EntityController
         EnemyController enemy = other as EnemyController;
         if (enemy != null)
         {
+            StartCoroutine(JumpOnEnemy(enemy));
             enemy.Die();
         }
     }
@@ -168,6 +172,20 @@ public class MarioController : EntityController
         {
             Die();
         }
+    }
+
+    IEnumerator JumpOnEnemy(EnemyController enemy)
+    {
+        float targetY = enemy.posY;
+
+        // player's bottom should be at the center of an enemy
+        while (bottom > targetY)
+        {
+            yield return null;
+        }
+
+        // jump on a dead enemy
+        m_Velocity.y = m_JumpSquashSpeed; // FIXME: create a convenience method
     }
 
     #endregion
