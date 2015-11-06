@@ -10,11 +10,6 @@ public class EnemyController : EntityController
         m_Velocity.x = direction * walkSpeed;
     }
 
-    protected override void UpdateVelocity(float deltaTime)
-    {
-        base.UpdateVelocity(deltaTime);
-    }
-
     protected override void OnObstacle()
     {
         Flip();

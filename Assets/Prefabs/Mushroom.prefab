@@ -73,6 +73,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cb844971a5ac4f578c8700236ccc290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ColliderRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 6.4000001
+    height: 6.4000001
+  m_PushCollisionSpeed: 24
+  m_Speed: 24
 --- !u!212 &21237542
 SpriteRenderer:
   m_ObjectHideFlags: 1
