@@ -94,6 +94,8 @@ public class MovingObject : BaseBehaviour2D
             {
                 this.top = cell.bottom;
                 m_Velocity.y = 0f;
+
+                OnHitBlock(cell);
             }
             else
             {
@@ -205,6 +207,10 @@ public class MovingObject : BaseBehaviour2D
         m_Velocity.x = 0f;
     }
 
+    protected virtual void OnHitBlock(Cell cell)
+    {
+    }
+
     protected virtual void OnDie(bool animated)
     {
     }
@@ -232,6 +238,11 @@ public class MovingObject : BaseBehaviour2D
     #endregion
 
     #region Properties
+
+    protected Map map
+    {
+        get { return GameManager.map; }
+    }
 
     public float left
     {

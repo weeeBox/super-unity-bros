@@ -64,20 +64,41 @@ public class Map : BaseBehaviour
         }
     }
 
+    public void Jump(int i, int j)
+    {
+        Cell cell = GetCellAt(i, j);
+        assert.IsNotNull(cell);
+
+        if (cell != null)
+        {
+            StartCoroutine(JumpCoroutine(i, j));
+        }
+    }
+
+    IEnumerator JumpCoroutine(int i, int j)
+    {
+        const float JUMP_VELOCITY = 30f;
+
+        Vector3 initialPosition = m_TileMap.GetPosition(j, i);
+        Vector3 position = initialPosition;
+
+        float velocity = JUMP_VELOCITY;
+
+        while (velocity > -JUMP_VELOCITY)
+        {
+            position.y += velocity * Time.fixedDeltaTime;
+            velocity += Constants.GRAVITY * Time.fixedDeltaTime;
+            m_TileMap.SetPosition(j, i, position);
+
+            yield return null;
+        }
+
+        m_TileMap.SetPosition(j, i, initialPosition);
+    }
+
     Cell CreateCell(int type, int i, int j)
     {
         Cell cell = new Cell(i, j);
-
-        switch (type)
-        {
-            case CELL_QUESTION:
-            {
-                GameObject obj = Instantiate(m_Prefabs.questionPrefab) as GameObject;
-                obj.transform.parent = transform;
-                obj.transform.localPosition = cell.position;
-                break;
-            }
-        }
         return cell;
     }
 
@@ -94,7 +115,7 @@ public class Map : BaseBehaviour
         return i >= 0 && i < m_Rows && j >= 0 && j < m_Cols ? m_Cells[i, j] : null;
     }
 
-    private int[,] ReadMap(string path, out int rows, out int cols)
+    int[,] ReadMap(string path, out int rows, out int cols)
     {
         Object obj = Resources.Load("Maps/world1-1");
         TextAsset data = obj as TextAsset;

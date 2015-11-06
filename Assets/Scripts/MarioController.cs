@@ -108,6 +108,11 @@ public class MarioController : EntityController
         m_Jumping = false;
     }
 
+    protected override void OnHitBlock(Cell cell)
+    {
+        map.Jump(cell.i, cell.j);
+    }
+
     protected override void OnDie(bool animated)
     {
         base.OnDie(animated);
