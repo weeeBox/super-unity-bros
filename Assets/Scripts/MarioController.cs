@@ -166,8 +166,7 @@ public class MarioController : EntityController
         EnemyController enemy = other as EnemyController;
         if (enemy != null)
         {
-            StartCoroutine(JumpOnEnemy(enemy));
-            enemy.Die();
+            enemy.OnJumped(this);
         }
         else
         {
@@ -198,7 +197,12 @@ public class MarioController : EntityController
         }
     }
 
-    IEnumerator JumpOnEnemy(EnemyController enemy)
+    public void JumpOnEnemy(EnemyController enemy)
+    {
+        StartCoroutine(JumpOnEnemyCoroutine(enemy));
+    }
+
+    IEnumerator JumpOnEnemyCoroutine(EnemyController enemy)
     {
         float targetY = enemy.posY;
 
