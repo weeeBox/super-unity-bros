@@ -110,7 +110,7 @@ public class MarioController : EntityController
 
     protected override void OnHitBlock(Cell cell)
     {
-        map.Jump(cell.i, cell.j);
+        cell.Hit();
     }
 
     protected override void OnDie(bool animated)

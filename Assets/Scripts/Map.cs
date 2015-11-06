@@ -4,6 +4,7 @@ using System.Collections;
 using System.IO;
 
 using LunarCore;
+using Action = System.Action;
 
 [System.Serializable]
 public class MapPrefabs
@@ -13,11 +14,12 @@ public class MapPrefabs
 
 public class Map : BaseBehaviour
 {
-    const int CELL_GROUND = 0;
-    const int CELL_BRICK = 1;
-    const int CELL_QUESTION = 2;
-    const int CELL_QUESTION_EMPTY = 3;
-    const int CELL_SOLID = 4;
+    public const int CELL_NONE = -1;
+    public const int CELL_GROUND = 0;
+    public const int CELL_BRICK = 1;
+    public const int CELL_QUESTION = 2;
+    public const int CELL_BLANK = 3;
+    public const int CELL_SOLID = 4;
 
     [HideInInspector]
     public Cell[,] m_Cells;
@@ -54,28 +56,43 @@ public class Map : BaseBehaviour
         {
             for (int j = 0; j < cols; ++j)
             {
-                int index = map[i, j];
-                if (index != -1)
+                int type = map[i, j];
+                if (type != CELL_NONE)
                 {
-                    m_TileMap.SetTile(new IntVector2(j, i), m_Sprites[index]);
-                    m_Cells[i, j] = CreateCell(index, i, j);
+                    SetCell(i, j, type);
                 }
             }
         }
     }
 
-    public void Jump(int i, int j)
+    public void SetCell(int i, int j, int type)
+    {
+        if (type != CELL_NONE)
+        {
+            m_TileMap.SetTile(new IntVector2(j, i), m_Sprites[type]);
+            m_Cells[i, j] = CreateCell(type, i, j);
+        }
+        else
+        {
+            assert.IsNotNull(m_Cells[i, j]);
+
+            m_Cells[i, j] = null;
+            m_TileMap.SetTile(i, j, null);
+        }
+    }
+
+    public void Jump(int i, int j, Action finishAction = null)
     {
         Cell cell = GetCellAt(i, j);
         assert.IsNotNull(cell);
 
         if (cell != null)
         {
-            StartCoroutine(JumpCoroutine(i, j));
+            StartCoroutine(JumpCoroutine(i, j, finishAction));
         }
     }
 
-    IEnumerator JumpCoroutine(int i, int j)
+    IEnumerator JumpCoroutine(int i, int j, Action finishAction)
     {
         const float JUMP_VELOCITY = 30f;
 
@@ -94,12 +111,25 @@ public class Map : BaseBehaviour
         }
 
         m_TileMap.SetPosition(j, i, initialPosition);
+
+        if (finishAction != null)
+        {
+            finishAction();
+        }
     }
 
     Cell CreateCell(int type, int i, int j)
     {
-        Cell cell = new Cell(i, j);
-        return cell;
+        switch (type)
+        {
+            case CELL_BRICK:
+                return new BrickCell(this, i, j);
+
+            case CELL_QUESTION:
+                return new CoinsCell(this, i, j, 1);
+        }
+
+        return new Cell(this, i, j);
     }
 
     public Cell GetCell(float x, float y)
