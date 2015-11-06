@@ -23,7 +23,3 @@ sysinfo.txt
 # Test reports
 test-results
 test-results.meta
-
-# Externals
-/Assets/External/LunarAssert
-/Assets/External/LunarAssert.meta
