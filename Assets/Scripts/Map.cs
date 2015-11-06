@@ -59,26 +59,16 @@ public class Map : BaseBehaviour
                 int type = map[i, j];
                 if (type != CELL_NONE)
                 {
-                    SetCell(i, j, type);
+                    SetTile(i, j, type);
+                    m_Cells[i, j] = CreateCell(type, i, j);
                 }
             }
         }
     }
 
-    public void SetCell(int i, int j, int type)
+    public void SetTile(int i, int j, int type)
     {
-        if (type != CELL_NONE)
-        {
-            m_TileMap.SetTile(new IntVector2(j, i), m_Sprites[type]);
-            m_Cells[i, j] = CreateCell(type, i, j);
-        }
-        else
-        {
-            assert.IsNotNull(m_Cells[i, j]);
-
-            m_Cells[i, j] = null;
-            m_TileMap.SetTile(i, j, null);
-        }
+        m_TileMap.SetTile(new IntVector2(j, i), m_Sprites[type]);
     }
 
     public void Jump(int i, int j, Action finishAction = null)

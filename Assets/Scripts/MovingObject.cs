@@ -139,28 +139,36 @@ public class MovingObject : BaseBehaviour2D
             {
                 HandleHorCollision(cell, x);
             }
-            
-            cell = GetCell(this.left, this.bottom);
-            cell = cell != null ? cell : GetCell(this.right, this.bottom);
+
+            Cell left = GetCell(this.left, this.bottom);
+            Cell right = GetCell(this.right, this.bottom);
+            cell = left != null ? left : right;
             
             if (cell != null)
             {
                 if (m_LastPosition.bottom - cell.top > -0.01f) // jumping on the cell
                 {
                     this.bottom = cell.top;
-                    grounded = true;
+                    m_Grounded = true;
+                    if (m_Grounded)
+                    {
+                        OnGrounded(cell);
+                    }
                 }
                 else
                 {
                     HandleHorCollision(cell, x);
                 }
-            }
-        }
 
-        m_Grounded = grounded;
-        if (grounded)
-        {
-            OnGrounded();
+                if (left != null && left.jumping)
+                {
+                    OnCellJumped(left);
+                }
+                else if (right != null && right.jumping)
+                {
+                    OnCellJumped(right);
+                }
+            }
         }
     }
     
@@ -169,12 +177,12 @@ public class MovingObject : BaseBehaviour2D
         if (x - cell.x > -Mathf.Epsilon)
         {
             this.left = cell.right;
-            OnObstacle();
+            OnObstacle(cell);
         }
         else
         {
             this.right = cell.left;
-            OnObstacle();
+            OnObstacle(cell);
         }
     }
 
@@ -197,17 +205,21 @@ public class MovingObject : BaseBehaviour2D
 
     #region Callbacks
 
-    protected virtual void OnGrounded()
+    protected virtual void OnGrounded(Cell cell)
     {
         m_Velocity.y = 0f;
     }
 
-    protected virtual void OnObstacle()
+    protected virtual void OnObstacle(Cell cell)
     {
         m_Velocity.x = 0f;
     }
 
     protected virtual void OnHitBlock(Cell cell)
+    {
+    }
+
+    protected virtual void OnCellJumped(Cell cell)
     {
     }
 
@@ -219,7 +231,7 @@ public class MovingObject : BaseBehaviour2D
 
     #region Helpers
 
-    protected void Flip()
+    protected virtual void Flip()
     {
         m_Direction = -m_Direction;
         flipX = !flipX;

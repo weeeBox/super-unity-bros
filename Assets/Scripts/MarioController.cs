@@ -102,9 +102,10 @@ public class MarioController : EntityController
         animator.SetBool("Stop", m_MoveInput.x > Mathf.Epsilon && m_Velocity.x < 0 || m_MoveInput.x < -Mathf.Epsilon && m_Velocity.x > 0);
     }
 
-    protected override void OnGrounded()
+    protected override void OnGrounded(Cell cell)
     {
-        base.OnGrounded();
+        base.OnGrounded(cell);
+
         m_Jumping = false;
     }
 
@@ -168,6 +169,15 @@ public class MarioController : EntityController
             StartCoroutine(JumpOnEnemy(enemy));
             enemy.Die();
         }
+        else
+        {
+            Powerup powerup = other as Powerup;
+            if (powerup != null)
+            {
+                powerup.Apply();
+                Destroy(powerup.gameObject);
+            }
+        }
     }
 
     void OnHitByObject(MovingObject other)
@@ -176,6 +186,15 @@ public class MarioController : EntityController
         if (enemy != null)
         {
             Die();
+        }
+        else
+        {
+            Powerup powerup = other as Powerup;
+            if (powerup != null)
+            {
+                powerup.Apply();
+                Destroy(powerup.gameObject);
+            }
         }
     }
 

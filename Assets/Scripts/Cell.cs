@@ -3,8 +3,11 @@ using System.Collections;
 
 using LunarCore;
 
-public interface IPowerup
+public enum PowerupType
 {
+    Mushroom,
+    Start,
+    Life
 }
 
 public class Cell
@@ -14,7 +17,8 @@ public class Cell
     public readonly float x;
     public readonly float y;
 
-    private readonly Map m_Map;
+    readonly Map m_Map;
+    bool m_Jumping;
 
     public Cell(Map map, int i, int j)
     {
@@ -30,9 +34,17 @@ public class Cell
     {
     }
 
+    #region Properties
+
     protected Map map
     {
         get { return m_Map; }
+    }
+
+    public bool jumping
+    {
+        get { return m_Jumping; }
+        protected set { m_Jumping = value; }
     }
 
     public Vector3 position
@@ -59,10 +71,14 @@ public class Cell
     {
         get { return x + 0.5f * Constants.CELL_WIDTH; }
     }
+
+    #endregion
 }
 
 class BrickCell : Cell
 {
+    protected bool m_Blank;
+
     public BrickCell(Map map, int i, int j)
         : base(map, i, j)
     {
@@ -70,7 +86,30 @@ class BrickCell : Cell
 
     public override void Hit()
     {
-        map.Jump(i, j, OnHitFinished);
+        if (!m_Blank)
+        {
+            OnHit();
+        }
+    }
+
+    protected virtual void OnHit()
+    {
+        jumping = true;
+        map.Jump(i, j, JumpFinished);
+    }
+
+    void JumpFinished()
+    {
+        jumping = false;
+        OnHitFinished();
+    }
+
+    protected void SetBlank()
+    {
+        assert.IsFalse(m_Blank);
+
+        m_Blank = true;
+        map.SetTile(i, j, Map.CELL_BLANK);
     }
 
     protected virtual void OnHitFinished()
@@ -89,11 +128,12 @@ class CoinsCell : BrickCell
         m_Coins = coins;
     }
 
-    public override void Hit()
+    protected override void OnHit()
     {
         assert.IsTrue(m_Coins > 0);
 
-        base.Hit();
+        base.OnHit();
+
         --m_Coins;
 
         GameObject coinObject = GameManager.CreateJumpingCoin();
@@ -102,24 +142,31 @@ class CoinsCell : BrickCell
 
         if (m_Coins == 0)
         {
-            map.SetCell(i, j, Map.CELL_BLANK);
+            SetBlank();
         }
     }
 }
 
 class PowerCell : BrickCell
 {
-    IPowerup m_Powerup;
+    PowerupType m_PowerupType;
 
-    public PowerCell(Map map, int i, int j, IPowerup powerup)
+    public PowerCell(Map map, int i, int j, PowerupType powerup)
         : base(map, i, j)
     {
-        assert.IsNotNull(powerup);
-        m_Powerup = powerup;
+        m_PowerupType = powerup;
+    }
+
+    protected override void OnHit()
+    {
+        base.OnHit();
+        SetBlank();
     }
 
     protected override void OnHitFinished()
     {
-        // TODO: 
+        GameObject powerup = GameManager.CreatePowerup(m_PowerupType);
+        powerup.transform.parent = map.transform;
+        powerup.transform.localPosition = position;
     }
 }

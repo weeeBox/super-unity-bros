@@ -10,7 +10,7 @@ public class EnemyController : EntityController
         m_Velocity.x = direction * walkSpeed;
     }
 
-    protected override void OnObstacle()
+    protected override void OnObstacle(Cell cell)
     {
         Flip();
         m_Velocity.x = -m_Velocity.x;
