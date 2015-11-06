@@ -96,6 +96,10 @@ class CoinsCell : BrickCell
         base.Hit();
         --m_Coins;
 
+        GameObject coinObject = GameManager.CreateJumpingCoin();
+        coinObject.transform.parent = map.transform;
+        coinObject.transform.localPosition = new Vector3(x, y + 0.4f * 21, 0); // FIXME: remove magic number
+
         if (m_Coins == 0)
         {
             map.SetCell(i, j, Map.CELL_BLANK);

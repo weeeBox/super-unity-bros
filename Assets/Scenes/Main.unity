@@ -186,6 +186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1520da26b286b41e284161df757a3f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Prefabs:
+    coin: {fileID: 119576, guid: 34128f8dc3c74478d82cc9da123793bd, type: 2}
 --- !u!4 &220085762
 Transform:
   m_ObjectHideFlags: 0
