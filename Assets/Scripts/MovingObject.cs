@@ -288,6 +288,7 @@ public class MovingObject : BaseBehaviour2D
     public int direction
     {
         get { return m_Direction; }
+        protected set { m_Direction = value; }
     }
 
     public bool dead
