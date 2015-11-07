@@ -32,11 +32,10 @@ public class Map : BaseBehaviour
 
     private TileMap m_TileMap;
 
-    [HideInInspector]
-    public int m_Rows;
-
-    [HideInInspector]
-    public int m_Cols;
+    int m_Rows;
+    int m_Cols;
+    float m_Width;
+    float m_Height;
 
     protected override void OnStart()
     {
@@ -51,6 +50,8 @@ public class Map : BaseBehaviour
         m_Rows = rows;
         m_Cols = cols;
         m_Cells = new Cell[rows, cols];
+        m_Width = cols * Constants.CELL_WIDTH;
+        m_Height = rows * Constants.CELL_HEIGHT;
 
         for (int i = 0; i < rows; ++i)
         {
@@ -124,10 +125,15 @@ public class Map : BaseBehaviour
 
     public Cell GetCell(float x, float y)
     {
-        int i = (int) (y * Constants.CELL_HEIGHT_INV);
-        int j = (int) (x * Constants.CELL_WIDTH_INV);
+        if (x >= 0 && x <= m_Width && y >= 0 && y <= m_Height)
+        {
+            int i = (int) (y * Constants.CELL_HEIGHT_INV);
+            int j = (int) (x * Constants.CELL_WIDTH_INV);
 
-        return GetCellAt(i, j);
+            return GetCellAt(i, j);
+        }
+
+        return null;
     }
 
     public Cell GetCellAt(int i, int j)
@@ -161,4 +167,11 @@ public class Map : BaseBehaviour
             return map;
         }
     }
+
+    #region Properties
+
+    public int rows { get { return m_Rows; } }
+    public int cols { get { return m_Cols; } }
+
+    #endregion
 }
