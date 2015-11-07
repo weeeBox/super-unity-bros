@@ -184,7 +184,7 @@ public class MarioController : EntityController
         EnemyController enemy = other as EnemyController;
         if (enemy != null)
         {
-            Die();
+            enemy.OnHitByPlayer(this);
         }
         else
         {

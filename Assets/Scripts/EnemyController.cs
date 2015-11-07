@@ -9,6 +9,11 @@ public class EnemyController : EntityController
         player.JumpOnEnemy(this);
     }
 
+    public virtual void OnHitByPlayer(MarioController player)
+    {
+        player.Die();
+    }
+
     protected override void OnStart()
     {
         base.OnStart();
@@ -20,4 +25,20 @@ public class EnemyController : EntityController
         Flip();
         m_Velocity.x = -m_Velocity.x;
     }
+
+    #region Collisions
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (dead) return;
+
+        EnemyController enemy = other.GetComponent<EnemyController>();
+        if (enemy != null)
+        {
+            Flip();
+            m_Velocity.x = -m_Velocity.x;
+        }
+    }
+
+    #endregion
 }
