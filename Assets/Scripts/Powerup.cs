@@ -12,23 +12,15 @@ public abstract class Powerup : MovingObject
         StartCoroutine(Grow());
     }
 
-    protected override void OnObstacle(Cell cell)
-    {
-        Flip();
-        m_Velocity.x = -m_Velocity.x;
-    }
-
     protected override void OnCellJumped(Cell cell)
     {
         assert.IsTrue(cell.jumping);
 
         if (cell.x > posX && direction == DIR_RIGHT || cell.x < posX && direction == DIR_LEFT)
         {
-            m_Velocity.x =- m_Velocity.x;
+            FlipHorMovement();
         }
         m_Velocity.y = 75f; // FIXME: magic number
-        
-        Flip();
     }
 
     public abstract void Apply();

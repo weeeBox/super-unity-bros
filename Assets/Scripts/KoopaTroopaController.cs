@@ -72,8 +72,7 @@ public class KoopaTroopaController : EnemyController
             }
             else
             {
-                Flip();
-                m_Velocity.x = -m_Velocity.x;
+                FlipHorMovement();
             }
         }
     }

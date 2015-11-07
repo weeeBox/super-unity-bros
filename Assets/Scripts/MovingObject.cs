@@ -241,7 +241,7 @@ public class MovingObject : BaseBehaviour2D
 
     protected virtual void OnObstacle(Cell cell)
     {
-        m_Velocity.x = 0f;
+        FlipHorMovement();
     }
 
     protected virtual void OnCellJumped(Cell cell)
@@ -254,9 +254,19 @@ public class MovingObject : BaseBehaviour2D
 
     #endregion
 
+    #region Movements
+
+    protected void FlipHorMovement()
+    {
+        m_Velocity.x = -m_Velocity.x;
+        Flip();
+    }
+
+    #endregion
+
     #region Helpers
 
-    protected virtual void Flip()
+    protected void Flip()
     {
         m_Direction = -m_Direction;
         flipX = !flipX;

@@ -109,6 +109,11 @@ public class MarioController : EntityController
         m_Jumping = false;
     }
 
+    protected override void OnObstacle(Cell cell)
+    {
+        m_Velocity.x = 0f;
+    }
+
     protected override void OnJumpHitCell(Cell cell)
     {
         cell.Hit();

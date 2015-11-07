@@ -22,8 +22,7 @@ public class EnemyController : EntityController
 
     protected override void OnObstacle(Cell cell)
     {
-        Flip();
-        m_Velocity.x = -m_Velocity.x;
+        FlipHorMovement();
     }
 
     #region Collisions
@@ -35,8 +34,7 @@ public class EnemyController : EntityController
         EnemyController enemy = other.GetComponent<EnemyController>();
         if (enemy != null)
         {
-            Flip();
-            m_Velocity.x = -m_Velocity.x;
+            FlipHorMovement();
         }
     }
 
