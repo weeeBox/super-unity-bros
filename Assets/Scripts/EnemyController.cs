@@ -17,7 +17,9 @@ public class EnemyController : EntityController
     protected override void OnStart()
     {
         base.OnStart();
+
         m_Velocity.x = direction * walkSpeed;
+        FlipHorMovement();
     }
 
     protected override void OnObstacle(Cell cell)
