@@ -31,7 +31,14 @@ public class MovingObject : BaseBehaviour2D
 
     protected override void OnAwake()
     {
-        m_Collider = GetRequiredComponent<BoxCollider2D>();
+        Rigidbody2D rigidBody = gameObject.AddComponent<Rigidbody2D>();
+        rigidBody.isKinematic = true;
+
+        BoxCollider2D collider = gameObject.AddComponent<BoxCollider2D>();
+        collider.isTrigger = true;
+        collider.size = m_ColliderRect.size;
+
+        m_Collider = collider;
     }
 
     protected override void OnEnabled()
@@ -53,6 +60,7 @@ public class MovingObject : BaseBehaviour2D
         {
             UpdateVelocity(deltaTime);
             UpdatePosition(deltaTime);
+            CheckFallingOffMap();
         }
 
         if (m_CollisionsEnabled)
@@ -78,6 +86,18 @@ public class MovingObject : BaseBehaviour2D
 
     #endregion
 
+    #region Map
+
+    void CheckFallingOffMap()
+    {
+        if (top < -3.2f) // FIXME: remove magic number
+        {
+            OnFallOfTheMap();
+        }
+    }
+
+    #endregion
+
     #region Collisions
 
     void HandleCollisions()
@@ -95,7 +115,7 @@ public class MovingObject : BaseBehaviour2D
                 this.top = cell.bottom;
                 m_Velocity.y = 0f;
 
-                OnHitBlock(cell);
+                OnJumpHitCell(cell);
             }
             else
             {
@@ -205,6 +225,15 @@ public class MovingObject : BaseBehaviour2D
 
     #region Callbacks
 
+    protected virtual void OnFallOfTheMap()
+    {
+        Destroy(gameObject);
+    }
+
+    protected virtual void OnJumpHitCell(Cell cell)
+    {
+    }
+
     protected virtual void OnGrounded(Cell cell)
     {
         m_Velocity.y = 0f;
@@ -213,10 +242,6 @@ public class MovingObject : BaseBehaviour2D
     protected virtual void OnObstacle(Cell cell)
     {
         m_Velocity.x = 0f;
-    }
-
-    protected virtual void OnHitBlock(Cell cell)
-    {
     }
 
     protected virtual void OnCellJumped(Cell cell)

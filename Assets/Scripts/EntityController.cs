@@ -21,7 +21,6 @@ public class EntityController : MovingObject
         base.OnFixedUpdate(deltaTime);
 
         UpdateAnimation(deltaTime);
-        CheckFallingOffMap();
     }
 
     #endregion
@@ -41,18 +40,6 @@ public class EntityController : MovingObject
         base.OnDie(animated);
 
         animator.SetBool("Dead", true);
-    }
-
-    #endregion
-
-    #region Death
-
-    private void CheckFallingOffMap()
-    {
-        if (!dead && top < -3.2f) // FIXME: remove magic number
-        {
-            Die(false);
-        }
     }
 
     #endregion

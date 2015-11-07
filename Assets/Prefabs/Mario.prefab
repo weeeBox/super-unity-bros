@@ -8,11 +8,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 433890}
-  - 50: {fileID: 5037628}
-  - 61: {fileID: 6199430}
   - 212: {fileID: 21222322}
-  - 114: {fileID: 11422178}
   - 95: {fileID: 9586368}
+  - 114: {fileID: 11422178}
   m_Layer: 9
   m_Name: Mario
   m_TagString: Player
@@ -32,37 +30,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &5037628
-Rigidbody2D:
-  serializedVersion: 2
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 159668}
-  m_UseColliderMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: .0500000007
-  m_GravityScale: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!61 &6199430
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 159668}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 4.80000019, y: 6.4000001}
 --- !u!95 &9586368
 Animator:
   serializedVersion: 3
@@ -100,6 +67,7 @@ MonoBehaviour:
   m_PushCollisionSpeed: 24
   m_WalkSpeed: 36
   m_JumpHighSpeed: 129
+  m_JumpSquashSpeed: 70
   m_WalkAcc: 112
   m_WalkSlowAcc: 57
 --- !u!212 &21222322
