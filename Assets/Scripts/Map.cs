@@ -6,20 +6,19 @@ using System.IO;
 using LunarCore;
 using Action = System.Action;
 
-[System.Serializable]
-public class MapPrefabs
-{
-    public GameObject questionPrefab;
-}
-
 public class Map : BaseBehaviour
 {
     public const int CELL_NONE = -1;
-    public const int CELL_GROUND = 0;
-    public const int CELL_BRICK = 1;
-    public const int CELL_QUESTION = 2;
-    public const int CELL_BLANK = 3;
-    public const int CELL_SOLID = 4;
+
+    public const int CELL_GROUND    = 0;
+    public const int CELL_SOLID     = 1;
+    public const int CELL_BLANK     = 2;
+    public const int CELL_QUESTION  = 3;
+    public const int CELL_BRICK     = 4;
+    public const int CELL_TUBE_TOP1 = 5;
+    public const int CELL_TUBE_TOP2 = 6;
+    public const int CELL_TUBE1     = 7;
+    public const int CELL_TUBE2     = 8;
 
     [HideInInspector]
     public Cell[,] m_Cells;
@@ -27,28 +26,28 @@ public class Map : BaseBehaviour
     [SerializeField]
     private Sprite[] m_Sprites;
 
-    [SerializeField]
-    private MapPrefabs m_Prefabs;
-
     private TileMap m_TileMap;
 
+    [SerializeField]
     int m_Rows;
+
+    [SerializeField]
     int m_Cols;
+
     float m_Width;
     float m_Height;
 
     protected override void OnStart()
     {
         m_TileMap = GetComponent<TileMap>();
-        GenerateTilemap();
+        GenerateCells();
     }
 
-    public void GenerateTilemap()
+    void GenerateCells()
     {
-        int rows, cols;
-        int[,] map = ReadMap("world1-1", out rows, out cols);
-        m_Rows = rows;
-        m_Cols = cols;
+        int rows = this.rows;
+        int cols = this.cols;
+
         m_Cells = new Cell[rows, cols];
         m_Width = cols * Constants.CELL_WIDTH;
         m_Height = rows * Constants.CELL_HEIGHT;
@@ -57,11 +56,31 @@ public class Map : BaseBehaviour
         {
             for (int j = 0; j < cols; ++j)
             {
-                int type = map[i, j];
-                if (type != CELL_NONE)
+                Sprite tile = m_TileMap.GetTile(j, i);
+                if (tile != null)
                 {
-                    SetTile(i, j, type);
-                    m_Cells[i, j] = CreateCell(type, i, j);
+                    Cell cell = null;
+
+                    if (tile == m_Sprites[CELL_GROUND] ||
+                        tile == m_Sprites[CELL_SOLID] ||
+                        tile == m_Sprites[CELL_BLANK] ||
+                        tile == m_Sprites[CELL_TUBE1] ||
+                        tile == m_Sprites[CELL_TUBE2] ||
+                        tile == m_Sprites[CELL_TUBE_TOP1] ||
+                        tile == m_Sprites[CELL_TUBE_TOP2])
+                    {
+                        cell = new Cell(this, i, j);
+                    }
+                    else if (tile == m_Sprites[CELL_BRICK])
+                    {
+                        cell = new BrickCell(this, i, j);
+                    }
+                    else if (tile == m_Sprites[CELL_QUESTION])
+                    {
+                        cell = new CoinsCell(this, i, j, 1);
+                    }
+
+                    m_Cells[i, j] = cell;
                 }
             }
         }
@@ -109,20 +128,6 @@ public class Map : BaseBehaviour
         }
     }
 
-    Cell CreateCell(int type, int i, int j)
-    {
-        switch (type)
-        {
-            case CELL_BRICK:
-                return new BrickCell(this, i, j);
-
-            case CELL_QUESTION:
-                return new CoinsCell(this, i, j, 1);
-        }
-
-        return new Cell(this, i, j);
-    }
-
     public Cell GetCell(float x, float y)
     {
         if (x >= 0 && x <= m_Width && y >= 0 && y <= m_Height)
@@ -141,37 +146,27 @@ public class Map : BaseBehaviour
         return i >= 0 && i < m_Rows && j >= 0 && j < m_Cols ? m_Cells[i, j] : null;
     }
 
-    int[,] ReadMap(string path, out int rows, out int cols)
-    {
-        Object obj = Resources.Load("Maps/world1-1");
-        TextAsset data = obj as TextAsset;
-        assert.IsNotNull(data);
-
-        using (StringReader reader = new StringReader(data.text))
-        {
-            string[] tokens = reader.ReadLine().Split(' ');
-            rows = int.Parse(tokens[0]);
-            cols = int.Parse(tokens[1]);
-
-            int[,] map = new int[rows, cols];
-
-            for (int i = 0; i < rows; ++i)
-            {
-                tokens = reader.ReadLine().Split(' ');
-                for (int j = 0; j < cols; ++j)
-                {
-                    map[rows - 1 - i, j] = int.Parse(tokens[j]) - 1;
-                }
-            }
-
-            return map;
-        }
-    }
-
     #region Properties
 
-    public int rows { get { return m_Rows; } }
-    public int cols { get { return m_Cols; } }
+    public Sprite[] sprites { get { return m_Sprites; } }
+
+    public int rows
+    {
+        get { return m_Rows; }
+
+        #if UNITY_EDITOR
+        set { m_Rows = value; }
+        #endif
+    }
+
+    public int cols
+    {
+        get { return m_Cols; }
+
+        #if UNITY_EDITOR
+        set { m_Cols = value; }
+        #endif
+    }
 
     #endregion
 }
