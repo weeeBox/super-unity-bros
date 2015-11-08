@@ -26,6 +26,7 @@ public class MovingObject : BaseBehaviour2D
     bool m_Dead;
     bool m_MovementEnabled;
     bool m_CollisionsEnabled;
+    bool m_Sleeping;
 
     #region Lifecycle
 
@@ -39,6 +40,7 @@ public class MovingObject : BaseBehaviour2D
         collider.size = m_ColliderRect.size;
 
         m_Collider = collider;
+        m_Sleeping = true;
     }
 
     protected override void OnEnabled()
@@ -56,6 +58,14 @@ public class MovingObject : BaseBehaviour2D
     
     protected override void OnFixedUpdate(float deltaTime)
     {
+        if (m_Sleeping)
+        {
+            if (left > camera.right) return; // not visible yet
+
+            m_Sleeping = false;
+            OnBecomeVisible();
+        }
+
         if (m_MovementEnabled)
         {
             UpdateVelocity(deltaTime);
@@ -225,6 +235,14 @@ public class MovingObject : BaseBehaviour2D
 
     #region Callbacks
 
+    protected virtual void OnBecomeVisible()
+    {
+    }
+
+    protected virtual void OnBecomeInvisible()
+    {
+    }
+
     protected virtual void OnFallOfTheMap()
     {
         Destroy(gameObject);
@@ -291,6 +309,11 @@ public class MovingObject : BaseBehaviour2D
         get { return GameManager.map; }
     }
 
+    protected GameCamera camera
+    {
+        get { return GameManager.camera; }
+    }
+
     public float left
     {
         get { return posX - 0.5f * m_ColliderRect.width; }
@@ -324,6 +347,11 @@ public class MovingObject : BaseBehaviour2D
     {
         get { return m_Direction; }
         protected set { m_Direction = value; }
+    }
+
+    public bool sleeping
+    {
+        get { return m_Sleeping; }
     }
 
     public bool dead

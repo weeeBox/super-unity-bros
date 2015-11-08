@@ -95,6 +95,18 @@ public class MarioController : EntityController
         m_Velocity.x = vx;
     }
 
+    protected override void UpdatePosition(float deltaTime)
+    {
+        base.UpdatePosition(deltaTime);
+
+        /* Can't travel back */
+        if (left < camera.left)
+        {
+            left = camera.left;
+            m_Velocity.x = 0;
+        }
+    }
+
     protected override void UpdateAnimation(float deltaTime)
     {
         animator.SetBool("Jump", m_Jumping);

@@ -13,12 +13,21 @@ public class Prefabs
 public class GameManager : SingletonBehaviour<GameManager>
 {
     [SerializeField]
-    private Prefabs m_Prefabs;
+    Prefabs m_Prefabs;
 
-    private Map m_Map;
+    [SerializeField]
+    MarioController m_Player;
+
+    [SerializeField]
+    GameCamera m_Camera;
+
+    Map m_Map;
 
     protected override void OnStart()
     {
+        assert.IsNotNull(m_Player);
+        assert.IsNotNull(m_Camera);
+
         m_Map = FindObjectOfType<Map>();
         assert.IsNotNull(m_Map);
     }
@@ -46,12 +55,31 @@ public class GameManager : SingletonBehaviour<GameManager>
         return null;
     }
 
+    #region Properties
+
     public static Map map
+    {
+        get { return existingInstance.m_Map; }
+    }
+
+    public static GameCamera camera
+    {
+        get { return existingInstance.m_Camera; }
+    }
+
+    public static MarioController player
+    {
+        get { return existingInstance.m_Player; }
+    }
+
+    public static GameManager existingInstance
     {
         get
         {
             assert.IsNotNull(instance);
-            return instance.m_Map;
+            return instance;
         }
     }
+
+    #endregion
 }

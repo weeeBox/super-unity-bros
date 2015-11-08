@@ -20,7 +20,10 @@ public class EntityController : MovingObject
     {
         base.OnFixedUpdate(deltaTime);
 
-        UpdateAnimation(deltaTime);
+        if (!sleeping)
+        {
+            UpdateAnimation(deltaTime);
+        }
     }
 
     #endregion
