@@ -70,7 +70,20 @@ namespace LunarCore
 
         #region Helpers
 
-        protected T GetRequiredComponent<T>()
+        public void SetComponentEnabled<T>(bool enabled)
+        {
+            T component = GetComponent<T>();
+            if (component is Behaviour)
+            {
+                (component as Behaviour).enabled = enabled;
+            }
+            else if (component as Renderer)
+            {
+                (component as Renderer).enabled = enabled;
+            }
+        }
+
+        public T GetRequiredComponent<T>()
         {
             T component = GetComponent<T>();
             assert.IsNotNull(component, "Missing required component: {0}", typeof(T));

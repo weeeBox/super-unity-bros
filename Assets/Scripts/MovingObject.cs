@@ -5,7 +5,7 @@ using System.Collections;
 
 using LunarCore;
 
-public class MovingObject : BaseBehaviour2D
+public class MovingObject : MapObject
 {
     public const int DIR_LEFT = -1;
     public const int DIR_RIGHT = 1;
@@ -26,7 +26,6 @@ public class MovingObject : BaseBehaviour2D
     bool m_Dead;
     bool m_MovementEnabled;
     bool m_CollisionsEnabled;
-    bool m_Sleeping;
 
     #region Lifecycle
 
@@ -40,7 +39,6 @@ public class MovingObject : BaseBehaviour2D
         collider.size = m_ColliderRect.size;
 
         m_Collider = collider;
-        m_Sleeping = true;
     }
 
     protected override void OnEnabled()
@@ -58,14 +56,6 @@ public class MovingObject : BaseBehaviour2D
     
     protected override void OnFixedUpdate(float deltaTime)
     {
-        if (m_Sleeping)
-        {
-            if (left > camera.right) return; // not visible yet
-
-            m_Sleeping = false;
-            OnBecomeVisible();
-        }
-
         if (m_MovementEnabled)
         {
             UpdateVelocity(deltaTime);
@@ -235,14 +225,6 @@ public class MovingObject : BaseBehaviour2D
 
     #region Callbacks
 
-    protected virtual void OnBecomeVisible()
-    {
-    }
-
-    protected virtual void OnBecomeInvisible()
-    {
-    }
-
     protected virtual void OnFallOfTheMap()
     {
         Destroy(gameObject);
@@ -304,35 +286,25 @@ public class MovingObject : BaseBehaviour2D
 
     #region Properties
 
-    protected Map map
-    {
-        get { return GameManager.map; }
-    }
-
-    protected GameCamera camera
-    {
-        get { return GameManager.camera; }
-    }
-
-    public float left
+    public override float left
     {
         get { return posX - 0.5f * m_ColliderRect.width; }
         set { posX = value + 0.5f * m_ColliderRect.width; }
     }
     
-    public float right
+    public override float right
     {
         get { return posX + 0.5f * m_ColliderRect.width; }
         set { posX = value - 0.5f * m_ColliderRect.width; }
     }
     
-    public float top
+    public override float top
     {
         get { return posY + 0.5f * m_ColliderRect.height; }
         set { posY = value - 0.5f * m_ColliderRect.height; }
     }
     
-    public float bottom
+    public override float bottom
     {
         get { return posY - 0.5f * m_ColliderRect.height; }
         set { posY = value + 0.5f * m_ColliderRect.height; }
@@ -347,11 +319,6 @@ public class MovingObject : BaseBehaviour2D
     {
         get { return m_Direction; }
         protected set { m_Direction = value; }
-    }
-
-    public bool sleeping
-    {
-        get { return m_Sleeping; }
     }
 
     public bool dead
