@@ -4,6 +4,7 @@ using UnityEditor;
 using System;
 using System.IO;
 using System.Collections;
+using System.Collections.Generic;
 
 static class MapLoader
 {
@@ -38,6 +39,18 @@ static class MapLoader
                     map[rows - 1 - i, j] = int.Parse(tokens[j]) - 1;
                 }
             }
+
+            int enemyCount = int.Parse(reader.ReadLine());
+
+            for (int i = 0; i < enemyCount; ++i)
+            {
+                tokens = reader.ReadLine().Split(' ');
+                string name = tokens[0];
+                float x = float.Parse(tokens[1]);
+                float y = float.Parse(tokens[2]);
+
+                map.Add(new EnemyInfo(name, new Vector2(x, y)));
+            }
             
             return map;
         }
@@ -49,12 +62,14 @@ class MapInfo
     readonly int m_Rows;
     readonly int m_Cols;
     readonly int[,] m_Cells;
+    readonly IList<EnemyInfo> m_Enemies;
     
     public MapInfo(int rows, int cols)
     {
         this.m_Cells = new int[rows, cols];
         this.m_Rows = rows;
         this.m_Cols = cols;
+        this.m_Enemies = new List<EnemyInfo>();
     }
     
     public int this[int i, int j]
@@ -71,6 +86,11 @@ class MapInfo
             m_Cells[i, j] = value;
         }
     }
+
+    public void Add(EnemyInfo enemy)
+    {
+        m_Enemies.Add(enemy);
+    }
     
     void CheckCoords(int i, int j)
     {
@@ -78,6 +98,11 @@ class MapInfo
         {
             throw new ArgumentOutOfRangeException();
         }
+    }
+
+    public IList<EnemyInfo> enemies
+    {
+        get { return m_Enemies; }
     }
     
     public int rows
@@ -88,5 +113,17 @@ class MapInfo
     public int cols
     {
         get { return m_Cols; }
+    }
+}
+
+class EnemyInfo
+{
+    public readonly string name;
+    public readonly Vector2 position;
+
+    public EnemyInfo(string name, Vector2 position)
+    {
+        this.name = name;
+        this.position = position;
     }
 }

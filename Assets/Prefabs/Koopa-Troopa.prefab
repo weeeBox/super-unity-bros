@@ -12,7 +12,7 @@ GameObject:
   - 95: {fileID: 9555720}
   - 114: {fileID: 11464974}
   m_Layer: 0
-  m_Name: Koopa Troopa
+  m_Name: Koopa-Troopa
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

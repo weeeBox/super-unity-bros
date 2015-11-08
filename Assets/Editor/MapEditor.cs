@@ -41,6 +41,27 @@ public class MapEditor : BaseEditor<Map>
                 }
             }
         }
+
+        GameObject enemies = GameObject.Find("Enemies");
+        if (enemies != null) DestroyImmediate(enemies);
+
+        enemies = new GameObject("Enemies");
+        enemies.transform.parent = target.transform;
+        enemies.transform.localPosition = Vector3.zero;
+
+        foreach (EnemyInfo enemy in map.enemies)
+        {
+            GameObject prefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/" + enemy.name + ".prefab", typeof(GameObject)) as GameObject;
+            if (prefab == null)
+            {
+                throw new UnityException("Can't find enemy: " + enemy.name);
+            }
+
+            GameObject enemyObject = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
+            enemyObject.name = enemy.name;
+            enemyObject.transform.parent = enemies.transform;
+            enemyObject.transform.localPosition = enemy.position;
+        }
     }
 
     protected override void OnSceneGUI()

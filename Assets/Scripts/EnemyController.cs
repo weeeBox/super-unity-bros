@@ -3,6 +3,11 @@ using System.Collections;
 
 public class EnemyController : EntityController
 {
+    void OnBecameVisible()
+    {
+        movementEnabled = true;
+    }
+
     public virtual void OnJumped(MarioController player)
     {
         Die();
@@ -20,6 +25,8 @@ public class EnemyController : EntityController
 
         m_Velocity.x = direction * walkSpeed;
         FlipHorMovement();
+
+        movementEnabled = false;
     }
 
     protected override void OnObstacle(Cell cell)
