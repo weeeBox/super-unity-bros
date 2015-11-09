@@ -18,7 +18,7 @@ public class Cell
     public readonly float y;
 
     readonly Map m_Map;
-    bool m_Jumping;
+    MovingObject m_JumpAttacker;
 
     public Cell(Map map, int i, int j)
     {
@@ -30,7 +30,7 @@ public class Cell
         this.y = (0.5f + i) * Constants.CELL_HEIGHT;
     }
 
-    public virtual void Hit()
+    public virtual void Hit(MarioController attacker)
     {
     }
 
@@ -43,8 +43,13 @@ public class Cell
 
     public bool jumping
     {
-        get { return m_Jumping; }
-        protected set { m_Jumping = value; }
+        get { return m_JumpAttacker != null; }
+    }
+
+    public MovingObject jumpAttacker
+    {
+        get { return m_JumpAttacker; }
+        protected set { m_JumpAttacker = value; }
     }
 
     public Vector3 position
@@ -84,23 +89,23 @@ class BrickCell : Cell
     {
     }
 
-    public override void Hit()
+    public override void Hit(MarioController attacker)
     {
         if (!m_Blank)
         {
-            OnHit();
+            OnHit(attacker);
         }
     }
 
-    protected virtual void OnHit()
+    protected virtual void OnHit(MarioController attacker)
     {
-        jumping = true;
+        jumpAttacker = attacker;
         map.Jump(i, j, JumpFinished);
     }
 
     void JumpFinished()
     {
-        jumping = false;
+        jumpAttacker = null;
         OnHitFinished();
     }
 
@@ -128,11 +133,11 @@ class CoinsCell : BrickCell
         m_Coins = coins;
     }
 
-    protected override void OnHit()
+    protected override void OnHit(MarioController attacker)
     {
         assert.IsTrue(m_Coins > 0);
 
-        base.OnHit();
+        base.OnHit(attacker);
 
         --m_Coins;
 
@@ -157,9 +162,9 @@ class PowerCell : BrickCell
         m_PowerupType = powerup;
     }
 
-    protected override void OnHit()
+    protected override void OnHit(MarioController attacker)
     {
-        base.OnHit();
+        base.OnHit(attacker);
         SetBlank();
     }
 

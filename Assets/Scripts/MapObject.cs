@@ -26,6 +26,15 @@ public abstract class MapObject : BaseBehaviour2D
         OnFixedUpdate(Time.fixedDeltaTime);
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        MapObject obj = other.GetComponent<MapObject>();
+        if (obj != null && !obj.sleeping)
+        {
+            OnCollision(obj);
+        }
+    }
+
     #region Callbacks
     
     protected virtual void OnBecomeVisible()
@@ -33,6 +42,10 @@ public abstract class MapObject : BaseBehaviour2D
     }
     
     protected virtual void OnBecomeInvisible()
+    {
+    }
+
+    protected virtual void OnCollision(MapObject other)
     {
     }
 

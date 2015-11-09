@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EntityController : MovingObject
+public abstract class EntityController : MovingObject
 {
     [SerializeField]
     float m_WalkSpeed;
@@ -19,11 +19,7 @@ public class EntityController : MovingObject
     protected override void OnFixedUpdate(float deltaTime)
     {
         base.OnFixedUpdate(deltaTime);
-
-        if (!sleeping)
-        {
-            UpdateAnimation(deltaTime);
-        }
+        UpdateAnimation(deltaTime);
     }
 
     #endregion
@@ -33,6 +29,12 @@ public class EntityController : MovingObject
     protected virtual void UpdateAnimation(float deltaTime)
     {
     }
+
+    #endregion
+
+    #region Damage
+
+    public abstract void TakeDamage(MapObject attacker);
 
     #endregion
 

@@ -128,7 +128,7 @@ public class MarioController : EntityController
 
     protected override void OnJumpHitCell(Cell cell)
     {
-        cell.Hit();
+        cell.Hit(this);
     }
 
     protected override void OnDie(bool animated)
@@ -160,59 +160,68 @@ public class MarioController : EntityController
 
     #region Collisions
 
-    void OnTriggerEnter2D(Collider2D other)
+    protected override void OnCollision(MapObject other)
     {
-        assert.IsFalse(dead);
-
-        MovingObject obj = other.GetComponent<MovingObject>();
-        if (obj != null && !obj.dead)
+        if (bottom > other.bottom)
         {
-            if (bottom > obj.bottom)
-            {
-                OnJumpOnObject(obj);
-            }
-            else
-            {
-                OnHitByObject(obj);
-            }
+            OnJumpOnObject(other);
+        }
+        else
+        {
+            OnCollideObject(other);
         }
     }
 
-    void OnJumpOnObject(MovingObject other)
+    void OnJumpOnObject(MapObject other)
     {
         EnemyController enemy = other as EnemyController;
         if (enemy != null)
         {
-            enemy.OnJumped(this);
+            enemy.OnPlayerJump(this);
+            return;
         }
-        else
+
+        Powerup powerup = other as Powerup;
+        if (powerup != null)
         {
-            Powerup powerup = other as Powerup;
-            if (powerup != null)
-            {
-                powerup.Apply();
-                Destroy(powerup.gameObject);
-            }
+            PickPowerup(powerup);
         }
     }
 
-    void OnHitByObject(MovingObject other)
+    void OnCollideObject(MapObject other)
     {
         EnemyController enemy = other as EnemyController;
         if (enemy != null)
         {
-            enemy.OnHitByPlayer(this);
+            enemy.OnPlayerCollision(this);
+            return;
         }
-        else
+
+        Powerup powerup = other as Powerup;
+        if (powerup != null)
         {
-            Powerup powerup = other as Powerup;
-            if (powerup != null)
-            {
-                powerup.Apply();
-                Destroy(powerup.gameObject);
-            }
+            PickPowerup(powerup);
         }
     }
+
+    void PickPowerup(Powerup powerup)
+    {
+        powerup.Apply();
+        Destroy(powerup.gameObject);
+    }
+
+    #endregion
+
+    #region Damage
+
+    public override void TakeDamage(MapObject attacker)
+    {
+        Die(true); // FIXME: remove this
+    }
+
+    #endregion
+
+    #region Enemies
 
     public void JumpOnEnemy(EnemyController enemy)
     {
@@ -221,16 +230,17 @@ public class MarioController : EntityController
 
     IEnumerator JumpOnEnemyCoroutine(EnemyController enemy)
     {
-        float targetY = enemy.posY;
-
+        float bottomTargetY = enemy.posY;
+        
         // player's bottom should be at the center of an enemy
-        while (bottom > targetY && !dead)
+        while (bottom > bottomTargetY && !dead)
         {
             yield return null;
         }
-
+        
         if (!dead)
         {
+            bottom = bottomTargetY;
             m_Velocity.y = m_JumpSquashSpeed; // FIXME: create a convenience method
         }
     }

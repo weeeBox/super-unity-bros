@@ -8,9 +8,9 @@ public class KoopaTroopaController : EnemyController
 
     private bool m_LockedInShell;
 
-    public override void OnJumped(MarioController player)
+    public override void OnPlayerJump(MarioController player)
     {
-        if (m_LockedInShell)
+        if (lockedInShell)
         {
             if (Mathf.Approximately(m_Velocity.x, 0))
             {
@@ -33,16 +33,15 @@ public class KoopaTroopaController : EnemyController
         {
             // TODO: start "unlock" timer
             m_Velocity.x = 0;
-            m_LockedInShell = true;
-            animator.SetBool("Shell", true);
+            lockedInShell = true;
 
             player.JumpOnEnemy(this);
         }
     }
 
-    public override void OnHitByPlayer(MarioController player)
+    public override void OnPlayerCollision(MarioController player)
     {
-        if (m_LockedInShell && Mathf.Approximately(m_Velocity.x, 0f))
+        if (lockedInShell && Mathf.Approximately(m_Velocity.x, 0f))
         {
             if (player.posX > posX)
             {
@@ -55,7 +54,7 @@ public class KoopaTroopaController : EnemyController
         }
         else
         {
-            base.OnHitByPlayer(player);
+            base.OnPlayerCollision(player);
         }
     }
 
@@ -68,7 +67,7 @@ public class KoopaTroopaController : EnemyController
         {
             if (m_LockedInShell && !Mathf.Approximately(m_Velocity.x, 0f))
             {
-                enemy.Die(true);
+                enemy.TakeDamage(this);
             }
             else
             {
@@ -76,4 +75,18 @@ public class KoopaTroopaController : EnemyController
             }
         }
     }
+
+    #region Properties
+
+    public bool lockedInShell
+    {
+        get { return m_LockedInShell; }
+        set
+        {
+            m_LockedInShell = value;
+            animator.SetBool("Shell", value);
+        }
+    }
+
+    #endregion
 }

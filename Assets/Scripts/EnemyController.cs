@@ -3,15 +3,26 @@ using System.Collections;
 
 public class EnemyController : EntityController
 {
-    public virtual void OnJumped(MarioController player)
+    [SerializeField]
+    float m_DamageJumpSpeed = 50;
+
+    [SerializeField]
+    float m_DamageImpactSpeed = 24;
+
+    /// <summary>
+    /// Called when player jumped on the enemy.
+    /// </summary>
+    public virtual void OnPlayerJump(MarioController player)
     {
-        Die();
         player.JumpOnEnemy(this);
     }
 
-    public virtual void OnHitByPlayer(MarioController player)
+    /// <summary>
+    /// Called when collided with player (not a jump)
+    /// </summary>
+    public virtual void OnPlayerCollision(MarioController player)
     {
-        player.Die();
+        player.TakeDamage(this);
     }
 
     protected override void OnStart()
@@ -27,18 +38,44 @@ public class EnemyController : EntityController
         FlipHorMovement();
     }
 
+    protected override void OnCellJumped(Cell cell)
+    {
+        assert.IsTrue(cell.jumping);
+        TakeDamage(cell.jumpAttacker);
+    }
+
     #region Collisions
 
-    void OnTriggerEnter2D(Collider2D other)
+    protected override void OnCollision(MapObject other)
     {
         if (dead) return;
 
-        EnemyController enemy = other.GetComponent<EnemyController>();
+        EnemyController enemy = other as EnemyController;
         if (enemy != null)
         {
-            FlipHorMovement();
+            OnCollision(enemy);
         }
     }
 
+    protected virtual void OnCollision(EnemyController enemy)
+    {
+        FlipHorMovement();
+    }
+
+    #endregion
+
+    #region Damage
+    
+    public override void TakeDamage(MapObject attacker)
+    {
+        collisionsEnabled = false;
+
+        flipY = true;
+        dead = true;
+        m_Velocity.x = attacker.transform.position.x < transform.position.x ?
+            m_DamageImpactSpeed : -m_DamageImpactSpeed;
+        m_Velocity.y = m_DamageJumpSpeed;
+    }
+    
     #endregion
 }
