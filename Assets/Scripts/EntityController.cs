@@ -34,7 +34,7 @@ public abstract class EntityController : MovingObject
 
     #region Damage
 
-    public abstract void TakeDamage(MapObject attacker);
+    public abstract void TakeDamage(LevelObject attacker);
 
     #endregion
 

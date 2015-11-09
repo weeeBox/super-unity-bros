@@ -3,7 +3,7 @@ using System.Collections;
 
 using LunarCore;
 
-public abstract class MapObject : BaseBehaviour2D
+public abstract class LevelObject : BaseBehaviour2D
 {
     bool m_Sleeping;
 
@@ -28,7 +28,7 @@ public abstract class MapObject : BaseBehaviour2D
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        MapObject obj = other.GetComponent<MapObject>();
+        LevelObject obj = other.GetComponent<LevelObject>();
         if (obj != null && !obj.sleeping)
         {
             OnCollision(obj);
@@ -45,7 +45,7 @@ public abstract class MapObject : BaseBehaviour2D
     {
     }
 
-    protected virtual void OnCollision(MapObject other)
+    protected virtual void OnCollision(LevelObject other)
     {
     }
 

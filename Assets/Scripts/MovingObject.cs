@@ -5,7 +5,7 @@ using System.Collections;
 
 using LunarCore;
 
-public class MovingObject : MapObject
+public class MovingObject : LevelObject
 {
     public const int DIR_LEFT = -1;
     public const int DIR_RIGHT = 1;
