@@ -5,6 +5,9 @@ using LunarCore;
 
 public abstract class LevelObject : BaseBehaviour2D
 {
+    /// <summary>
+    /// Waiting to become visible. Won't move or participate in collisions.
+    /// </summary>
     bool m_Sleeping;
 
     void Start()
