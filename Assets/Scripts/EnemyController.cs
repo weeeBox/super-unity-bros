@@ -68,7 +68,7 @@ public class EnemyController : EntityController
     
     public override void TakeDamage(MapObject attacker)
     {
-        collisionsEnabled = false;
+        mapCollisionsEnabled = false;
 
         flipY = true;
         dead = true;

@@ -25,7 +25,7 @@ public class MovingObject : MapObject
     bool m_Grounded;
     bool m_Dead;
     bool m_MovementEnabled;
-    bool m_CollisionsEnabled;
+    bool m_MapCollisionsEnabled;
 
     #region Lifecycle
 
@@ -46,7 +46,7 @@ public class MovingObject : MapObject
         m_LastPosition = new ColliderPosition(transform.localPosition, m_ColliderRect);
 
         m_Collider.enabled = true;
-        m_CollisionsEnabled = true;
+        m_MapCollisionsEnabled = true;
         m_MovementEnabled = true;
         m_Velocity = Vector3.zero;
         m_Direction = DIR_RIGHT;
@@ -63,7 +63,7 @@ public class MovingObject : MapObject
             CheckFallingOffMap();
         }
 
-        if (m_CollisionsEnabled)
+        if (m_MapCollisionsEnabled)
         {
             HandleCollisions();
         }
@@ -327,10 +327,10 @@ public class MovingObject : MapObject
         protected set { m_Dead = true; }
     }
 
-    public bool collisionsEnabled
+    public bool mapCollisionsEnabled
     {
-        get { return m_CollisionsEnabled; }
-        protected set { m_CollisionsEnabled = value; }
+        get { return m_MapCollisionsEnabled; }
+        protected set { m_MapCollisionsEnabled = value; }
     }
 
     public bool movementEnabled

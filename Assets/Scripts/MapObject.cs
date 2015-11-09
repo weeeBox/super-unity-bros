@@ -56,11 +56,7 @@ public abstract class MapObject : BaseBehaviour2D
     public bool sleeping
     {
         get { return m_Sleeping; }
-        set
-        {
-            m_Sleeping = value;
-            // TODO: disable components
-        }
+        set { m_Sleeping = value; }
     }
 
     protected Map map

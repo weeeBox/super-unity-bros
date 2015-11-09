@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public abstract class Powerup : MovingObject
@@ -28,7 +28,7 @@ public abstract class Powerup : MovingObject
     IEnumerator Grow()
     {
         // FIXME: fix this whole part - it's just terrible!
-        collisionsEnabled = false;
+        mapCollisionsEnabled = false;
         movementEnabled = false;
 
         yield return new WaitForSeconds(0.05f);
@@ -44,7 +44,7 @@ public abstract class Powerup : MovingObject
         }
         
         position2D = new Vector2(targetX, targetY);
-        collisionsEnabled = true;
+        mapCollisionsEnabled = true;
         movementEnabled = true;
         
         GrowFinished();

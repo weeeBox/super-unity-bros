@@ -145,7 +145,7 @@ public class MarioController : EntityController
 
     IEnumerator DieCoroutine()
     {
-        collisionsEnabled = false;
+        mapCollisionsEnabled = false;
         movementEnabled = false;
 
         yield return new WaitForSeconds(0.25f);
