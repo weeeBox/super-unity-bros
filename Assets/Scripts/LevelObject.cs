@@ -207,8 +207,8 @@ public class LevelObject : BaseBehaviour2D
                 HandleHorCollision(cell, x);
             }
 
-            Cell left = GetCell(this.left, this.bottom);
-            Cell right = GetCell(this.right, this.bottom);
+            Cell left = GetCell(this.left + Constants.CELL_EDGE_SMOOTH, this.bottom);
+            Cell right = GetCell(this.right - Constants.CELL_EDGE_SMOOTH, this.bottom);
             cell = left != null ? left : right;
             
             if (cell != null)
