@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21241144}
   - 95: {fileID: 9555720}
   - 114: {fileID: 11464974}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Koopa-Troopa
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -58,6 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c8b56ea6542643968d1200ec8ae0d15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_WalkSpeed: 12
   m_ColliderRect:
     serializedVersion: 2
     x: 0
@@ -65,7 +66,9 @@ MonoBehaviour:
     width: 4.80000019
     height: 6.4000001
   m_PushCollisionSpeed: 24
-  m_WalkSpeed: 12
+  m_GravityScale: 1
+  m_DamageJumpSpeed: 50
+  m_DamageImpactSpeed: 24
   m_ShellSpeed: 72
 --- !u!212 &21241144
 SpriteRenderer:
@@ -89,7 +92,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: 770940025
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2f4a30f1667b241ef84370cde49d0229, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -134,6 +137,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SortingLayerID
+      value: 770940025
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
