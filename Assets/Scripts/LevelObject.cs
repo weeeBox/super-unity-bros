@@ -9,7 +9,10 @@ public class LevelObject : BaseBehaviour2D
 {
     public const int DIR_LEFT = -1;
     public const int DIR_RIGHT = 1;
-    
+
+    [SerializeField]
+    float m_WalkSpeed;
+
     [SerializeField]
     Rect m_ColliderRect;
 
@@ -23,6 +26,7 @@ public class LevelObject : BaseBehaviour2D
     
     ColliderPosition m_LastPosition;
     Collider2D m_Collider;
+    Animator m_Animator;
 
     /// <summary>
     /// Waiting to become visible. Won't move or participate in collisions if sleeping.
@@ -58,9 +62,12 @@ public class LevelObject : BaseBehaviour2D
     
     void OnTriggerEnter2D(Collider2D other)
     {
+        assert.IsFalse(sleeping);
+
         LevelObject obj = other.GetComponent<LevelObject>();
-        if (obj != null && !obj.sleeping)
+        if (obj != null)
         {
+            assert.IsFalse(obj.sleeping);
             OnCollision(obj);
         }
     }
@@ -79,6 +86,7 @@ public class LevelObject : BaseBehaviour2D
         collider.size = m_ColliderRect.size;
 
         m_Collider = collider;
+        m_Animator = GetComponent<Animator>();
     }
 
     protected override void OnEnabled()
@@ -91,7 +99,6 @@ public class LevelObject : BaseBehaviour2D
         m_Velocity = Vector3.zero;
         m_Direction = DIR_RIGHT;
         m_Grounded = false;
-        m_Dead = false;
     }
     
     protected override void OnFixedUpdate(float deltaTime)
@@ -248,19 +255,24 @@ public class LevelObject : BaseBehaviour2D
 
     #endregion
 
-    #region Death
-
-    public void Die(bool animated = true)
+    #region Damage
+    
+    public void TakeDamage(LevelObject attacker)
     {
-        assert.IsTrue(!m_Dead);
-
-        m_Dead = true;
-        m_Velocity = Vector2.zero;
-        m_Collider.enabled = false;
-
-        OnDie(animated);
+        OnDamage(attacker);
     }
 
+    public void Die()
+    {
+        assert.IsFalse(m_Dead);
+
+        collisionsEnabled = false;
+        m_Dead = true;
+        m_Velocity = Vector2.zero;
+
+        OnDie();
+    }
+    
     #endregion
 
     #region Callbacks
@@ -309,7 +321,11 @@ public class LevelObject : BaseBehaviour2D
     {
     }
 
-    protected virtual void OnDie(bool animated)
+    protected virtual void OnDamage(LevelObject attacker)
+    {
+    }
+
+    protected virtual void OnDie()
     {
     }
 
@@ -353,7 +369,11 @@ public class LevelObject : BaseBehaviour2D
     public bool sleeping
     {
         get { return m_Sleeping; }
-        set { m_Sleeping = value; }
+        set
+        {
+            m_Sleeping = value;
+            objectCollisionsEnabled = !m_Sleeping;
+        }
     }
 
     public float left
@@ -380,6 +400,17 @@ public class LevelObject : BaseBehaviour2D
         set { posY = value + 0.5f * m_ColliderRect.height; }
     }
 
+    public bool dead
+    {
+        get { return m_Dead; }
+        protected set { m_Dead = value; }
+    }
+
+    public float walkSpeed
+    {
+        get { return m_WalkSpeed; }
+    }
+
     public bool grounded
     {
         get { return m_Grounded; }
@@ -391,10 +422,14 @@ public class LevelObject : BaseBehaviour2D
         protected set { m_Direction = value; }
     }
 
-    public bool dead
+    public bool collisionsEnabled
     {
-        get { return m_Dead; }
-        protected set { m_Dead = true; }
+        get { return mapCollisionsEnabled && objectCollisionsEnabled; }
+        protected set
+        { 
+            mapCollisionsEnabled = value;
+            objectCollisionsEnabled = value;
+        }
     }
 
     public bool mapCollisionsEnabled
@@ -403,10 +438,21 @@ public class LevelObject : BaseBehaviour2D
         protected set { m_MapCollisionsEnabled = value; }
     }
 
+    public bool objectCollisionsEnabled
+    {
+        get { return m_Collider.enabled; }
+        protected set { m_Collider.enabled = value; }
+    }
+
     public bool movementEnabled
     {
         get { return m_MovementEnabled; }
         protected set { m_MovementEnabled = value; }
+    }
+
+    protected Animator animator
+    {
+        get { return m_Animator; }
     }
 
     protected Map map

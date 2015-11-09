@@ -58,21 +58,15 @@ public class KoopaTroopaController : EnemyController
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    protected override void OnCollision(EnemyController enemy)
     {
-        if (dead) return;
-        
-        EnemyController enemy = other.GetComponent<EnemyController>();
-        if (enemy != null)
+        if (m_LockedInShell && !Mathf.Approximately(m_Velocity.x, 0f))
         {
-            if (m_LockedInShell && !Mathf.Approximately(m_Velocity.x, 0f))
-            {
-                enemy.TakeDamage(this);
-            }
-            else
-            {
-                FlipHorMovement();
-            }
+            enemy.TakeDamage(this);
+        }
+        else
+        {
+            FlipHorMovement();
         }
     }
 

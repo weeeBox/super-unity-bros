@@ -5,7 +5,7 @@ using System.Collections;
 
 using LunarCore;
 
-public class MarioController : EntityController
+public class MarioController : LevelObject
 {
     [SerializeField]
     private float m_JumpHighSpeed = 120.0f;
@@ -43,10 +43,16 @@ public class MarioController : EntityController
         m_Jumping = false;
     }
 
+    protected override void OnFixedUpdate(float deltaTime)
+    {
+        base.OnFixedUpdate(deltaTime);
+        UpdateAnimation();
+    }
+
     protected override void OnUpdate(float deltaTime)
     {
         if (dead) return;
-        
+
         m_MoveInput.x = Input.GetAxisRaw("Horizontal");
         m_MoveInput.y = Input.GetAxisRaw("Vertical");
         
@@ -107,11 +113,14 @@ public class MarioController : EntityController
         }
     }
 
-    protected override void UpdateAnimation(float deltaTime)
+    void UpdateAnimation()
     {
-        animator.SetBool("Jump", m_Jumping);
-        animator.SetFloat("Speed", Mathf.Abs(m_Velocity.x));
-        animator.SetBool("Stop", m_MoveInput.x > Mathf.Epsilon && m_Velocity.x < 0 || m_MoveInput.x < -Mathf.Epsilon && m_Velocity.x > 0);
+        if (!dead)
+        {
+            animator.SetBool("Jump", m_Jumping);
+            animator.SetFloat("Speed", Mathf.Abs(m_Velocity.x));
+            animator.SetBool("Stop", m_MoveInput.x > Mathf.Epsilon && m_Velocity.x < 0 || m_MoveInput.x < -Mathf.Epsilon && m_Velocity.x > 0);
+        }
     }
 
     protected override void OnGrounded(Cell cell)
@@ -131,10 +140,8 @@ public class MarioController : EntityController
         cell.Hit(this);
     }
 
-    protected override void OnDie(bool animated)
+    protected override void OnDie()
     {
-        base.OnDie(animated);
-
         m_MoveInput = Vector2.zero;
         StartCoroutine(DieCoroutine());
     }
@@ -145,7 +152,10 @@ public class MarioController : EntityController
 
     IEnumerator DieCoroutine()
     {
-        mapCollisionsEnabled = false;
+        animator.SetBool("Stop", false);
+        animator.SetBool("Jump", false);
+        animator.SetBool("Dead", true);
+
         movementEnabled = false;
 
         yield return new WaitForSeconds(0.25f);
@@ -162,6 +172,8 @@ public class MarioController : EntityController
 
     protected override void OnCollision(LevelObject other)
     {
+        if (other.dead) return;
+
         if (bottom > other.bottom)
         {
             OnJumpOnObject(other);
@@ -214,9 +226,9 @@ public class MarioController : EntityController
 
     #region Damage
 
-    public override void TakeDamage(LevelObject attacker)
+    protected override void OnDamage(LevelObject attacker)
     {
-        Die(true); // FIXME: remove this
+        Die();
     }
 
     #endregion
@@ -233,16 +245,15 @@ public class MarioController : EntityController
         float bottomTargetY = enemy.posY;
         
         // player's bottom should be at the center of an enemy
-        while (bottom > bottomTargetY && !dead)
+        while (bottom > bottomTargetY)
         {
             yield return null;
         }
         
-        if (!dead)
-        {
-            bottom = bottomTargetY;
-            m_Velocity.y = m_JumpSquashSpeed; // FIXME: create a convenience method
-        }
+        bottom = bottomTargetY;
+
+        m_Jumping = true;
+        m_Velocity.y = m_JumpSquashSpeed; // FIXME: create a convenience method
     }
 
     #endregion
