@@ -160,7 +160,7 @@ public class MarioController : EntityController
 
     #region Collisions
 
-    protected override void OnCollision(LevelObject other)
+    protected override void OnCollision(MovingObject other)
     {
         if (bottom > other.bottom)
         {
@@ -172,7 +172,7 @@ public class MarioController : EntityController
         }
     }
 
-    void OnJumpOnObject(LevelObject other)
+    void OnJumpOnObject(MovingObject other)
     {
         EnemyController enemy = other as EnemyController;
         if (enemy != null)
@@ -188,7 +188,7 @@ public class MarioController : EntityController
         }
     }
 
-    void OnCollideObject(LevelObject other)
+    void OnCollideObject(MovingObject other)
     {
         EnemyController enemy = other as EnemyController;
         if (enemy != null)
@@ -214,7 +214,7 @@ public class MarioController : EntityController
 
     #region Damage
 
-    public override void TakeDamage(LevelObject attacker)
+    public override void TakeDamage(MovingObject attacker)
     {
         Die(true); // FIXME: remove this
     }

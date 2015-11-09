@@ -46,7 +46,7 @@ public class EnemyController : EntityController
 
     #region Collisions
 
-    protected override void OnCollision(LevelObject other)
+    protected override void OnCollision(MovingObject other)
     {
         if (dead) return;
 
@@ -66,7 +66,7 @@ public class EnemyController : EntityController
 
     #region Damage
     
-    public override void TakeDamage(LevelObject attacker)
+    public override void TakeDamage(MovingObject attacker)
     {
         mapCollisionsEnabled = false;
 

@@ -5,7 +5,7 @@ using System.Collections;
 
 using LunarCore;
 
-public class MovingObject : LevelObject
+public class MovingObject : BaseBehaviour2D
 {
     public const int DIR_LEFT = -1;
     public const int DIR_RIGHT = 1;
@@ -16,16 +16,56 @@ public class MovingObject : LevelObject
     [SerializeField]
     float m_PushCollisionSpeed = 24.0f;
 
+    [SerializeField]
+    float m_GravityScale = 1.0f;
+
     protected Vector3 m_Velocity;
     
     ColliderPosition m_LastPosition;
     Collider2D m_Collider;
+
+    /// <summary>
+    /// Waiting to become visible. Won't move or participate in collisions if sleeping.
+    /// </summary>
+    bool m_Sleeping;
 
     int m_Direction;
     bool m_Grounded;
     bool m_Dead;
     bool m_MovementEnabled;
     bool m_MapCollisionsEnabled;
+
+    #region MonoBehaviour callbacks
+
+    void Start()
+    {
+        sleeping = true;
+        OnStart();
+    }
+    
+    void FixedUpdate()
+    {
+        if (m_Sleeping)
+        {
+            if (left > camera.right) return; // not visible yet
+            
+            sleeping = false;
+            OnBecomeVisible();
+        }
+        
+        OnFixedUpdate(Time.fixedDeltaTime);
+    }
+    
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        MovingObject obj = other.GetComponent<MovingObject>();
+        if (obj != null && !obj.sleeping)
+        {
+            OnCollision(obj);
+        }
+    }
+
+    #endregion
 
     #region Lifecycle
 
@@ -75,7 +115,7 @@ public class MovingObject : LevelObject
 
     protected virtual void UpdateVelocity(float deltaTime)
     {
-        m_Velocity.y += Constants.GRAVITY * deltaTime;
+        m_Velocity.y += m_GravityScale * Constants.GRAVITY * deltaTime;
     }
 
     protected virtual void UpdatePosition(float deltaTime)
@@ -225,7 +265,28 @@ public class MovingObject : LevelObject
 
     #region Callbacks
 
-    protected virtual void OnFallOfTheMap()
+    /// <summary>
+    /// Called when the object becomes visible
+    /// </summary>
+    protected virtual void OnBecomeVisible()
+    {
+    }
+
+    /// <summary>
+    /// Called when the object becomes invisible
+    /// </summary>
+    protected virtual void OnBecomeInvisible()
+    {
+    }
+
+    /// <summary>
+    /// Called when colliding with other object
+    /// </summary>
+    protected virtual void OnCollision(MovingObject other)
+    {
+    }
+
+    protected virtual void OnFallOfTheMap() // FIXME: remove that
     {
         Destroy(gameObject);
     }
@@ -286,25 +347,34 @@ public class MovingObject : LevelObject
 
     #region Properties
 
-    public override float left
+    /// <summary>
+    /// True if object is invisible and won't move or participate in collisions
+    /// </summary>
+    public bool sleeping
+    {
+        get { return m_Sleeping; }
+        set { m_Sleeping = value; }
+    }
+
+    public float left
     {
         get { return posX - 0.5f * m_ColliderRect.width; }
         set { posX = value + 0.5f * m_ColliderRect.width; }
     }
     
-    public override float right
+    public float right
     {
         get { return posX + 0.5f * m_ColliderRect.width; }
         set { posX = value - 0.5f * m_ColliderRect.width; }
     }
     
-    public override float top
+    public float top
     {
         get { return posY + 0.5f * m_ColliderRect.height; }
         set { posY = value - 0.5f * m_ColliderRect.height; }
     }
     
-    public override float bottom
+    public float bottom
     {
         get { return posY - 0.5f * m_ColliderRect.height; }
         set { posY = value + 0.5f * m_ColliderRect.height; }
@@ -337,6 +407,16 @@ public class MovingObject : LevelObject
     {
         get { return m_MovementEnabled; }
         protected set { m_MovementEnabled = value; }
+    }
+
+    protected Map map
+    {
+        get { return GameManager.map; }
+    }
+    
+    protected GameCamera camera
+    {
+        get { return GameManager.camera; }
     }
 
     #endregion
