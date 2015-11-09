@@ -168,5 +168,8 @@ public class Map : BaseBehaviour
         #endif
     }
 
+    public float width { get { return m_Width; } }
+    public float height { get { return m_Height; } }
+
     #endregion
 }

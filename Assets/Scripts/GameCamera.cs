@@ -14,12 +14,14 @@ public class GameCamera : BaseBehaviour
 
     float m_HalfWidth;
     float m_HalfHeight;
+    float m_MaxPos;
 
     protected override void OnStart()
     {
         Camera camera = GetRequiredComponent<Camera>();
         m_HalfHeight = camera.orthographicSize;
         m_HalfWidth = camera.aspect * m_HalfHeight;
+        m_MaxPos = map.transform.position.x + map.width - m_HalfWidth;
     }
 
     protected override void OnFixedUpdate(float deltaTime)
@@ -31,8 +33,11 @@ public class GameCamera : BaseBehaviour
         if (distance < m_BorderLow)
         {
             cameraPos.x = playerX + m_BorderLow;
-            transform.position = cameraPos;
         }
+
+        cameraPos.x = Mathf.Min(cameraPos.x, m_MaxPos);
+
+        transform.position = cameraPos;
     }
 
     #region Properties
@@ -40,6 +45,11 @@ public class GameCamera : BaseBehaviour
     protected MarioController player
     {
         get { return GameManager.player; }
+    }
+
+    protected Map map
+    {
+        get { return GameManager.map; }
     }
 
     public float top

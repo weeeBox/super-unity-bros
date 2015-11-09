@@ -380,7 +380,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11407402, guid: 70d130dda093f4f36b0066455b2a63b8, type: 2}
       propertyPath: m_Cols
-      value: 212
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 31183718, guid: 70d130dda093f4f36b0066455b2a63b8, type: 2}
       propertyPath: m_TilePropertyArray.Array.data[0].m_RefCount

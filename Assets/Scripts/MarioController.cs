@@ -105,10 +105,15 @@ public class MarioController : LevelObject
     {
         base.UpdatePosition(deltaTime);
 
-        /* Can't travel back */
+        // keep player visible
         if (left < camera.left)
         {
             left = camera.left;
+            m_Velocity.x = 0;
+        }
+        else if (right > camera.right)
+        {
+            right = camera.right;
             m_Velocity.x = 0;
         }
     }
