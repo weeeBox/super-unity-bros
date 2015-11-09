@@ -71,6 +71,8 @@ public class EnemyController : LevelObject
         flipY = true;
         m_Velocity.x = attacker.transform.position.x < transform.position.x ? m_DamageImpactSpeed : -m_DamageImpactSpeed;
         m_Velocity.y = m_DamageJumpSpeed;
+
+        SetComponentEnabled<Animator>(false); // don't play any animation
     }
     
     #endregion
