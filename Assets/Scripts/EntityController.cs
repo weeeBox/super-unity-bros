@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public abstract class EntityController : MovingObject
+public abstract class EntityController : LevelObject
 {
     [SerializeField]
     float m_WalkSpeed;
@@ -34,7 +34,7 @@ public abstract class EntityController : MovingObject
 
     #region Damage
 
-    public abstract void TakeDamage(MovingObject attacker);
+    public abstract void TakeDamage(LevelObject attacker);
 
     #endregion
 

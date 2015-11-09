@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public abstract class Powerup : MovingObject
+public abstract class Powerup : LevelObject
 {
     [SerializeField]
     private float m_Speed = 24f;

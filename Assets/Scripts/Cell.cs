@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 using LunarCore;
@@ -18,7 +18,7 @@ public class Cell
     public readonly float y;
 
     readonly Map m_Map;
-    MovingObject m_JumpAttacker;
+    LevelObject m_JumpAttacker;
 
     public Cell(Map map, int i, int j)
     {
@@ -46,7 +46,7 @@ public class Cell
         get { return m_JumpAttacker != null; }
     }
 
-    public MovingObject jumpAttacker
+    public LevelObject jumpAttacker
     {
         get { return m_JumpAttacker; }
         protected set { m_JumpAttacker = value; }

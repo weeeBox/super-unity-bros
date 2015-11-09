@@ -5,7 +5,7 @@ using System.Collections;
 
 using LunarCore;
 
-public class MovingObject : BaseBehaviour2D
+public class LevelObject : BaseBehaviour2D
 {
     public const int DIR_LEFT = -1;
     public const int DIR_RIGHT = 1;
@@ -58,7 +58,7 @@ public class MovingObject : BaseBehaviour2D
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        MovingObject obj = other.GetComponent<MovingObject>();
+        LevelObject obj = other.GetComponent<LevelObject>();
         if (obj != null && !obj.sleeping)
         {
             OnCollision(obj);
@@ -282,7 +282,7 @@ public class MovingObject : BaseBehaviour2D
     /// <summary>
     /// Called when colliding with other object
     /// </summary>
-    protected virtual void OnCollision(MovingObject other)
+    protected virtual void OnCollision(LevelObject other)
     {
     }
 
