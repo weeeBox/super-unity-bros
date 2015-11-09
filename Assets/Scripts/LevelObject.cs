@@ -152,7 +152,7 @@ public class LevelObject : BaseBehaviour2D
         float x = this.posX;
         float y = this.posY;
         
-        bool grounded = false;
+        m_Grounded = false;
 
         if (m_Velocity.y > Mathf.Epsilon) // moving up
         {
@@ -217,10 +217,7 @@ public class LevelObject : BaseBehaviour2D
                 {
                     this.bottom = cell.top;
                     m_Grounded = true;
-                    if (m_Grounded)
-                    {
-                        OnGrounded(cell);
-                    }
+                    OnGrounded(cell);
                 }
                 else
                 {
