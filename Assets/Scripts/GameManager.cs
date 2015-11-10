@@ -18,7 +18,7 @@ public class GameManager : BaseBehaviour
     Prefabs m_Prefabs;
 
     [SerializeField]
-    MarioController m_Player;
+    PlayerController m_Player;
 
     [SerializeField]
     GameCamera m_Camera;
@@ -79,7 +79,7 @@ public class GameManager : BaseBehaviour
         get { return existingInstance.m_Camera; }
     }
 
-    public static MarioController player
+    public static PlayerController player
     {
         get { return existingInstance.m_Player; }
     }

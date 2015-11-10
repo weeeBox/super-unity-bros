@@ -5,7 +5,7 @@ using LunarCore;
 
 public class Mushroom : Powerup
 {
-    public override void Apply(MarioController player)
+    public override void Apply(PlayerController player)
     {
         player.AdvanceState();
     }

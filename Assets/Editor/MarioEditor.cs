@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 
 using System.Collections;
 
 using LunarCore;
 
-[CustomEditor(typeof(MarioController))]
-class MarioEditor : BaseEditor<MarioController>
+[CustomEditor(typeof(PlayerController))]
+class MarioEditor : BaseEditor<PlayerController>
 {
     protected override void OnSceneGUI()
     {

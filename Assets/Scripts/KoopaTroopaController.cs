@@ -8,7 +8,7 @@ public class KoopaTroopaController : EnemyController
 
     private bool m_LockedInShell;
 
-    public override void OnPlayerJump(MarioController player)
+    public override void OnPlayerJump(PlayerController player)
     {
         if (lockedInShell)
         {
@@ -39,7 +39,7 @@ public class KoopaTroopaController : EnemyController
         }
     }
 
-    public override void OnPlayerCollision(MarioController player)
+    public override void OnPlayerCollision(PlayerController player)
     {
         if (lockedInShell && Mathf.Approximately(m_Velocity.x, 0f))
         {

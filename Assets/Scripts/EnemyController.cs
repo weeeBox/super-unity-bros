@@ -12,7 +12,7 @@ public class EnemyController : LevelObject
     /// <summary>
     /// Called when player jumped on the enemy.
     /// </summary>
-    public virtual void OnPlayerJump(MarioController player)
+    public virtual void OnPlayerJump(PlayerController player)
     {
         player.JumpOnEnemy(this);
     }
@@ -20,7 +20,7 @@ public class EnemyController : LevelObject
     /// <summary>
     /// Called when collided with player (not a jump)
     /// </summary>
-    public virtual void OnPlayerCollision(MarioController player)
+    public virtual void OnPlayerCollision(PlayerController player)
     {
         player.TakeDamage(this);
     }

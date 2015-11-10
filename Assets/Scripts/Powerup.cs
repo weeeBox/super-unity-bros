@@ -20,7 +20,7 @@ public abstract class Powerup : LevelObject
         m_Velocity.y = 75f; // FIXME: magic number
     }
 
-    public abstract void Apply(MarioController player);
+    public abstract void Apply(PlayerController player);
 
     IEnumerator Grow()
     {

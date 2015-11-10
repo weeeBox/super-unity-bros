@@ -5,7 +5,7 @@ using System.Collections;
 
 using LunarCore;
 
-public class MarioController : LevelObject
+public class PlayerController : LevelObject
 {
     enum State
     {
@@ -193,6 +193,8 @@ public class MarioController : LevelObject
                 animator.runtimeAnimatorController = m_BigAnimatorController;
                 break;
         }
+
+        animator.SetTrigger("ChangeState");
 
         m_State = state;
     }

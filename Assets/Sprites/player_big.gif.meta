@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: dc05d98e62fb948d39e8dc7cdc29254e
-timeCreated: 1447129512
+timeCreated: 1447136765
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
@@ -11,6 +11,7 @@ TextureImporter:
     21300008: player_big_4
     21300010: player_big_5
     21300012: player_big_6
+    21300014: player_big_7
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -139,6 +140,19 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 384
+        y: 0
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: .5, y: .25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      packingTag: 
+    - name: player_big_7
+      rect:
+        serializedVersion: 2
+        x: 448
         y: 0
         width: 64
         height: 128

@@ -5,7 +5,7 @@ public class GoombaController : EnemyController
 {
     bool m_Crushed;
 
-    public override void OnPlayerJump(MarioController player)
+    public override void OnPlayerJump(PlayerController player)
     {
         if (!m_Crushed)
         {
@@ -14,7 +14,7 @@ public class GoombaController : EnemyController
         }
     }
 
-    public override void OnPlayerCollision(MarioController player)
+    public override void OnPlayerCollision(PlayerController player)
     {
         if (!m_Crushed)
         {

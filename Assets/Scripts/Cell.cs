@@ -30,7 +30,7 @@ public class Cell
         this.y = (0.5f + i) * Constants.CELL_HEIGHT;
     }
 
-    public virtual void Hit(MarioController attacker)
+    public virtual void Hit(PlayerController attacker)
     {
     }
 
@@ -89,7 +89,7 @@ class BrickCell : Cell
     {
     }
 
-    public override void Hit(MarioController attacker)
+    public override void Hit(PlayerController attacker)
     {
         if (!m_Blank)
         {
@@ -97,7 +97,7 @@ class BrickCell : Cell
         }
     }
 
-    protected virtual void OnHit(MarioController attacker)
+    protected virtual void OnHit(PlayerController attacker)
     {
         jumpAttacker = attacker;
         map.Jump(i, j, JumpFinished);
@@ -133,7 +133,7 @@ class CoinsCell : BrickCell
         m_Coins = coins;
     }
 
-    protected override void OnHit(MarioController attacker)
+    protected override void OnHit(PlayerController attacker)
     {
         assert.IsTrue(m_Coins > 0);
 
@@ -162,7 +162,7 @@ class PowerCell : BrickCell
         m_PowerupType = powerup;
     }
 
-    protected override void OnHit(MarioController attacker)
+    protected override void OnHit(PlayerController attacker)
     {
         base.OnHit(attacker);
         SetBlank();

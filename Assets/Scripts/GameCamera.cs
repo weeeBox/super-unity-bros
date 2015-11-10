@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 using LunarCore;
@@ -42,7 +42,7 @@ public class GameCamera : BaseBehaviour
 
     #region Properties
 
-    protected MarioController player
+    protected PlayerController player
     {
         get { return GameManager.player; }
     }
