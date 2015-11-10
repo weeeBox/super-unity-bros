@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TitleMenu : MonoBehaviour
+public class TestSelection : MonoBehaviour
 {
     #region Button Handlers
 
-    public void OnStartGameButton()
+    public void OnTestButton(int index)
     {
-        Application.LoadLevel(Scenes.Main);
+        Application.LoadLevel("Test-" + index);
     }
 
-    public void OnStartTestButton()
+    public void OnBackButton()
     {
         Application.LoadLevel(Scenes.TestSelection);
     }
