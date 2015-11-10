@@ -15,3 +15,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Test-1.unity
   - enabled: 1
     path: Assets/Scenes/Test-2.unity
+  - enabled: 1
+    path: Assets/Scenes/Test-3.unity
