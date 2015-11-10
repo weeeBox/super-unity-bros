@@ -38,6 +38,11 @@ namespace LunarCore
             OnFixedUpdate(Time.fixedDeltaTime);
         }
 
+        void OnDestroy()
+        {
+            OnDestroyed();
+        }
+
         #endregion
 
         #region Inheritance
@@ -63,6 +68,10 @@ namespace LunarCore
         }
 
         protected virtual void OnFixedUpdate(float deltaTime)
+        {
+        }
+
+        protected virtual void OnDestroyed()
         {
         }
 

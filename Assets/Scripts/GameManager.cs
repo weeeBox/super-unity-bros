@@ -10,8 +10,10 @@ public class Prefabs
     public GameObject mushroom;
 }
 
-public class GameManager : SingletonBehaviour<GameManager>
+public class GameManager : BaseBehaviour
 {
+    static GameManager s_Instance;
+
     [SerializeField]
     Prefabs m_Prefabs;
 
@@ -23,6 +25,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     Map m_Map;
 
+    protected override void OnAwake()
+    {
+        s_Instance = this;
+    }
+
     protected override void OnStart()
     {
         assert.IsNotNull(m_Player);
@@ -30,6 +37,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 
         m_Map = FindObjectOfType<Map>();
         assert.IsNotNull(m_Map);
+    }
+
+    protected override void OnDestroyed()
+    {
+        s_Instance = null;
     }
 
     public static GameObject CreateJumpingCoin()
@@ -79,6 +91,11 @@ public class GameManager : SingletonBehaviour<GameManager>
             assert.IsNotNull(instance);
             return instance;
         }
+    }
+
+    public static GameManager instance
+    {
+        get { return s_Instance; }
     }
 
     #endregion
