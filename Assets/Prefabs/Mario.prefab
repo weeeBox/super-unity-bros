@@ -58,6 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f758a724dc8cb4be3a8aef2cd6956816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_WalkSpeed: 36
   m_ColliderRect:
     serializedVersion: 2
     x: 0
@@ -65,11 +66,13 @@ MonoBehaviour:
     width: 4.80000019
     height: 6.4000001
   m_PushCollisionSpeed: 24
-  m_WalkSpeed: 36
+  m_GravityScale: 1
   m_JumpHighSpeed: 129
   m_JumpSquashSpeed: 70
   m_WalkAcc: 112
   m_WalkSlowAcc: 57
+  m_BigAnimatorController: {fileID: 22100000, guid: e14d229e3cab54ff8828ac73840b4cea,
+    type: 2}
 --- !u!212 &21222322
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -192,6 +195,11 @@ Prefab:
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_BigAnimatorController
+      value: 
+      objectReference: {fileID: 22100000, guid: e14d229e3cab54ff8828ac73840b4cea,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 159668}

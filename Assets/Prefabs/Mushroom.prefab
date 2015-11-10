@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 442524}
   - 212: {fileID: 21237542}
   - 114: {fileID: 11463490}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Mushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,6 +40,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cb844971a5ac4f578c8700236ccc290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_WalkSpeed: 24
   m_ColliderRect:
     serializedVersion: 2
     x: 0
@@ -47,7 +48,7 @@ MonoBehaviour:
     width: 4.80000019
     height: 6.4000001
   m_PushCollisionSpeed: 24
-  m_Speed: 24
+  m_GravityScale: 1
 --- !u!212 &21237542
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -70,9 +71,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1336177563
+  m_SortingLayerID: 770940025
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300010, guid: b378d48ee90cb4aacaf3f91af7c3462b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e7a95a682fd1c4ed4b22706b2c06d894, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_DrawMode: 0
   m_9SliceSmartTilingThreshold: .5
@@ -102,11 +103,24 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_SortingLayerID
-      value: -1336177563
+      value: 770940025
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_ColliderRect.width
       value: 4.80000019
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e7a95a682fd1c4ed4b22706b2c06d894,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_WalkSpeed
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

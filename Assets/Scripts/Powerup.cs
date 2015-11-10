@@ -3,9 +3,6 @@ using System.Collections;
 
 public abstract class Powerup : LevelObject
 {
-    [SerializeField]
-    private float m_Speed = 24f;
-
     protected override void OnStart()
     {
         base.OnStart();
@@ -23,7 +20,7 @@ public abstract class Powerup : LevelObject
         m_Velocity.y = 75f; // FIXME: magic number
     }
 
-    public abstract void Apply();
+    public abstract void Apply(MarioController player);
 
     IEnumerator Grow()
     {
@@ -52,6 +49,6 @@ public abstract class Powerup : LevelObject
     
     void GrowFinished()
     {
-        m_Velocity.x = m_Speed;
+        m_Velocity.x = walkSpeed;
     }
 }

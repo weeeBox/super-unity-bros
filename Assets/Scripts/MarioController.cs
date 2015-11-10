@@ -7,6 +7,13 @@ using LunarCore;
 
 public class MarioController : LevelObject
 {
+    enum State
+    {
+        Small = 0,
+        Big,
+        Super
+    }
+
     [SerializeField]
     private float m_JumpHighSpeed = 120.0f;
 
@@ -19,11 +26,17 @@ public class MarioController : LevelObject
     [SerializeField]
     private float m_WalkSlowAcc = 57.0f;
 
-    /* User move input */
-    private Vector2 m_MoveInput;
+    [SerializeField]
+    private RuntimeAnimatorController m_BigAnimatorController;
 
-    private bool m_Jumping;
-    private Vector3 m_InitialPos;
+    State m_State;
+
+    /* User move input */
+    Vector2 m_MoveInput;
+
+    bool m_Jumping;
+
+    RuntimeAnimatorController m_InitialAnimatorController;
 
     #region Lifecycle
 
@@ -31,7 +44,10 @@ public class MarioController : LevelObject
     {
         base.OnAwake();
 
-        m_InitialPos = transform.localPosition;
+        assert.IsNotNull(m_BigAnimatorController);
+
+        m_InitialAnimatorController = animator.runtimeAnimatorController;
+        m_State = State.Small;
     }
 
     protected override void OnEnabled()
@@ -153,6 +169,36 @@ public class MarioController : LevelObject
 
     #endregion
 
+    #region State
+
+    public void AdvanceState()
+    {
+        if (m_State < State.Super)
+        {
+            SetState(m_State + 1);
+        }
+    }
+
+    void SetState(State state)
+    {
+        switch (state)
+        {
+            case State.Small:
+                animator.runtimeAnimatorController = m_InitialAnimatorController;
+                break;
+            case State.Big:
+                animator.runtimeAnimatorController = m_BigAnimatorController;
+                break;
+            case State.Super:
+                animator.runtimeAnimatorController = m_BigAnimatorController;
+                break;
+        }
+
+        m_State = state;
+    }
+
+    #endregion
+
     #region Death
 
     IEnumerator DieCoroutine()
@@ -223,7 +269,7 @@ public class MarioController : LevelObject
 
     void PickPowerup(Powerup powerup)
     {
-        powerup.Apply();
+        powerup.Apply(this);
         Destroy(powerup.gameObject);
     }
 
