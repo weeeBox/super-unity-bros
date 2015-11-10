@@ -41,7 +41,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 76fe7cd6dd6a845378a7604e2d1a10d2, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 1
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -200,6 +200,10 @@ Prefab:
       value: 
       objectReference: {fileID: 22100000, guid: e14d229e3cab54ff8828ac73840b4cea,
         type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_UpdateMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 159668}

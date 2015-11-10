@@ -56,13 +56,6 @@ public class PlayerController : LevelObject
 
         flipX = false;
         m_MoveInput = Vector2.zero;
-        m_Jumping = false;
-    }
-
-    protected override void OnFixedUpdate(float deltaTime)
-    {
-        base.OnFixedUpdate(deltaTime);
-        UpdateAnimation();
     }
 
     protected override void OnUpdate(float deltaTime)
@@ -74,8 +67,7 @@ public class PlayerController : LevelObject
         
         if (Input.GetKeyDown(KeyCode.Space) && grounded && !m_Jumping)
         {
-            m_Jumping = true;
-            m_Velocity.y = m_JumpHighSpeed;
+            StartJump(m_JumpHighSpeed);
         }
     }
 
@@ -115,6 +107,12 @@ public class PlayerController : LevelObject
         }
         
         m_Velocity.x = vx;
+
+        if (!dead && grounded)
+        {
+            animator.SetFloat("Speed", Mathf.Abs(m_Velocity.x));
+            animator.SetBool("Stop", m_MoveInput.x > Mathf.Epsilon && m_Velocity.x < 0 || m_MoveInput.x < -Mathf.Epsilon && m_Velocity.x > 0);
+        }
     }
 
     protected override void UpdatePosition(float deltaTime)
@@ -134,21 +132,14 @@ public class PlayerController : LevelObject
         }
     }
 
-    void UpdateAnimation()
-    {
-        if (!dead)
-        {
-            animator.SetBool("Jump", m_Jumping);
-            animator.SetFloat("Speed", Mathf.Abs(m_Velocity.x));
-            animator.SetBool("Stop", m_MoveInput.x > Mathf.Epsilon && m_Velocity.x < 0 || m_MoveInput.x < -Mathf.Epsilon && m_Velocity.x > 0);
-        }
-    }
-
     protected override void OnGrounded(Cell cell)
     {
         base.OnGrounded(cell);
 
-        m_Jumping = false;
+        if (m_Jumping)
+        {
+            EndJump();
+        }
     }
 
     protected override void OnObstacle(Cell cell)
@@ -175,11 +166,26 @@ public class PlayerController : LevelObject
     {
         if (m_State < State.Super)
         {
-            SetState(m_State + 1);
+            setState(m_State + 1);
         }
     }
 
-    void SetState(State state)
+    internal void OnStartChangeStateAnimation()
+    {
+        Time.timeScale = 0; // stop everything when animation is played
+    }
+
+    internal void OnEndChangeStateAnimation()
+    {
+        Time.timeScale = 1; // resume everything
+
+        if (m_Jumping)
+        {
+            animator.SetBool("Jump", true);
+        }
+    }
+
+    void setState(State state)
     {
         switch (state)
         {
@@ -194,15 +200,32 @@ public class PlayerController : LevelObject
                 break;
         }
 
-        animator.SetTrigger("ChangeState");
-
         m_State = state;
+        animator.SetBool("Jump", false);
+        animator.SetTrigger("ChangeState");
+    }
+    
+    #endregion
+
+    #region Jump
+
+    void StartJump(float velocity)
+    {
+        m_Jumping = true;
+        m_Velocity.y = velocity;
+        animator.SetBool("Jump", true);
+    }
+
+    void EndJump()
+    {
+        m_Jumping = false;
+        animator.SetBool("Jump", false);
     }
 
     #endregion
 
     #region Death
-
+    
     IEnumerator DieCoroutine()
     {
         animator.SetBool("Stop", false);
@@ -305,8 +328,7 @@ public class PlayerController : LevelObject
         
         bottom = bottomTargetY;
 
-        m_Jumping = true;
-        m_Velocity.y = m_JumpSquashSpeed; // FIXME: create a convenience method
+        StartJump(m_JumpSquashSpeed);
     }
 
     #endregion

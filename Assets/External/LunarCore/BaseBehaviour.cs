@@ -1,5 +1,6 @@
 using UnityEngine;
 
+using System;
 using System.Collections;
 
 namespace LunarCore
@@ -78,6 +79,17 @@ namespace LunarCore
         #endregion
 
         #region Helpers
+
+        public void InvokeLater(Action action)
+        {
+            StartCoroutine(InvokeLaterCoroutine(action));
+        }
+
+        IEnumerator InvokeLaterCoroutine(Action action)
+        {
+            yield return null;
+            action();
+        }
 
         public void SetComponentEnabled<T>(bool enabled)
         {
