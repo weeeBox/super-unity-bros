@@ -38,6 +38,7 @@ public class PlayerController : LevelObject
     Vector2 m_MoveInput;
 
     bool m_Jumping;
+    bool m_Invincible;
 
     RuntimeAnimatorController m_InitialAnimatorController;
     Rect m_InitialColliderRect;
@@ -51,7 +52,7 @@ public class PlayerController : LevelObject
         assert.IsNotNull(m_BigAnimatorController);
 
         m_InitialAnimatorController = animator.runtimeAnimatorController;
-        m_InitialColliderRect = m_BigColliderRect;
+        m_InitialColliderRect = colliderRect;
         m_State = State.Small;
     }
 
@@ -171,7 +172,7 @@ public class PlayerController : LevelObject
     {
         if (m_State < State.Super)
         {
-            setState(m_State + 1);
+            ChangeState(m_State + 1);
         }
     }
 
@@ -190,13 +191,14 @@ public class PlayerController : LevelObject
         }
     }
 
-    void setState(State state)
+    void ChangeState(State state)
     {
         switch (state)
         {
             case State.Small:
                 animator.runtimeAnimatorController = m_InitialAnimatorController;
                 colliderRect = m_InitialColliderRect;
+                StartInvincibility();
                 break;
             case State.Big:
             case State.Super:
@@ -208,6 +210,32 @@ public class PlayerController : LevelObject
         m_State = state;
         animator.SetBool("Jump", false);
         animator.SetTrigger("ChangeState");
+    }
+
+    void StartInvincibility()
+    {
+        assert.IsFalse(m_Invincible);
+        m_Invincible = true;
+
+        StartCoroutine(InvincibilityCoroutine());
+    }
+
+    IEnumerator InvincibilityCoroutine()
+    {
+        assert.IsTrue(m_Invincible);
+
+        SpriteRenderer renderer = GetRequiredComponent<SpriteRenderer>();
+        Color currentColor = renderer.color;
+        Color clearColor = Color.clear;
+
+        for (int i = 0; i < 203; ++i) // magic number of frames
+        {
+            renderer.color = i % 2 == 0 ? clearColor : currentColor;
+            yield return null;
+        }
+
+        renderer.color = currentColor;
+        m_Invincible = false;
     }
     
     #endregion
@@ -309,7 +337,14 @@ public class PlayerController : LevelObject
 
     protected override void OnDamage(LevelObject attacker)
     {
-        Die();
+        if (m_State == State.Small)
+        {
+            Die();
+        }
+        else
+        {
+            ChangeState(State.Small);
+        }
     }
 
     #endregion
@@ -334,6 +369,15 @@ public class PlayerController : LevelObject
         bottom = bottomTargetY;
 
         StartJump(m_JumpSquashSpeed);
+    }
+
+    #endregion
+
+    #region Properties
+
+    public bool invincible
+    {
+        get { return m_Invincible; }
     }
 
     #endregion

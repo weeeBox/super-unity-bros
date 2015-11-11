@@ -91,6 +91,11 @@ namespace LunarCore
             action();
         }
 
+        public void StopCoroutine(Delegate coroutineMethod)
+        {
+            StopCoroutine(coroutineMethod.Method.Name);
+        }
+
         public void SetComponentEnabled<T>(bool enabled)
         {
             T component = GetComponent<T>();

@@ -22,7 +22,10 @@ public class EnemyController : LevelObject
     /// </summary>
     public virtual void OnPlayerCollision(PlayerController player)
     {
-        player.TakeDamage(this);
+        if (!player.invincible)
+        {
+            player.TakeDamage(this);
+        }
     }
 
     protected override void OnStart()
