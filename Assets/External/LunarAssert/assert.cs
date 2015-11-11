@@ -2150,13 +2150,19 @@ class EditorAssertImp : IAssertImp
 
     void SetBreakpoint()
     {
-        SourceFileInfo info;
-        if (TryResolveBreakPointSourceFile(out info))
+        while (true)
         {
-            assertUtils.OpenFileAtLineExternal(info.path, info.line);
-        }
+            SourceFileInfo info;
+            if (TryResolveBreakPointSourceFile(out info))
+            {
+                assertUtils.OpenFileAtLineExternal(info.path, info.line);
+            }
 
-        assertUtils.DisplayDialog("Assertion Failed", "Press 'Continue' when done", "Continue");
+            if (EditorUtility.DisplayDialog("Assertion Failed", "Press 'Continue' when done", "Continue", "Retry"))
+            {
+                break;
+            }
+        }
     }
 
     bool TryResolveBreakPointSourceFile(out SourceFileInfo info)

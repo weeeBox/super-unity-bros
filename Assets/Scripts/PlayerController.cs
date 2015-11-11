@@ -138,13 +138,23 @@ public class PlayerController : LevelObject
         }
     }
 
-    protected override void OnStayGrounded(Cell cell)
+    protected override void OnStartFalling()
     {
-        base.OnStayGrounded(cell);
+        if (!m_Jumping)
+        {
+            StartFall();
+        }
+    }
 
+    protected override void OnStopFalling()
+    {
         if (m_Jumping)
         {
             EndJump();
+        }
+        else
+        {
+            EndFall();
         }
     }
 
@@ -244,15 +254,36 @@ public class PlayerController : LevelObject
 
     void StartJump(float velocity)
     {
+        if (!grounded)
+        {
+            EndFall();
+        }
+
         m_Jumping = true;
         m_Velocity.y = velocity;
+
+        assert.IsTrue(animator.enabled);
         animator.SetBool("Jump", true);
     }
 
     void EndJump()
     {
         m_Jumping = false;
+        assert.IsTrue(animator.enabled);
         animator.SetBool("Jump", false);
+    }
+
+    void StartFall()
+    {
+        assert.IsFalse(grounded);
+        assert.IsFalse(m_Jumping);
+        animator.enabled = false;
+    }
+
+    void EndFall()
+    {
+        assert.IsFalse(m_Jumping);
+        animator.enabled = true;
     }
 
     #endregion
@@ -367,8 +398,7 @@ public class PlayerController : LevelObject
         }
         
         bottom = bottomTargetY;
-
-        StartJump(m_JumpSquashSpeed);
+        m_Velocity.y = m_JumpSquashSpeed;
     }
 
     #endregion

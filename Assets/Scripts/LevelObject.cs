@@ -152,8 +152,10 @@ public class LevelObject : BaseBehaviour2D
     {
         float x = this.posX;
         float y = this.posY;
-        
+
+        bool wasGrounded = m_Grounded;
         m_Grounded = false;
+        Cell groundCell = null;
 
         if (m_Velocity.y > Mathf.Epsilon) // moving up
         {
@@ -218,7 +220,7 @@ public class LevelObject : BaseBehaviour2D
                 {
                     this.bottom = cell.top;
                     m_Grounded = true;
-                    OnStayGrounded(cell);
+                    groundCell = cell;
                 }
                 else
                 {
@@ -234,6 +236,21 @@ public class LevelObject : BaseBehaviour2D
                     OnCellJumped(right);
                 }
             }
+        }
+
+        if (wasGrounded && !grounded)
+        {
+            OnStartFalling();
+        }
+        else if (!wasGrounded && grounded)
+        {
+            OnStopFalling();
+        }
+
+        if (grounded)
+        {
+            assert.IsNotNull(groundCell);
+            OnStayGrounded(groundCell);
         }
     }
     
@@ -302,6 +319,20 @@ public class LevelObject : BaseBehaviour2D
     }
 
     protected virtual void OnJumpHitCell(Cell cell)
+    {
+    }
+
+    /// <summary>
+    /// Called when player starts falling (first frame not touching ground)
+    /// </summary>
+    protected virtual void OnStartFalling()
+    {
+    }
+
+    /// <summary>
+    /// Called when player stops falling (first frame touching ground)
+    /// </summary>
+    protected virtual void OnStopFalling()
     {
     }
 
