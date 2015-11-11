@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: bb3bf7cee90eb4d4f84df0690e0752e7
-timeCreated: 1445809632
+timeCreated: 1447219786
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
@@ -12,6 +12,7 @@ TextureImporter:
     21300010: mario_small_idle
     21300012: mario_small_stop
     21300014: mario_small_dead
+    21300016: player_small_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -68,6 +69,9 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      packingTag: 
     - name: mario_small_walk_1
       rect:
         serializedVersion: 2
@@ -78,6 +82,9 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      packingTag: 
     - name: mario_small_walk_2
       rect:
         serializedVersion: 2
@@ -88,6 +95,9 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      packingTag: 
     - name: mario_small_walk_3
       rect:
         serializedVersion: 2
@@ -98,6 +108,9 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      packingTag: 
     - name: mario_small_jump
       rect:
         serializedVersion: 2
@@ -108,6 +121,9 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      packingTag: 
     - name: mario_small_stop
       rect:
         serializedVersion: 2
@@ -118,6 +134,9 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      packingTag: 
     - name: mario_small_dead
       rect:
         serializedVersion: 2
@@ -128,6 +147,24 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      packingTag: 
+    - name: player_small_0
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      packingTag: 
+    outline: []
+    physicsShape: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
