@@ -91,6 +91,12 @@ public class Map : BaseBehaviour
         m_TileMap.SetTile(new IntVector2(j, i), m_Sprites[type]);
     }
 
+    public void RemoveTile(int i, int j)
+    {
+        m_TileMap.SetTile(new IntVector2(j, i), null);
+        m_Cells[i, j] = null;
+    }
+
     public void Jump(int i, int j, Action finishAction = null)
     {
         Cell cell = GetCellAt(i, j);

@@ -410,5 +410,10 @@ public class PlayerController : LevelObject
         get { return m_Invincible; }
     }
 
+    public bool isSmall
+    {
+        get { return m_State == State.Small; }
+    }
+
     #endregion
 }

@@ -8,6 +8,7 @@ public class Prefabs
 {
     public GameObject coin;
     public GameObject mushroom;
+    public GameObject brokenBrick;
 }
 
 public class GameManager : BaseBehaviour
@@ -17,17 +18,15 @@ public class GameManager : BaseBehaviour
     [SerializeField]
     Prefabs m_Prefabs;
 
-    [SerializeField]
     PlayerController m_Player;
-
-    [SerializeField]
     GameCamera m_Camera;
-
     Map m_Map;
 
     protected override void OnAwake()
     {
         s_Instance = this;
+        m_Player = GameObject.FindObjectOfType<PlayerController>();
+        m_Camera = GameObject.FindObjectOfType<GameCamera>();
     }
 
     protected override void OnStart()
@@ -65,6 +64,11 @@ public class GameManager : BaseBehaviour
         }
 
         return null;
+    }
+
+    public static GameObject CreateBrokenBrick()
+    {
+        return GameObject.Instantiate(instance.m_Prefabs.brokenBrick) as GameObject;
     }
 
     #region Properties
