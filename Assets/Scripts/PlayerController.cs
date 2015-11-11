@@ -15,6 +15,9 @@ public class PlayerController : LevelObject
     }
 
     [SerializeField]
+    Rect m_BigColliderRect;
+
+    [SerializeField]
     private float m_JumpHighSpeed = 120.0f;
 
     [SerializeField]
@@ -37,6 +40,7 @@ public class PlayerController : LevelObject
     bool m_Jumping;
 
     RuntimeAnimatorController m_InitialAnimatorController;
+    Rect m_InitialColliderRect;
 
     #region Lifecycle
 
@@ -47,6 +51,7 @@ public class PlayerController : LevelObject
         assert.IsNotNull(m_BigAnimatorController);
 
         m_InitialAnimatorController = animator.runtimeAnimatorController;
+        m_InitialColliderRect = m_BigColliderRect;
         m_State = State.Small;
     }
 
@@ -191,12 +196,12 @@ public class PlayerController : LevelObject
         {
             case State.Small:
                 animator.runtimeAnimatorController = m_InitialAnimatorController;
+                colliderRect = m_InitialColliderRect;
                 break;
             case State.Big:
-                animator.runtimeAnimatorController = m_BigAnimatorController;
-                break;
             case State.Super:
                 animator.runtimeAnimatorController = m_BigAnimatorController;
+                colliderRect = m_BigColliderRect;
                 break;
         }
 

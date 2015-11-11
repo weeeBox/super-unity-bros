@@ -83,6 +83,7 @@ public class LevelObject : BaseBehaviour2D
 
         BoxCollider2D collider = gameObject.AddComponent<BoxCollider2D>();
         collider.isTrigger = true;
+        collider.offset = m_ColliderRect.position;
         collider.size = m_ColliderRect.size;
 
         m_Collider = collider;
@@ -375,26 +376,39 @@ public class LevelObject : BaseBehaviour2D
 
     public float left
     {
-        get { return posX - 0.5f * m_ColliderRect.width; }
-        set { posX = value + 0.5f * m_ColliderRect.width; }
+        get { return posX + m_ColliderRect.x - 0.5f * m_ColliderRect.width; }
+        set { posX = value - m_ColliderRect.x + 0.5f * m_ColliderRect.width; }
     }
     
     public float right
     {
-        get { return posX + 0.5f * m_ColliderRect.width; }
-        set { posX = value - 0.5f * m_ColliderRect.width; }
+        get { return posX + m_ColliderRect.x + 0.5f * m_ColliderRect.width; }
+        set { posX = value - m_ColliderRect.x - 0.5f * m_ColliderRect.width; }
     }
     
     public float top
     {
-        get { return posY + 0.5f * m_ColliderRect.height; }
-        set { posY = value - 0.5f * m_ColliderRect.height; }
+        get { return posY + m_ColliderRect.y + 0.5f * m_ColliderRect.height; }
+        set { posY = value - m_ColliderRect.y - 0.5f * m_ColliderRect.height; }
     }
     
     public float bottom
     {
-        get { return posY - 0.5f * m_ColliderRect.height; }
-        set { posY = value + 0.5f * m_ColliderRect.height; }
+        get { return posY + m_ColliderRect.y - 0.5f * m_ColliderRect.height; }
+        set { posY = value - m_ColliderRect.y + 0.5f * m_ColliderRect.height; }
+    }
+
+    public Rect colliderRect
+    {
+        get { return m_ColliderRect; }
+        set
+        {
+            m_ColliderRect = value;
+
+            BoxCollider2D collider = GetRequiredComponent<BoxCollider2D>();
+            collider.offset = m_ColliderRect.position;
+            collider.size = m_ColliderRect.size;
+        }
     }
 
     public bool dead

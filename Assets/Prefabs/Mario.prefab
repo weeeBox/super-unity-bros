@@ -67,6 +67,12 @@ MonoBehaviour:
     height: 6.4000001
   m_PushCollisionSpeed: 24
   m_GravityScale: 1
+  m_BigColliderRect:
+    serializedVersion: 2
+    x: 0
+    y: 3.20000005
+    width: 4.80000019
+    height: 12.8000002
   m_JumpHighSpeed: 129
   m_JumpSquashSpeed: 70
   m_WalkAcc: 112
@@ -203,6 +209,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_UpdateMode
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_BigColliderRect.y
+      value: 3.20000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_BigColliderRect.width
+      value: 4.80000019
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_BigColliderRect.height
+      value: 12.8000002
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
