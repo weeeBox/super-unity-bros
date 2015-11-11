@@ -138,9 +138,9 @@ public class PlayerController : LevelObject
         }
     }
 
-    protected override void OnGrounded(Cell cell)
+    protected override void OnStayGrounded(Cell cell)
     {
-        base.OnGrounded(cell);
+        base.OnStayGrounded(cell);
 
         if (m_Jumping)
         {

@@ -218,7 +218,7 @@ public class LevelObject : BaseBehaviour2D
                 {
                     this.bottom = cell.top;
                     m_Grounded = true;
-                    OnGrounded(cell);
+                    OnStayGrounded(cell);
                 }
                 else
                 {
@@ -305,7 +305,10 @@ public class LevelObject : BaseBehaviour2D
     {
     }
 
-    protected virtual void OnGrounded(Cell cell)
+    /// <summary>
+    /// Called every frame when player stands on the ground
+    /// </summary>
+    protected virtual void OnStayGrounded(Cell cell)
     {
         m_Velocity.y = 0f;
     }
