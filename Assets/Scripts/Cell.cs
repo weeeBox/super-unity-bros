@@ -106,15 +106,22 @@ class BrickCell : Cell
         }
         else
         {
-            map.RemoveTile(i, j);
-
-            GameObject brokenBrick = GameManager.CreateBrokenBrick();
-            brokenBrick.transform.parent = map.transform;
-
-            Vector3 pos = position;
-            pos.y += 1.2f; // FIXME: remove magic
-            brokenBrick.transform.localPosition = pos;
+            map.InvokeLater(RemoveTile); // invoke next frame: give a Goomba chance to die
         }
+    }
+
+    void RemoveTile()
+    {
+        map.RemoveTile(i, j);
+        
+        GameObject brokenBrick = GameManager.CreateBrokenBrick();
+        brokenBrick.transform.parent = map.transform;
+        
+        Vector3 pos = position;
+        pos.y += 1.2f; // FIXME: remove magic
+        brokenBrick.transform.localPosition = pos;
+
+        jumpAttacker = null;
     }
 
     void JumpFinished()

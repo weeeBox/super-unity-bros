@@ -25,17 +25,9 @@ public class GameManager : BaseBehaviour
     protected override void OnAwake()
     {
         s_Instance = this;
-        m_Player = GameObject.FindObjectOfType<PlayerController>();
-        m_Camera = GameObject.FindObjectOfType<GameCamera>();
-    }
-
-    protected override void OnStart()
-    {
-        assert.IsNotNull(m_Player);
-        assert.IsNotNull(m_Camera);
-
+        m_Player = FindObjectOfType<PlayerController>();
+        m_Camera = FindObjectOfType<GameCamera>();
         m_Map = FindObjectOfType<Map>();
-        assert.IsNotNull(m_Map);
     }
 
     protected override void OnDestroyed()

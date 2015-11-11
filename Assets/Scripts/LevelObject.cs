@@ -155,7 +155,6 @@ public class LevelObject : BaseBehaviour2D
 
         bool wasGrounded = m_Grounded;
         m_Grounded = false;
-        Cell groundCell = null;
 
         if (m_Velocity.y > Mathf.Epsilon) // moving up
         {
@@ -220,7 +219,7 @@ public class LevelObject : BaseBehaviour2D
                 {
                     this.bottom = cell.top;
                     m_Grounded = true;
-                    groundCell = cell;
+                    OnStayGrounded(cell);
                 }
                 else
                 {
@@ -245,12 +244,6 @@ public class LevelObject : BaseBehaviour2D
         else if (!wasGrounded && grounded)
         {
             OnStopFalling();
-        }
-
-        if (grounded)
-        {
-            assert.IsNotNull(groundCell);
-            OnStayGrounded(groundCell);
         }
     }
     

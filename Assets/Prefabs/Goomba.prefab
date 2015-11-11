@@ -67,7 +67,7 @@ MonoBehaviour:
     height: 6.4000001
   m_PushCollisionSpeed: 24
   m_GravityScale: 1
-  m_DamageJumpSpeed: 50
+  m_DamageJumpSpeed: 74
   m_DamageImpactSpeed: 24
 --- !u!212 &21287850
 SpriteRenderer:
@@ -132,6 +132,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_ColliderRect.width
       value: 2.4000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_DamageJumpSpeed
+      value: 74
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

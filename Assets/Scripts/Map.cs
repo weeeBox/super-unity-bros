@@ -15,6 +15,7 @@ public class Map : BaseBehaviour
     public const int CELL_BLANK     = 2;
     public const int CELL_QUESTION  = 3;
     public const int CELL_BRICK     = 4;
+    public const int CELL_BRICK_2   = 26;
     public const int CELL_TUBE_TOP1 = 5;
     public const int CELL_TUBE_TOP2 = 6;
     public const int CELL_TUBE1     = 7;
@@ -71,7 +72,8 @@ public class Map : BaseBehaviour
                     {
                         cell = new Cell(this, i, j);
                     }
-                    else if (tile == m_Sprites[CELL_BRICK])
+                    else if (tile == m_Sprites[CELL_BRICK] || 
+                             tile == m_Sprites[CELL_BRICK_2])
                     {
                         cell = new BrickCell(this, i, j);
                     }
