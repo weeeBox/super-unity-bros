@@ -165,7 +165,10 @@ public class PlayerController : LevelObject
 
     protected override void OnJumpHitCell(Cell cell)
     {
-        cell.Hit(this);
+        if (!cell.jumping)
+        {
+            cell.Hit(this);
+        }
     }
 
     protected override void OnDie()
