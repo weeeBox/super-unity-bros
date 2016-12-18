@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 
 using System.Collections;
 using System.IO;
@@ -27,7 +28,7 @@ public class Map : BaseBehaviour
     [SerializeField]
     private Sprite[] m_Sprites;
 
-    private TileMap m_TileMap;
+    private Tilemap m_TileMap;
 
     [SerializeField]
     int m_Rows;
@@ -40,7 +41,7 @@ public class Map : BaseBehaviour
 
     protected override void OnStart()
     {
-        m_TileMap = GetComponent<TileMap>();
+        m_TileMap = GetComponent<Tilemap>();
         GenerateCells();
     }
 
@@ -90,12 +91,12 @@ public class Map : BaseBehaviour
 
     public void SetTile(int i, int j, int type)
     {
-        m_TileMap.SetTile(new IntVector2(j, i), m_Sprites[type]);
+        m_TileMap.SetTile(j, i, m_Sprites[type]);
     }
 
     public void RemoveTile(int i, int j)
     {
-        m_TileMap.SetTile(new IntVector2(j, i), null);
+        m_TileMap.SetTile(j, i, null);
         m_Cells[i, j] = null;
     }
 
