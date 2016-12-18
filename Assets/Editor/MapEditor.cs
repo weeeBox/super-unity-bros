@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
+
 using UnityEditor;
 using System.Collections;
 
@@ -26,7 +28,7 @@ public class MapEditor : BaseEditor<Map>
         int rows = map.rows;
         int cols = map.cols;
 
-        TileMap tileMap = target.GetComponent<TileMap>();
+        Tilemap tileMap = target.GetComponent<Tilemap>();
         target.rows = rows;
         target.cols = cols;
         
@@ -37,7 +39,7 @@ public class MapEditor : BaseEditor<Map>
                 int type = map[i, j];
                 if (type != -1)
                 {
-                    tileMap.SetTile(new IntVector2(j, i), target.sprites[type]);
+                    tileMap.SetTile(j, i, target.tiles[type]);
                 }
             }
         }
@@ -67,7 +69,7 @@ public class MapEditor : BaseEditor<Map>
     protected override void OnSceneGUI()
     {
         Map map = target;
-        Cell[,] cells = map.m_Cells;
+        Cell[,] cells = map.m_cells;
 
         if (cells == null)
             return;

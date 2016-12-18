@@ -23,12 +23,12 @@ public class Map : BaseBehaviour
     public const int CELL_TUBE2     = 8;
 
     [HideInInspector]
-    public Cell[,] m_Cells;
+    public Cell[,] m_cells;
 
     [SerializeField]
-    private Sprite[] m_Sprites;
+    private Tile[] m_tiles;
 
-    private Tilemap m_TileMap;
+    private Tilemap m_tileMap;
 
     [SerializeField]
     int m_Rows;
@@ -41,7 +41,7 @@ public class Map : BaseBehaviour
 
     protected override void OnStart()
     {
-        m_TileMap = GetComponent<Tilemap>();
+        m_tileMap = GetComponent<Tilemap>();
         GenerateCells();
     }
 
@@ -50,7 +50,7 @@ public class Map : BaseBehaviour
         int rows = this.rows;
         int cols = this.cols;
 
-        m_Cells = new Cell[rows, cols];
+        m_cells = new Cell[rows, cols];
         m_Width = cols * Constants.CELL_WIDTH;
         m_Height = rows * Constants.CELL_HEIGHT;
 
@@ -58,32 +58,32 @@ public class Map : BaseBehaviour
         {
             for (int j = 0; j < cols; ++j)
             {
-                Sprite tile = m_TileMap.GetTile(j, i);
+                var tile = m_tileMap.GetTile(j, i);
                 if (tile != null)
                 {
                     Cell cell = null;
 
-                    if (tile == m_Sprites[CELL_GROUND] ||
-                        tile == m_Sprites[CELL_SOLID] ||
-                        tile == m_Sprites[CELL_BLANK] ||
-                        tile == m_Sprites[CELL_TUBE1] ||
-                        tile == m_Sprites[CELL_TUBE2] ||
-                        tile == m_Sprites[CELL_TUBE_TOP1] ||
-                        tile == m_Sprites[CELL_TUBE_TOP2])
+                    if (tile == m_tiles[CELL_GROUND] ||
+                        tile == m_tiles[CELL_SOLID] ||
+                        tile == m_tiles[CELL_BLANK] ||
+                        tile == m_tiles[CELL_TUBE1] ||
+                        tile == m_tiles[CELL_TUBE2] ||
+                        tile == m_tiles[CELL_TUBE_TOP1] ||
+                        tile == m_tiles[CELL_TUBE_TOP2])
                     {
                         cell = new Cell(this, i, j);
                     }
-                    else if (tile == m_Sprites[CELL_BRICK] || 
-                             tile == m_Sprites[CELL_BRICK_2])
+                    else if (tile == m_tiles[CELL_BRICK] || 
+                             tile == m_tiles[CELL_BRICK_2])
                     {
                         cell = new BrickCell(this, i, j);
                     }
-                    else if (tile == m_Sprites[CELL_QUESTION])
+                    else if (tile == m_tiles[CELL_QUESTION])
                     {
                         cell = new CoinsCell(this, i, j, 1);
                     }
 
-                    m_Cells[i, j] = cell;
+                    m_cells[i, j] = cell;
                 }
             }
         }
@@ -91,13 +91,13 @@ public class Map : BaseBehaviour
 
     public void SetTile(int i, int j, int type)
     {
-        m_TileMap.SetTile(j, i, m_Sprites[type]);
+        m_tileMap.SetTile(j, i, m_tiles[type]);
     }
 
     public void RemoveTile(int i, int j)
     {
-        m_TileMap.SetTile(j, i, null);
-        m_Cells[i, j] = null;
+        m_tileMap.SetTile(j, i, null);
+        m_cells[i, j] = null;
     }
 
     public void Jump(int i, int j, Action finishAction = null)
@@ -115,7 +115,7 @@ public class Map : BaseBehaviour
     {
         const float JUMP_VELOCITY = 30f;
 
-        Vector3 initialPosition = m_TileMap.GetPosition(j, i);
+        Vector3 initialPosition = m_tileMap.GetPosition(j, i);
         Vector3 position = initialPosition;
 
         float velocity = JUMP_VELOCITY;
@@ -124,12 +124,12 @@ public class Map : BaseBehaviour
         {
             position.y += velocity * Time.fixedDeltaTime;
             velocity += Constants.GRAVITY * Time.fixedDeltaTime;
-            m_TileMap.SetPosition(j, i, position);
+            m_tileMap.SetPosition(j, i, position);
 
             yield return null;
         }
 
-        m_TileMap.SetPosition(j, i, initialPosition);
+        m_tileMap.SetPosition(j, i, initialPosition);
 
         if (finishAction != null)
         {
@@ -152,12 +152,12 @@ public class Map : BaseBehaviour
 
     public Cell GetCellAt(int i, int j)
     {
-        return i >= 0 && i < m_Rows && j >= 0 && j < m_Cols ? m_Cells[i, j] : null;
+        return i >= 0 && i < m_Rows && j >= 0 && j < m_Cols ? m_cells[i, j] : null;
     }
 
     #region Properties
 
-    public Sprite[] sprites { get { return m_Sprites; } }
+    public Tile[] tiles { get { return m_tiles; } }
 
     public int rows
     {
