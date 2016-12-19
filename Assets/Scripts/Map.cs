@@ -73,8 +73,7 @@ public class Map : BaseBehaviour
                     {
                         cell = new Cell(this, i, j);
                     }
-                    else if (tile == m_tiles[CELL_BRICK] || 
-                             tile == m_tiles[CELL_BRICK_2])
+                    else if (tile is BrickTile)
                     {
                         cell = new BrickCell(this, i, j);
                     }

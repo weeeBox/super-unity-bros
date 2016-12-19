@@ -29,6 +29,8 @@ public class MapEditor : BaseEditor<Map>
         int cols = map.cols;
 
         Tilemap tileMap = target.GetComponent<Tilemap>();
+        tileMap.ClearAllTiles();
+
         target.rows = rows;
         target.cols = cols;
         
