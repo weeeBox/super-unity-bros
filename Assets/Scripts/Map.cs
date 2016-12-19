@@ -115,21 +115,18 @@ public class Map : BaseBehaviour
     {
         const float JUMP_VELOCITY = 30f;
 
-        Vector3 initialPosition = m_tileMap.GetPosition(j, i);
-        Vector3 position = initialPosition;
-
+        Vector3 offset = Vector3.zero;
         float velocity = JUMP_VELOCITY;
-
         while (velocity > -JUMP_VELOCITY)
         {
-            position.y += velocity * Time.fixedDeltaTime;
+            offset.y += velocity * Time.fixedDeltaTime;
             velocity += Constants.GRAVITY * Time.fixedDeltaTime;
-            m_tileMap.SetPosition(j, i, position);
+            m_tileMap.SetOffset(j, i, offset);
 
             yield return null;
         }
 
-        m_tileMap.SetPosition(j, i, initialPosition);
+        m_tileMap.SetOffset(j, i, Vector3.zero);
 
         if (finishAction != null)
         {
