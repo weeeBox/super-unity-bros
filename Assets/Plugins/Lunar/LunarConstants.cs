@@ -21,7 +21,7 @@
 
 ﻿namespace LunarPluginInternal
 {
-    static class Constants
+    static class LunarConstants
     {
         public static readonly string ConfigDefault = "default.cfg";
         public static readonly string ConfigAutoExec = "autoexec.cfg";
