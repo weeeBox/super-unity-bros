@@ -18,10 +18,15 @@ public static class TilemapExtensions
 
     public static Vector3 GetPosition(this Tilemap tilemap, int x, int y)
     {
-        return Vector3.zero;
+        var tile = tilemap.GetTile(x, y);
+        var cellSize = tilemap.cellSize;
+        return new Vector3(cellSize.x * x, cellSize.y * y, 0);
     }
 
-    public static void SetPosition(this Tilemap tilemap, int x, int y, Vector3 position)
+    public static void SetOffset(this Tilemap tilemap, int x, int y, Vector3 position)
     {
+        var tile = tilemap.GetTile(x, y);
+        tile.transform.SetTRS(position, Quaternion.identity, Vector3.one);
+        tilemap.RefreshTile(new Vector3Int(x, y, 0));
     }
 }
