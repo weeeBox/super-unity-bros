@@ -9,4 +9,10 @@ using UnityEditor;
 [CustomEditor(typeof(QuestionTile))]
 public class QuestionTileEditor : TileEditor<QuestionTile>
 {
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+
+    }
 }

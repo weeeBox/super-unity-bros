@@ -77,8 +77,9 @@ public class Map : BaseBehaviour
                     {
                         cell = new BrickCell(this, i, j);
                     }
-                    else if (tile == m_tiles[CELL_QUESTION])
+                    else if (tile is QuestionTile)
                     {
+                        var questionTile = tile as QuestionTile;
                         cell = new CoinsCell(this, i, j, 1);
                     }
 
