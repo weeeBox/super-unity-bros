@@ -80,18 +80,18 @@ public class Cell
     #endregion
 }
 
-class BrickCell : Cell
+class HittableCell : Cell
 {
-    protected bool m_Blank;
+    protected bool m_blank;
 
-    public BrickCell(Map map, int i, int j)
+    public HittableCell(Map map, int i, int j)
         : base(map, i, j)
     {
     }
 
     public override void Hit(PlayerController attacker)
     {
-        if (!m_Blank)
+        if (!m_blank)
         {
             OnHit(attacker);
         }
@@ -102,15 +102,61 @@ class BrickCell : Cell
         jumpAttacker = attacker;
         if (attacker.isSmall)
         {
-            map.Jump(i, j, JumpFinished);
+            OnHitSmall(attacker);
         }
         else
         {
-            map.InvokeLater(RemoveTile); // invoke next frame: give a Goomba chance to die
+            OnHitBig(attacker);
         }
     }
 
-    void RemoveTile()
+    protected virtual void OnHitSmall(PlayerController attacker)
+    {
+        Jump();
+    }
+
+    protected virtual void OnHitBig(PlayerController attacker)
+    {
+        Jump();
+    }
+
+    protected virtual void Jump()
+    {
+        map.Jump(i, j, JumpFinished);
+    }
+
+    void JumpFinished()
+    {
+        jumpAttacker = null;
+        OnHitFinished();
+    }
+
+    protected void SetBlank()
+    {
+        assert.IsFalse(m_blank);
+
+        m_blank = true;
+        map.SetTile(i, j, Map.CELL_BLANK);
+    }
+
+    protected virtual void OnHitFinished()
+    {
+    }
+}
+
+class BrickCell : HittableCell
+{
+    public BrickCell(Map map, int i, int j)
+        : base(map, i, j)
+    {
+    }
+
+    protected override void OnHitBig(PlayerController attacker)
+    {
+        map.InvokeLater(BreakTile); // we need to wait a frame in case if there's an enemy standing on the brick
+    }
+
+    void BreakTile()
     {
         map.RemoveTile(i, j);
         
@@ -123,27 +169,9 @@ class BrickCell : Cell
 
         jumpAttacker = null;
     }
-
-    void JumpFinished()
-    {
-        jumpAttacker = null;
-        OnHitFinished();
-    }
-
-    protected void SetBlank()
-    {
-        assert.IsFalse(m_Blank);
-
-        m_Blank = true;
-        map.SetTile(i, j, Map.CELL_BLANK);
-    }
-
-    protected virtual void OnHitFinished()
-    {
-    }
 }
 
-class CoinsCell : BrickCell
+class CoinsCell : HittableCell
 {
     int m_Coins;
 
@@ -173,7 +201,7 @@ class CoinsCell : BrickCell
     }
 }
 
-class PowerCell : BrickCell
+class PowerCell : HittableCell
 {
     PowerupType m_PowerupType;
 
