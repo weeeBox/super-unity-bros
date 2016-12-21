@@ -15,7 +15,7 @@ using System.Collections.Generic;
 
 using LunarAssertsInternal;
 
-public delegate void AssertCallback(string message, string stackTrace);
+public delegate void assertCallback(string message, string stackTrace);
 
 public interface IAssertImp
 {
@@ -32,7 +32,7 @@ public static class assert
     public static IAssertImp assertImp;
     public static bool enabled;
 
-    public static event AssertCallback onAssertCallback;
+    public static event assertCallback onAssertCallback;
 
     #if ASSERTS_ENABLED
     static assert()
