@@ -7643,7 +7643,7 @@ Tilemap:
         serializedVersion: 2
         m_TileIndex: 21
         m_TileSpriteIndex: 21
-        m_TileMatrixIndex: 0
+        m_TileMatrixIndex: 1
         m_TileColorIndex: 0
         m_ObjectToInstantiate: {fileID: 0}
         m_TileFlags: 2
@@ -7665,7 +7665,7 @@ Tilemap:
         serializedVersion: 2
         m_TileIndex: 21
         m_TileSpriteIndex: 21
-        m_TileMatrixIndex: 0
+        m_TileMatrixIndex: 1
         m_TileColorIndex: 0
         m_ObjectToInstantiate: {fileID: 0}
         m_TileFlags: 2
@@ -7687,7 +7687,7 @@ Tilemap:
         serializedVersion: 2
         m_TileIndex: 21
         m_TileSpriteIndex: 21
-        m_TileMatrixIndex: 0
+        m_TileMatrixIndex: 1
         m_TileColorIndex: 0
         m_ObjectToInstantiate: {fileID: 0}
         m_TileFlags: 2
@@ -7764,7 +7764,7 @@ Tilemap:
         serializedVersion: 2
         m_TileIndex: 21
         m_TileSpriteIndex: 21
-        m_TileMatrixIndex: 0
+        m_TileMatrixIndex: 1
         m_TileColorIndex: 0
         m_ObjectToInstantiate: {fileID: 0}
         m_TileFlags: 2
@@ -7811,7 +7811,7 @@ Tilemap:
         m_TileMatrixIndex: 0
         m_TileColorIndex: 0
         m_ObjectToInstantiate: {fileID: 0}
-        m_TileFlags: 1
+        m_TileFlags: 3
         m_ColliderType: 1
     data:
       first: {x: 106, y: 5, z: 0}
@@ -7819,7 +7819,7 @@ Tilemap:
         serializedVersion: 2
         m_TileIndex: 21
         m_TileSpriteIndex: 21
-        m_TileMatrixIndex: 0
+        m_TileMatrixIndex: 1
         m_TileColorIndex: 0
         m_ObjectToInstantiate: {fileID: 0}
         m_TileFlags: 2
@@ -7830,7 +7830,7 @@ Tilemap:
         serializedVersion: 2
         m_TileIndex: 21
         m_TileSpriteIndex: 21
-        m_TileMatrixIndex: 0
+        m_TileMatrixIndex: 1
         m_TileColorIndex: 0
         m_ObjectToInstantiate: {fileID: 0}
         m_TileFlags: 2
@@ -7841,7 +7841,7 @@ Tilemap:
         serializedVersion: 2
         m_TileIndex: 21
         m_TileSpriteIndex: 21
-        m_TileMatrixIndex: 0
+        m_TileMatrixIndex: 1
         m_TileColorIndex: 0
         m_ObjectToInstantiate: {fileID: 0}
         m_TileFlags: 2
@@ -7962,7 +7962,7 @@ Tilemap:
         serializedVersion: 2
         m_TileIndex: 21
         m_TileSpriteIndex: 21
-        m_TileMatrixIndex: 0
+        m_TileMatrixIndex: 1
         m_TileColorIndex: 0
         m_ObjectToInstantiate: {fileID: 0}
         m_TileFlags: 2
@@ -8292,7 +8292,7 @@ Tilemap:
         serializedVersion: 2
         m_TileIndex: 21
         m_TileSpriteIndex: 21
-        m_TileMatrixIndex: 0
+        m_TileMatrixIndex: 1
         m_TileColorIndex: 0
         m_ObjectToInstantiate: {fileID: 0}
         m_TileFlags: 2
@@ -8424,7 +8424,7 @@ Tilemap:
         serializedVersion: 2
         m_TileIndex: 21
         m_TileSpriteIndex: 21
-        m_TileMatrixIndex: 0
+        m_TileMatrixIndex: 1
         m_TileColorIndex: 0
         m_ObjectToInstantiate: {fileID: 0}
         m_TileFlags: 2
@@ -8435,7 +8435,7 @@ Tilemap:
         serializedVersion: 2
         m_TileIndex: 21
         m_TileSpriteIndex: 21
-        m_TileMatrixIndex: 0
+        m_TileMatrixIndex: 1
         m_TileColorIndex: 0
         m_ObjectToInstantiate: {fileID: 0}
         m_TileFlags: 2
@@ -8490,7 +8490,7 @@ Tilemap:
         serializedVersion: 2
         m_TileIndex: 21
         m_TileSpriteIndex: 21
-        m_TileMatrixIndex: 0
+        m_TileMatrixIndex: 1
         m_TileColorIndex: 0
         m_ObjectToInstantiate: {fileID: 0}
         m_TileFlags: 2
@@ -8501,7 +8501,7 @@ Tilemap:
         serializedVersion: 2
         m_TileIndex: 21
         m_TileSpriteIndex: 21
-        m_TileMatrixIndex: 0
+        m_TileMatrixIndex: 1
         m_TileColorIndex: 0
         m_ObjectToInstantiate: {fileID: 0}
         m_TileFlags: 2
@@ -10172,7 +10172,26 @@ Tilemap:
     m_Data: {fileID: 21300050, guid: cca801c682d344dffba7274e68cab6d6, type: 3}
   m_TileMatrixArray:
   - serializedVersion: 1
-    m_RefCount: 836
+    m_RefCount: 823
+    m_Data:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+  - serializedVersion: 1
+    m_RefCount: 13
     m_Data:
       e00: 1
       e01: 0
@@ -10261,7 +10280,7 @@ Tilemap:
   - serializedVersion: 1
     m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 1
+    m_DirtyIndex: 0
   - serializedVersion: 1
     m_DirtyIndex: 0
   - serializedVersion: 1

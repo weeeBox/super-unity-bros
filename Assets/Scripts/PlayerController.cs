@@ -71,7 +71,7 @@ public class PlayerController : LevelObject
         m_MoveInput.x = Input.GetAxisRaw("Horizontal");
         m_MoveInput.y = Input.GetAxisRaw("Vertical");
         
-        if (Input.GetKeyDown(KeyCode.Space) && grounded && !m_Jumping)
+        if (Input.GetButtonDown("Jump") && grounded && !m_Jumping)
         {
             StartJump(m_JumpHighSpeed);
         }
