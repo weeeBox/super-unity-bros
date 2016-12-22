@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 using LunarPlugin;
 
@@ -17,7 +18,16 @@ class Cmd_give : PlayerCommand
     }
 }
 
-class PlayerCommand : CCommand
+[CCommand("restart")]
+class Cmd_restart : CPlayModeCommand
+{
+    void Execute()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+}
+
+class PlayerCommand : CPlayModeCommand
 {
     protected PlayerController GetPlayer()
     {
