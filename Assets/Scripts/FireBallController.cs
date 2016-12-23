@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireBallController : LevelObject
+public class FireBallController : LevelObjectСontroller
 {
     private bool m_touchedGround;
 
@@ -20,7 +20,7 @@ public class FireBallController : LevelObject
         }
     }
 
-    protected override void OnCollision(LevelObject other)
+    protected override void OnCollision(LevelObjectСontroller other)
     {
         var enemy = other as EnemyController;
         if (enemy != null)

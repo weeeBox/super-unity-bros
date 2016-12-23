@@ -25,7 +25,7 @@ public class PlayerShotInfo
     }
 }
 
-public class PlayerController : LevelObject
+public class PlayerController : LevelObjectСontroller
 {
     enum State
     {
@@ -355,7 +355,7 @@ public class PlayerController : LevelObject
 
     #region Collisions
 
-    protected override void OnCollision(LevelObject other)
+    protected override void OnCollision(LevelObjectСontroller other)
     {
         if (other.dead) return;
 
@@ -369,7 +369,7 @@ public class PlayerController : LevelObject
         }
     }
 
-    void OnJumpOnObject(LevelObject other)
+    void OnJumpOnObject(LevelObjectСontroller other)
     {
         EnemyController enemy = other as EnemyController;
         if (enemy != null)
@@ -385,7 +385,7 @@ public class PlayerController : LevelObject
         }
     }
 
-    void OnCollideObject(LevelObject other)
+    void OnCollideObject(LevelObjectСontroller other)
     {
         EnemyController enemy = other as EnemyController;
         if (enemy != null)
@@ -411,7 +411,7 @@ public class PlayerController : LevelObject
 
     #region Damage
 
-    protected override void OnDamage(LevelObject attacker)
+    protected override void OnDamage(LevelObjectСontroller attacker)
     {
         if (m_State == State.Small)
         {

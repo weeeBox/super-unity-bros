@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnemyController : LevelObject
+public class EnemyController : LevelObjectСontroller
 {
     [SerializeField]
     float m_DamageJumpSpeed = 50;
@@ -82,7 +82,7 @@ public class EnemyController : LevelObject
 
     #region Collisions
 
-    protected override void OnCollision(LevelObject other)
+    protected override void OnCollision(LevelObjectСontroller other)
     {
         EnemyController enemy = other as EnemyController;
         if (enemy != null)
@@ -100,7 +100,7 @@ public class EnemyController : LevelObject
 
     #region Damage
     
-    protected override void OnDamage(LevelObject attacker)
+    protected override void OnDamage(LevelObjectСontroller attacker)
     {
         collisionsEnabled = false;
 

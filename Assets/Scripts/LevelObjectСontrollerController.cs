@@ -5,7 +5,7 @@ using System.Collections;
 
 using LunarCore;
 
-public abstract class LevelObject : BaseBehaviour2D
+public abstract class LevelObjectСontroller : BaseBehaviour2D
 {
     public const int DIR_LEFT = -1;
     public const int DIR_RIGHT = 1;
@@ -64,7 +64,7 @@ public abstract class LevelObject : BaseBehaviour2D
     {
         assert.IsFalse(sleeping);
 
-        LevelObject obj = other.GetComponent<LevelObject>();
+        LevelObjectСontroller obj = other.GetComponent<LevelObjectСontroller>();
         if (obj != null)
         {
             assert.IsFalse(obj.sleeping);
@@ -250,7 +250,7 @@ public abstract class LevelObject : BaseBehaviour2D
 
     #region Damage
     
-    public void TakeDamage(LevelObject attacker)
+    public void TakeDamage(LevelObjectСontroller attacker)
     {
         OnDamage(attacker);
     }
@@ -288,7 +288,7 @@ public abstract class LevelObject : BaseBehaviour2D
     /// <summary>
     /// Called when colliding with other object
     /// </summary>
-    protected virtual void OnCollision(LevelObject other)
+    protected virtual void OnCollision(LevelObjectСontroller other)
     {
     }
 
@@ -327,7 +327,7 @@ public abstract class LevelObject : BaseBehaviour2D
     {
     }
 
-    protected virtual void OnDamage(LevelObject attacker)
+    protected virtual void OnDamage(LevelObjectСontroller attacker)
     {
     }
 

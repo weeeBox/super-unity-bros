@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public abstract class Powerup : LevelObject
+public abstract class Powerup : LevelObjectСontroller
 {
     protected override void OnStart()
     {

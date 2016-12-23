@@ -18,7 +18,7 @@ public class Cell
     public readonly float y;
 
     readonly Map m_Map;
-    LevelObject m_JumpAttacker;
+    LevelObjectСontroller m_JumpAttacker;
 
     public Cell(Map map, int i, int j)
     {
@@ -46,7 +46,7 @@ public class Cell
         get { return m_JumpAttacker != null; }
     }
 
-    public LevelObject jumpAttacker
+    public LevelObjectСontroller jumpAttacker
     {
         get { return m_JumpAttacker; }
         protected set { m_JumpAttacker = value; }
