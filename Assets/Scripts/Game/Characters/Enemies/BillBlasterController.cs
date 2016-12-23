@@ -3,10 +3,10 @@ using System.Collections;
 
 using LunarCore;
 
-public class BillBlaster : BaseBehaviour
+public class BillBlasterController : BaseBehaviour
 {
     [SerializeField]
-    BulletBill m_BulletBill;
+    BulletBillController m_BulletBill;
 
     [SerializeField]
     float m_ShootingTimeMin = 3;
@@ -33,7 +33,7 @@ public class BillBlaster : BaseBehaviour
 
     void Shoot()
     {
-        BulletBill bulletBill = Instantiate(m_BulletBill) as BulletBill;
+        BulletBillController bulletBill = Instantiate(m_BulletBill) as BulletBillController;
         bulletBill.transform.parent = transform;
         bulletBill.transform.localPosition = Vector3.zero;
         bulletBill.direction = -1; // FIXME: check mario position

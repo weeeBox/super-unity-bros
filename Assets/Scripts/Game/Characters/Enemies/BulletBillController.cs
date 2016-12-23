@@ -3,7 +3,7 @@ using System.Collections;
 
 using LunarCore;
 
-public class BulletBill : BaseBehaviour2D
+public class BulletBillController : BaseBehaviour2D
 {
     [SerializeField]
     float m_Speed = 36f;
