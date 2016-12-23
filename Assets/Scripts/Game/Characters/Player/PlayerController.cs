@@ -55,16 +55,16 @@ public class PlayerController : LevelObjectСontroller
     [SerializeField]
     private PlayerShotInfo m_shot;
 
-    State m_State;
+    State m_state;
 
     /* User move input */
-    Vector2 m_MoveInput;
+    Vector2 m_moveInput;
 
-    bool m_Jumping;
-    bool m_Invincible;
+    bool m_jumping;
+    bool m_invincible;
 
-    RuntimeAnimatorController m_InitialAnimatorController;
-    Rect m_InitialColliderRect;
+    RuntimeAnimatorController m_initialAnimatorController;
+    Rect m_initialColliderRect;
 
     #region Lifecycle
 
@@ -74,9 +74,9 @@ public class PlayerController : LevelObjectСontroller
 
         assert.IsNotNull(m_BigAnimatorController);
 
-        m_InitialAnimatorController = animator.runtimeAnimatorController;
-        m_InitialColliderRect = colliderRect;
-        m_State = State.Small;
+        m_initialAnimatorController = animator.runtimeAnimatorController;
+        m_initialColliderRect = colliderRect;
+        m_state = State.Small;
     }
 
     protected override void OnEnabled()
@@ -84,17 +84,17 @@ public class PlayerController : LevelObjectСontroller
         base.OnEnabled();
 
         flipX = false;
-        m_MoveInput = Vector2.zero;
+        m_moveInput = Vector2.zero;
     }
 
     protected override void OnUpdate(float deltaTime)
     {
         if (dead) return;
 
-        m_MoveInput.x = Input.GetAxisRaw("Horizontal");
-        m_MoveInput.y = Input.GetAxisRaw("Vertical");
+        m_moveInput.x = Input.GetAxisRaw("Horizontal");
+        m_moveInput.y = Input.GetAxisRaw("Vertical");
         
-        if (Input.GetButtonDown("Jump") && grounded && !m_Jumping)
+        if (Input.GetButtonDown("Jump") && grounded && !m_jumping)
         {
             StartJump(m_JumpHighSpeed);
         }
@@ -114,7 +114,7 @@ public class PlayerController : LevelObjectСontroller
         base.UpdateVelocity(deltaTime);
 
         float vx = m_Velocity.x;
-        float moveX = m_MoveInput.x;
+        float moveX = m_moveInput.x;
         
         if (Mathf.Approximately(moveX, 0.0f))
         {
@@ -145,7 +145,7 @@ public class PlayerController : LevelObjectСontroller
         if (!dead && grounded)
         {
             animator.SetFloat("Speed", Mathf.Abs(m_Velocity.x));
-            animator.SetBool("Stop", m_MoveInput.x > Mathf.Epsilon && m_Velocity.x < 0 || m_MoveInput.x < -Mathf.Epsilon && m_Velocity.x > 0);
+            animator.SetBool("Stop", m_moveInput.x > Mathf.Epsilon && m_Velocity.x < 0 || m_moveInput.x < -Mathf.Epsilon && m_Velocity.x > 0);
         }
     }
 
@@ -168,7 +168,7 @@ public class PlayerController : LevelObjectСontroller
 
     protected override void OnStartFalling()
     {
-        if (!m_Jumping)
+        if (!m_jumping)
         {
             StartFall();
         }
@@ -176,7 +176,7 @@ public class PlayerController : LevelObjectСontroller
 
     protected override void OnStopFalling()
     {
-        if (m_Jumping)
+        if (m_jumping)
         {
             EndJump();
         }
@@ -201,7 +201,7 @@ public class PlayerController : LevelObjectСontroller
 
     protected override void OnDie()
     {
-        m_MoveInput = Vector2.zero;
+        m_moveInput = Vector2.zero;
         StartCoroutine(DieCoroutine());
     }
 
@@ -211,9 +211,9 @@ public class PlayerController : LevelObjectСontroller
 
     public void AdvanceState()
     {
-        if (m_State < State.Super)
+        if (m_state < State.Super)
         {
-            ChangeState(m_State + 1);
+            ChangeState(m_state + 1);
         }
     }
 
@@ -226,7 +226,7 @@ public class PlayerController : LevelObjectСontroller
     {
         Time.timeScale = 1; // resume everything
 
-        if (m_Jumping)
+        if (m_jumping)
         {
             animator.SetBool("Jump", true);
         }
@@ -237,8 +237,8 @@ public class PlayerController : LevelObjectСontroller
         switch (state)
         {
             case State.Small:
-                animator.runtimeAnimatorController = m_InitialAnimatorController;
-                colliderRect = m_InitialColliderRect;
+                animator.runtimeAnimatorController = m_initialAnimatorController;
+                colliderRect = m_initialColliderRect;
                 StartInvincibility();
                 break;
             case State.Big:
@@ -248,22 +248,22 @@ public class PlayerController : LevelObjectСontroller
                 break;
         }
 
-        m_State = state;
+        m_state = state;
         animator.SetBool("Jump", false);
         animator.SetTrigger("ChangeState");
     }
 
     void StartInvincibility()
     {
-        assert.IsFalse(m_Invincible);
-        m_Invincible = true;
+        assert.IsFalse(m_invincible);
+        m_invincible = true;
 
         StartCoroutine(InvincibilityCoroutine());
     }
 
     IEnumerator InvincibilityCoroutine()
     {
-        assert.IsTrue(m_Invincible);
+        assert.IsTrue(m_invincible);
 
         SpriteRenderer renderer = GetRequiredComponent<SpriteRenderer>();
         Color currentColor = renderer.color;
@@ -276,7 +276,7 @@ public class PlayerController : LevelObjectСontroller
         }
 
         renderer.color = currentColor;
-        m_Invincible = false;
+        m_invincible = false;
     }
     
     #endregion
@@ -290,7 +290,7 @@ public class PlayerController : LevelObjectСontroller
             EndFall();
         }
 
-        m_Jumping = true;
+        m_jumping = true;
         m_Velocity.y = velocity;
 
         assert.IsTrue(animator.enabled);
@@ -299,7 +299,7 @@ public class PlayerController : LevelObjectСontroller
 
     void EndJump()
     {
-        m_Jumping = false;
+        m_jumping = false;
         assert.IsTrue(animator.enabled);
         animator.SetBool("Jump", false);
     }
@@ -307,13 +307,13 @@ public class PlayerController : LevelObjectСontroller
     void StartFall()
     {
         assert.IsFalse(grounded);
-        assert.IsFalse(m_Jumping);
+        assert.IsFalse(m_jumping);
         animator.enabled = false;
     }
 
     void EndFall()
     {
-        assert.IsFalse(m_Jumping);
+        assert.IsFalse(m_jumping);
         animator.enabled = true;
     }
 
@@ -413,7 +413,7 @@ public class PlayerController : LevelObjectСontroller
 
     protected override void OnDamage(LevelObjectСontroller attacker)
     {
-        if (m_State == State.Small)
+        if (m_state == State.Small)
         {
             Die();
         }
@@ -452,12 +452,12 @@ public class PlayerController : LevelObjectСontroller
 
     public bool invincible
     {
-        get { return m_Invincible; }
+        get { return m_invincible; }
     }
 
     public bool isSmall
     {
-        get { return m_State == State.Small; }
+        get { return m_state == State.Small; }
     }
 
     #endregion
