@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: dc05d98e62fb948d39e8dc7cdc29254e
-timeCreated: 1447219769
-licenseType: Pro
+timeCreated: 1482470696
+licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: player_big_0
@@ -13,12 +13,13 @@ TextureImporter:
     21300012: player_big_6
     21300014: player_big_7
     21300016: player_big_8
-  serializedVersion: 2
+    21300018: player_big_9
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -26,14 +27,12 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 8
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 2048
@@ -44,22 +43,68 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 10
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: player_big_0
+    - serializedVersion: 2
+      name: player_big_0
       rect:
         serializedVersion: 2
         x: 0
@@ -67,12 +112,51 @@ TextureImporter:
         width: 64
         height: 128
       alignment: 9
-      pivot: {x: .5, y: .25}
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: player_big_1
+      outline:
+      - - {x: -32, y: 64}
+        - {x: -32, y: -64}
+        - {x: 32, y: -64}
+        - {x: 32, y: 59}
+        - {x: 16, y: 64}
+      physicsShape:
+      - - {x: 5, y: -43}
+        - {x: 6, y: -64}
+        - {x: 32, y: -64}
+        - {x: 32, y: -52}
+        - {x: 31, y: -49}
+        - {x: 31, y: -33}
+        - {x: 32, y: -29}
+        - {x: 32, y: 0}
+        - {x: 31, y: 5}
+        - {x: 25, y: 11}
+        - {x: 22, y: 17}
+        - {x: 32, y: 30}
+        - {x: 32, y: 34}
+        - {x: 29, y: 44}
+        - {x: 28, y: 54}
+        - {x: 15, y: 56}
+        - {x: 14, y: 64}
+        - {x: -12, y: 64}
+        - {x: -17, y: 63}
+        - {x: -21, y: 59}
+        - {x: -30, y: 36}
+        - {x: -31, y: 23}
+        - {x: -20, y: 17}
+        - {x: -29, y: 7}
+        - {x: -32, y: -1}
+        - {x: -32, y: -34}
+        - {x: -31, y: -49}
+        - {x: -32, y: -52}
+        - {x: -32, y: -64}
+        - {x: -6, y: -64}
+        - {x: -6, y: -42}
+        - {x: -3, y: -43}
+        - {x: -1, y: -39}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: player_big_1
       rect:
         serializedVersion: 2
         x: 64
@@ -80,12 +164,48 @@ TextureImporter:
         width: 64
         height: 128
       alignment: 9
-      pivot: {x: .5, y: .25}
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: player_big_2
+      outline:
+      - - {x: -25, y: 58}
+        - {x: -26, y: 57}
+        - {x: -32, y: 11}
+        - {x: -32, y: -64}
+        - {x: 32, y: -64}
+        - {x: 32, y: 54}
+        - {x: 19, y: 58}
+      physicsShape:
+      - - {x: 22, y: -22}
+        - {x: 32, y: -22}
+        - {x: 32, y: 0}
+        - {x: 16, y: 9}
+        - {x: 25, y: 8}
+        - {x: 32, y: 18}
+        - {x: 32, y: 46}
+        - {x: 19, y: 48}
+        - {x: 18, y: 56}
+        - {x: 16, y: 58}
+        - {x: -7, y: 58}
+        - {x: -13, y: 56}
+        - {x: -17, y: 51}
+        - {x: -26, y: 28}
+        - {x: -29, y: 19}
+        - {x: -27, y: -13}
+        - {x: -23, y: -15}
+        - {x: -32, y: -29}
+        - {x: -32, y: -62}
+        - {x: -27, y: -63}
+        - {x: -14, y: -56}
+        - {x: -3, y: -51}
+        - {x: 2, y: -47}
+        - {x: 2, y: -64}
+        - {x: 30, y: -64}
+        - {x: 31, y: -55}
+        - {x: 24, y: -52}
+        - {x: 28, y: -31}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: player_big_2
       rect:
         serializedVersion: 2
         x: 128
@@ -93,12 +213,65 @@ TextureImporter:
         width: 64
         height: 128
       alignment: 9
-      pivot: {x: .5, y: .25}
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: player_big_3
+      outline:
+      - - {x: 32, y: -7}
+        - {x: 32, y: 14}
+        - {x: 28, y: 18}
+        - {x: 23, y: 19}
+        - {x: 18, y: 13}
+        - {x: 25, y: 21}
+        - {x: 32, y: 25}
+        - {x: 32, y: 48}
+        - {x: 24, y: 64}
+        - {x: -31, y: 64}
+        - {x: -32, y: 54}
+        - {x: -32, y: -64}
+        - {x: 8, y: -64}
+        - {x: 32, y: -50}
+        - {x: 32, y: -18}
+        - {x: 28, y: -18}
+      physicsShape:
+      - - {x: 3, y: -47}
+        - {x: 12, y: -50}
+        - {x: 32, y: -50}
+        - {x: 32, y: -18}
+        - {x: 28, y: -18}
+        - {x: 23, y: -21}
+        - {x: 26, y: -12}
+        - {x: 32, y: -6}
+        - {x: 32, y: 14}
+        - {x: 28, y: 18}
+        - {x: 23, y: 19}
+        - {x: 18, y: 13}
+        - {x: 25, y: 21}
+        - {x: 32, y: 31}
+        - {x: 29, y: 44}
+        - {x: 28, y: 54}
+        - {x: 15, y: 56}
+        - {x: 14, y: 64}
+        - {x: -12, y: 64}
+        - {x: -17, y: 63}
+        - {x: -21, y: 59}
+        - {x: -30, y: 36}
+        - {x: -31, y: 23}
+        - {x: -21, y: 16}
+        - {x: -30, y: 4}
+        - {x: -32, y: -4}
+        - {x: -32, y: -32}
+        - {x: -27, y: -38}
+        - {x: -32, y: -38}
+        - {x: -32, y: -56}
+        - {x: -31, y: -61}
+        - {x: -28, y: -64}
+        - {x: -10, y: -64}
+        - {x: -9, y: -59}
+        - {x: -7, y: -55}
+        - {x: 1, y: -51}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: player_big_3
       rect:
         serializedVersion: 2
         x: 192
@@ -106,12 +279,58 @@ TextureImporter:
         width: 64
         height: 128
       alignment: 9
-      pivot: {x: .5, y: .25}
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: player_big_4
+      outline:
+      - - {x: 16, y: -54}
+        - {x: 27, y: -61}
+        - {x: 30, y: -50}
+        - {x: 30, y: 55}
+        - {x: 25, y: 62}
+        - {x: -19, y: 62}
+        - {x: -30, y: 39}
+        - {x: -30, y: 7}
+        - {x: -25, y: -35}
+        - {x: -21, y: -62}
+        - {x: -15, y: -64}
+        - {x: 14, y: -64}
+        - {x: 14, y: -56}
+        - {x: 12, y: -54}
+        - {x: 6, y: -54}
+      physicsShape:
+      - - {x: 16, y: -54}
+        - {x: 18, y: -52}
+        - {x: 18, y: -44}
+        - {x: 26, y: -28}
+        - {x: 27, y: -15}
+        - {x: 21, y: -9}
+        - {x: 19, y: 5}
+        - {x: 15, y: 13}
+        - {x: 21, y: 13}
+        - {x: 30, y: 25}
+        - {x: 30, y: 37}
+        - {x: 29, y: 40}
+        - {x: 28, y: 50}
+        - {x: 16, y: 53}
+        - {x: 13, y: 62}
+        - {x: -11, y: 62}
+        - {x: -17, y: 60}
+        - {x: -21, y: 55}
+        - {x: -30, y: 33}
+        - {x: -30, y: 22}
+        - {x: -26, y: 8}
+        - {x: -26, y: -28}
+        - {x: -23, y: -34}
+        - {x: -17, y: -44}
+        - {x: -21, y: -62}
+        - {x: -15, y: -64}
+        - {x: 14, y: -64}
+        - {x: 14, y: -56}
+        - {x: 12, y: -54}
+        - {x: 6, y: -54}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: player_big_4
       rect:
         serializedVersion: 2
         x: 256
@@ -119,12 +338,39 @@ TextureImporter:
         width: 64
         height: 128
       alignment: 9
-      pivot: {x: .5, y: .25}
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: player_big_5
+      outline:
+      - - {x: 0, y: 64}
+        - {x: -20, y: 61}
+        - {x: -32, y: 29}
+        - {x: -32, y: -64}
+        - {x: -8, y: -64}
+        - {x: 32, y: -53}
+        - {x: 32, y: 64}
+      physicsShape:
+      - - {x: 32, y: -22}
+        - {x: 23, y: -21}
+        - {x: 32, y: 15}
+        - {x: 32, y: 62}
+        - {x: 30, y: 64}
+        - {x: 14, y: 64}
+        - {x: 10, y: 60}
+        - {x: -9, y: 59}
+        - {x: -17, y: 56}
+        - {x: -23, y: 52}
+        - {x: -32, y: 16}
+        - {x: -32, y: -26}
+        - {x: -28, y: -30}
+        - {x: -32, y: -34}
+        - {x: -32, y: -64}
+        - {x: -23, y: -64}
+        - {x: -3, y: -59}
+        - {x: 8, y: -51}
+        - {x: 32, y: -50}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: player_big_5
       rect:
         serializedVersion: 2
         x: 320
@@ -132,12 +378,59 @@ TextureImporter:
         width: 64
         height: 128
       alignment: 9
-      pivot: {x: .5, y: .25}
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: player_big_6
+      outline:
+      - - {x: -28, y: 64}
+        - {x: -32, y: 60}
+        - {x: -32, y: -1}
+        - {x: -28, y: -33}
+        - {x: -23, y: -36}
+        - {x: -22, y: -40}
+        - {x: -20, y: -42}
+        - {x: -22, y: -42}
+        - {x: -22, y: -40}
+        - {x: -23, y: -36}
+        - {x: -32, y: -32}
+        - {x: -32, y: -61}
+        - {x: -31, y: -64}
+        - {x: 1, y: -64}
+        - {x: 32, y: -29}
+        - {x: 32, y: 62}
+        - {x: 27, y: 64}
+      physicsShape:
+      - - {x: 31, y: -25}
+        - {x: 32, y: -18}
+        - {x: 32, y: 42}
+        - {x: 31, y: 49}
+        - {x: 25, y: 55}
+        - {x: 22, y: 64}
+        - {x: -15, y: 64}
+        - {x: -25, y: 63}
+        - {x: -29, y: 59}
+        - {x: -32, y: 51}
+        - {x: -32, y: 26}
+        - {x: -26, y: 25}
+        - {x: -28, y: 5}
+        - {x: -26, y: -8}
+        - {x: -26, y: -33}
+        - {x: -23, y: -36}
+        - {x: -22, y: -40}
+        - {x: -20, y: -42}
+        - {x: -22, y: -42}
+        - {x: -22, y: -40}
+        - {x: -28, y: -34}
+        - {x: -32, y: -34}
+        - {x: -32, y: -51}
+        - {x: -25, y: -59}
+        - {x: -20, y: -64}
+        - {x: -2, y: -64}
+        - {x: 9, y: -42}
+        - {x: 17, y: -35}
+        - {x: 25, y: -31}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: player_big_6
       rect:
         serializedVersion: 2
         x: 384
@@ -145,12 +438,35 @@ TextureImporter:
         width: 64
         height: 128
       alignment: 9
-      pivot: {x: .5, y: .25}
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: player_big_7
+      outline:
+      - - {x: -13, y: 26}
+        - {x: -14, y: 25}
+        - {x: -27, y: 3}
+        - {x: -32, y: -16}
+        - {x: -32, y: -64}
+        - {x: 32, y: -64}
+        - {x: 32, y: 22}
+        - {x: 21, y: 26}
+      physicsShape:
+      - - {x: 32, y: -64}
+        - {x: 32, y: 13}
+        - {x: 20, y: 17}
+        - {x: 17, y: 26}
+        - {x: -7, y: 26}
+        - {x: -13, y: 24}
+        - {x: -17, y: 19}
+        - {x: -25, y: 3}
+        - {x: -32, y: -16}
+        - {x: -32, y: -64}
+        - {x: -6, y: -64}
+        - {x: -5, y: -55}
+        - {x: 6, y: -55}
+        - {x: 6, y: -64}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: player_big_7
       rect:
         serializedVersion: 2
         x: 448
@@ -158,12 +474,49 @@ TextureImporter:
         width: 64
         height: 128
       alignment: 9
-      pivot: {x: .5, y: .25}
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: player_big_8
+      outline:
+      - - {x: -24, y: 34}
+        - {x: -32, y: 11}
+        - {x: -32, y: -64}
+        - {x: 32, y: -64}
+        - {x: 32, y: 20}
+        - {x: 22, y: 34}
+      physicsShape:
+      - - {x: 30, y: -64}
+        - {x: 31, y: -59}
+        - {x: 27, y: -57}
+        - {x: 32, y: -49}
+        - {x: 32, y: -29}
+        - {x: 29, y: -25}
+        - {x: 21, y: -17}
+        - {x: 27, y: -9}
+        - {x: 32, y: -1}
+        - {x: 29, y: 12}
+        - {x: 28, y: 22}
+        - {x: 15, y: 24}
+        - {x: 14, y: 32}
+        - {x: 12, y: 34}
+        - {x: -11, y: 34}
+        - {x: -17, y: 32}
+        - {x: -21, y: 27}
+        - {x: -25, y: 14}
+        - {x: -30, y: 4}
+        - {x: -31, y: -9}
+        - {x: -20, y: -15}
+        - {x: -32, y: -29}
+        - {x: -32, y: -47}
+        - {x: -27, y: -51}
+        - {x: -30, y: -60}
+        - {x: -30, y: -64}
+        - {x: -6, y: -64}
+        - {x: -3, y: -51}
+        - {x: 4, y: -50}
+        - {x: 6, y: -64}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: player_big_8
       rect:
         serializedVersion: 2
         x: 512
@@ -171,11 +524,64 @@ TextureImporter:
         width: 64
         height: 128
       alignment: 9
-      pivot: {x: .5, y: .25}
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 60}
+        - {x: -32, y: 39}
+        - {x: -32, y: -60}
+        - {x: 12, y: -60}
+        - {x: 32, y: -21}
+        - {x: 32, y: 53}
+        - {x: 19, y: 60}
+      physicsShape:
+      - - {x: -12, y: -60}
+        - {x: -6, y: -60}
+        - {x: -1, y: -55}
+        - {x: 5, y: -45}
+        - {x: 13, y: -41}
+        - {x: 23, y: -31}
+        - {x: 22, y: -6}
+        - {x: 20, y: -4}
+        - {x: 21, y: 3}
+        - {x: 32, y: 14}
+        - {x: 32, y: 47}
+        - {x: 19, y: 50}
+        - {x: 18, y: 58}
+        - {x: 16, y: 60}
+        - {x: -7, y: 60}
+        - {x: -13, y: 58}
+        - {x: -17, y: 53}
+        - {x: -21, y: 40}
+        - {x: -26, y: 30}
+        - {x: -27, y: 21}
+        - {x: -21, y: 15}
+        - {x: -22, y: 10}
+        - {x: -23, y: -7}
+        - {x: -19, y: -9}
+        - {x: -22, y: -18}
+        - {x: -27, y: -31}
+        - {x: -32, y: -32}
+        - {x: -32, y: -60}
+        - {x: -28, y: -60}
+        - {x: -23, y: -57}
+        - {x: -15, y: -53}
+        - {x: -15, y: -59}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: player_big_9
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 64
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      packingTag: 
+      tessellationDetail: 0
     outline: []
     physicsShape: []
   spritePackingTag: 

@@ -106,7 +106,6 @@ public abstract class LevelObject : BaseBehaviour2D
         {
             UpdateVelocity(deltaTime);
             UpdatePosition(deltaTime);
-            CheckFallingOffMap();
         }
 
         if (m_MapCollisionsEnabled)
@@ -128,18 +127,6 @@ public abstract class LevelObject : BaseBehaviour2D
     {
         m_LastPosition.center = transform.localPosition;
         transform.Translate(m_Velocity.x * deltaTime, m_Velocity.y * deltaTime);
-    }
-
-    #endregion
-
-    #region Map
-
-    void CheckFallingOffMap()
-    {
-        if (top < -3.2f) // FIXME: remove magic number
-        {
-            OnFallOfTheMap();
-        }
     }
 
     #endregion
@@ -272,6 +259,7 @@ public abstract class LevelObject : BaseBehaviour2D
     {
         assert.IsFalse(m_Dead);
 
+        m_Animator.enabled = false;
         collisionsEnabled = false;
         m_Dead = true;
         m_Velocity = Vector2.zero;
@@ -302,11 +290,6 @@ public abstract class LevelObject : BaseBehaviour2D
     /// </summary>
     protected virtual void OnCollision(LevelObject other)
     {
-    }
-
-    protected virtual void OnFallOfTheMap() // FIXME: remove that
-    {
-        Destroy(gameObject);
     }
 
     protected virtual void OnJumpHitCell(Cell cell)
@@ -480,6 +463,12 @@ public abstract class LevelObject : BaseBehaviour2D
         protected set { m_Collider.enabled = value; }
     }
 
+    public float gravityScale
+    {
+        get { return m_GravityScale; }
+        set { m_GravityScale = value; }
+    }
+
     public bool movementEnabled
     {
         get { return m_MovementEnabled; }
@@ -496,7 +485,7 @@ public abstract class LevelObject : BaseBehaviour2D
         get { return GameManager.map; }
     }
     
-    protected GameCamera camera
+    protected new GameCamera camera
     {
         get { return GameManager.camera; }
     }

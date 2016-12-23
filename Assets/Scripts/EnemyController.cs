@@ -14,6 +14,8 @@ public class EnemyController : LevelObject
     /// </summary>
     bool m_killsOnTouch;
 
+    bool m_flipsWhenKilled = true;
+
     /// <summary>
     /// Called when player jumped on the enemy.
     /// </summary>
@@ -26,6 +28,25 @@ public class EnemyController : LevelObject
         else
         {
             player.JumpOnEnemy(this);
+        }
+    }
+
+    public virtual void OnPlayerShot()
+    {
+        Die();
+    }
+
+    protected override void OnDie()
+    {
+        if (m_flipsWhenKilled)
+        {
+            flipY = true;
+            m_Velocity.x = 24;
+            m_Velocity.y = 60;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -98,6 +119,12 @@ public class EnemyController : LevelObject
     {
         get { return m_killsOnTouch; }
         set { m_killsOnTouch = value; }
+    }
+
+    protected bool flipsWhenKilled
+    {
+        get { return m_flipsWhenKilled; }
+        set { m_flipsWhenKilled = value; }
     }
 
     #endregion

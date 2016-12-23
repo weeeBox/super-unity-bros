@@ -24,6 +24,7 @@ public class PiranhaPlantController : EnemyController
         movementEnabled = false;
         mapCollisionsEnabled = false;
         killsOnTouch = true;
+        flipsWhenKilled = false;
 
         StartCoroutine(Loop());
     }

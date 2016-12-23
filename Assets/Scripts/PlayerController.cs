@@ -5,6 +5,26 @@ using System.Collections;
 
 using LunarCore;
 
+[Serializable]
+public class PlayerShotInfo
+{
+    [SerializeField]
+    FireBallController m_prefab;
+
+    [SerializeField]
+    Transform m_origin;
+
+    public FireBallController prefab
+    {
+        get { return m_prefab; }
+    }
+
+    public Transform origin
+    {
+        get { return m_origin; }
+    }
+}
+
 public class PlayerController : LevelObject
 {
     enum State
@@ -31,6 +51,9 @@ public class PlayerController : LevelObject
 
     [SerializeField]
     private RuntimeAnimatorController m_BigAnimatorController;
+
+    [SerializeField]
+    private PlayerShotInfo m_shot;
 
     State m_State;
 
@@ -74,6 +97,11 @@ public class PlayerController : LevelObject
         if (Input.GetButtonDown("Jump") && grounded && !m_Jumping)
         {
             StartJump(m_JumpHighSpeed);
+        }
+
+        if (Input.GetButtonDown("Shoot"))
+        {
+            Shot();
         }
     }
 
@@ -306,7 +334,21 @@ public class PlayerController : LevelObject
         movementEnabled = true;
         m_Velocity.y = m_JumpHighSpeed; // FIXME: use anothe value
 
-        yield return null;
+        yield return new WaitForSeconds(5);
+
+        Destroy(gameObject);
+    }
+
+    #endregion
+
+    #region Shot
+
+    private void Shot()
+    {
+        var shotObject = Instantiate(m_shot.prefab) as FireBallController;
+        shotObject.transform.parent = transform.parent;
+        shotObject.transform.position = m_shot.origin.position;
+        shotObject.Launch(direction);
     }
 
     #endregion
