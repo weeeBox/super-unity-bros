@@ -14,7 +14,7 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
     float m_WalkSpeed;
 
     [SerializeField]
-    Rect m_ColliderRect;
+    Rect m_colliderRect;
 
     [SerializeField]
     float m_PushCollisionSpeed = 24.0f;
@@ -45,12 +45,11 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
 
     #region MonoBehaviour callbacks
 
-    void Start()
+    protected override void OnStart()
     {
         sleeping = true;
-        OnStart();
     }
-    
+
     void FixedUpdate()
     {
         if (m_Sleeping)
@@ -68,7 +67,7 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
     {
         assert.IsFalse(sleeping);
 
-        LevelObjectСontroller obj = other.GetComponent<LevelObjectСontroller>();
+        var obj = other.GetComponent<LevelObjectСontroller>();
         if (obj != null)
         {
             assert.IsFalse(obj.sleeping);
@@ -82,13 +81,13 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
 
     protected override void OnAwake()
     {
-        Rigidbody2D rigidBody = gameObject.AddComponent<Rigidbody2D>();
+        var rigidBody = gameObject.AddComponent<Rigidbody2D>();
         rigidBody.isKinematic = true;
 
-        BoxCollider2D collider = gameObject.AddComponent<BoxCollider2D>();
+        var collider = gameObject.AddComponent<BoxCollider2D>();
         collider.isTrigger = true;
-        collider.offset = m_ColliderRect.position;
-        collider.size = m_ColliderRect.size;
+        collider.offset = m_colliderRect.position;
+        collider.size = m_colliderRect.size;
 
         m_Collider = collider;
         m_Animator = GetComponent<Animator>();
@@ -96,7 +95,7 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
 
     protected override void OnEnabled()
     {
-        m_LastPosition = new ColliderPosition(transform.localPosition, m_ColliderRect);
+        m_LastPosition = new ColliderPosition(transform.localPosition, m_colliderRect);
 
         m_Collider.enabled = true;
         m_Velocity = Vector3.zero;
@@ -166,7 +165,7 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
                     {
                         float dist = x - cell.x;
                         float sign = dist < 0f ? -1f : 1f;
-                        float penetration = 0.5f * (Constants.CELL_WIDTH + m_ColliderRect.width) - Mathf.Abs(dist);
+                        float penetration = 0.5f * (Constants.CELL_WIDTH + m_colliderRect.width) - Mathf.Abs(dist);
                         float move = sign * Mathf.Min(m_PushCollisionSpeed * Time.fixedDeltaTime, penetration);
                         
                         transform.Translate(move, 0f);
@@ -379,7 +378,7 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
         {
             var pos = transform.position;
             var color = ColorUtils.FromRGB(0x91ef8c);
-            GizmosEx.DrawRect(pos.x + m_ColliderRect.x - 0.5f * m_ColliderRect.width, pos.y + m_ColliderRect.y - 0.5f * m_ColliderRect.height, m_ColliderRect.width, m_ColliderRect.height, color);
+            GizmosEx.DrawRect(pos.x + m_colliderRect.x - 0.5f * m_colliderRect.width, pos.y + m_colliderRect.y - 0.5f * m_colliderRect.height, m_colliderRect.width, m_colliderRect.height, color);
         }
     }
 
@@ -402,38 +401,38 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
 
     public float left
     {
-        get { return posX + m_ColliderRect.x - 0.5f * m_ColliderRect.width; }
-        set { posX = value - m_ColliderRect.x + 0.5f * m_ColliderRect.width; }
+        get { return posX + m_colliderRect.x - 0.5f * m_colliderRect.width; }
+        set { posX = value - m_colliderRect.x + 0.5f * m_colliderRect.width; }
     }
     
     public float right
     {
-        get { return posX + m_ColliderRect.x + 0.5f * m_ColliderRect.width; }
-        set { posX = value - m_ColliderRect.x - 0.5f * m_ColliderRect.width; }
+        get { return posX + m_colliderRect.x + 0.5f * m_colliderRect.width; }
+        set { posX = value - m_colliderRect.x - 0.5f * m_colliderRect.width; }
     }
     
     public float top
     {
-        get { return posY + m_ColliderRect.y + 0.5f * m_ColliderRect.height; }
-        set { posY = value - m_ColliderRect.y - 0.5f * m_ColliderRect.height; }
+        get { return posY + m_colliderRect.y + 0.5f * m_colliderRect.height; }
+        set { posY = value - m_colliderRect.y - 0.5f * m_colliderRect.height; }
     }
     
     public float bottom
     {
-        get { return posY + m_ColliderRect.y - 0.5f * m_ColliderRect.height; }
-        set { posY = value - m_ColliderRect.y + 0.5f * m_ColliderRect.height; }
+        get { return posY + m_colliderRect.y - 0.5f * m_colliderRect.height; }
+        set { posY = value - m_colliderRect.y + 0.5f * m_colliderRect.height; }
     }
 
     public Rect colliderRect
     {
-        get { return m_ColliderRect; }
+        get { return m_colliderRect; }
         set
         {
-            m_ColliderRect = value;
+            m_colliderRect = value;
 
             BoxCollider2D collider = GetRequiredComponent<BoxCollider2D>();
-            collider.offset = m_ColliderRect.position;
-            collider.size = m_ColliderRect.size;
+            collider.offset = m_colliderRect.position;
+            collider.size = m_colliderRect.size;
         }
     }
 
