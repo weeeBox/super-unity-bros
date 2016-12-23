@@ -33,7 +33,11 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
     /// </summary>
     bool m_Sleeping;
 
+    /// <summary>
+    /// Which direction object is facing (for walking, shooting, etc)
+    /// </summary>
     int m_Direction;
+
     bool m_Grounded;
     bool m_Dead;
     bool m_MovementEnabled = true;
@@ -365,6 +369,20 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
         return GameManager.map.GetCellAt(i, j);
     }
     
+    #endregion
+
+    #region Gizmos
+
+    void OnDrawGizmosSelected()
+    {
+        if (!Application.isPlaying)
+        {
+            var pos = transform.position;
+            var color = ColorUtils.FromRGB(0x91ef8c);
+            GizmosEx.DrawRect(pos.x + m_ColliderRect.x - 0.5f * m_ColliderRect.width, pos.y + m_ColliderRect.y - 0.5f * m_ColliderRect.height, m_ColliderRect.width, m_ColliderRect.height, color);
+        }
+    }
+
     #endregion
 
     #region Properties
