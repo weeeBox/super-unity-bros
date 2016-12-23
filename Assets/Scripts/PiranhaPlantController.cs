@@ -3,7 +3,7 @@ using System.Collections;
 
 using LunarCore;
 
-public class PiranhaPlantController : BaseBehaviour2D
+public class PiranhaPlantController : EnemyController
 {
     [SerializeField]
     float m_Speed = 12f;
@@ -20,8 +20,17 @@ public class PiranhaPlantController : BaseBehaviour2D
     {
         SpriteRenderer spriteRenderer = GetRequiredComponent<SpriteRenderer>();
         m_Height = spriteRenderer.sprite.bounds.size.y;
+        canAttack = true;
+        movementEnabled = false;
+        mapCollisionsEnabled = false;
+        killsOnTouch = true;
 
         StartCoroutine(Loop());
+    }
+
+    protected override void OnEnabled()
+    {
+        base.OnEnabled();
     }
 
     IEnumerator Loop()
@@ -35,23 +44,32 @@ public class PiranhaPlantController : BaseBehaviour2D
             transform.localPosition = hiddenPos;
             yield return new WaitForSeconds(m_HiddenTime);
 
-            // Up
-            while (posY < idlePos.y)
+            if (canAttack)
             {
-                transform.Translate(0, m_Speed * Time.fixedDeltaTime);
-                yield return null;
-            }
+                // Up
+                while (posY < idlePos.y)
+                {
+                    transform.Translate(0, m_Speed * Time.fixedDeltaTime);
+                    yield return null;
+                }
 
-            // Idle
-            transform.localPosition = idlePos;
-            yield return new WaitForSeconds(m_IdleTime);
+                // Idle
+                transform.localPosition = idlePos;
+                yield return new WaitForSeconds(m_IdleTime);
 
-            // Down
-            while (posY > hiddenPos.y)
-            {
-                transform.Translate(0, -m_Speed * Time.fixedDeltaTime);
-                yield return null;
+                // Down
+                while (posY > hiddenPos.y)
+                {
+                    transform.Translate(0, -m_Speed * Time.fixedDeltaTime);
+                    yield return null;
+                }
             }
         }
+    }
+
+    public bool canAttack
+    {
+        get;
+        set;
     }
 }

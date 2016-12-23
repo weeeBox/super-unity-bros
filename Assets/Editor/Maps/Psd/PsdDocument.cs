@@ -6,6 +6,8 @@ using System.Linq;
 
 using PhotoshopFile;
 
+public delegate bool PsdLayerFilter(PsdLayer layer);
+
 public class PsdDocument
 {
     public PsdDocument(PsdFile psdFile)
@@ -93,6 +95,23 @@ public class PsdDocument
         }
 
         return result.ToArray();
+    }
+
+    public PsdLayer FindLayer(string name)
+    {
+        return FindLayer(delegate(PsdLayer layer) { return layer.name == name; });
+    }
+
+    public PsdLayer FindLayer(PsdLayerFilter filter)
+    {
+        foreach (var layer in layers)
+        {
+            if (filter(layer))
+            {
+                return layer;
+            }
+        }
+        return null;
     }
 
     public PsdLayer[] layers { get; private set; }

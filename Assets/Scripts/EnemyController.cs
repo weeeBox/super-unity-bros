@@ -10,11 +10,23 @@ public class EnemyController : LevelObject
     float m_DamageImpactSpeed = 24;
 
     /// <summary>
+    /// If set to true - kills player on touch
+    /// </summary>
+    bool m_killsOnTouch;
+
+    /// <summary>
     /// Called when player jumped on the enemy.
     /// </summary>
     public virtual void OnPlayerJump(PlayerController player)
     {
-        player.JumpOnEnemy(this);
+        if (m_killsOnTouch)
+        {
+            OnPlayerCollision(player);
+        }
+        else
+        {
+            player.JumpOnEnemy(this);
+        }
     }
 
     /// <summary>
@@ -78,5 +90,15 @@ public class EnemyController : LevelObject
         SetComponentEnabled<Animator>(false); // don't play any animation
     }
     
+    #endregion
+
+    #region Properties
+
+    protected bool killsOnTouch
+    {
+        get { return m_killsOnTouch; }
+        set { m_killsOnTouch = value; }
+    }
+
     #endregion
 }

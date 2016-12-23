@@ -5,7 +5,7 @@ using System.Collections;
 
 using LunarCore;
 
-public class LevelObject : BaseBehaviour2D
+public abstract class LevelObject : BaseBehaviour2D
 {
     public const int DIR_LEFT = -1;
     public const int DIR_RIGHT = 1;
@@ -36,8 +36,8 @@ public class LevelObject : BaseBehaviour2D
     int m_Direction;
     bool m_Grounded;
     bool m_Dead;
-    bool m_MovementEnabled;
-    bool m_MapCollisionsEnabled;
+    bool m_MovementEnabled = true;
+    bool m_MapCollisionsEnabled = true;
 
     #region MonoBehaviour callbacks
 
@@ -95,8 +95,6 @@ public class LevelObject : BaseBehaviour2D
         m_LastPosition = new ColliderPosition(transform.localPosition, m_ColliderRect);
 
         m_Collider.enabled = true;
-        m_MapCollisionsEnabled = true;
-        m_MovementEnabled = true;
         m_Velocity = Vector3.zero;
         m_Direction = DIR_RIGHT;
         m_Grounded = false;

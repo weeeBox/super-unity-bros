@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: cca801c682d344dffba7274e68cab6d6
-timeCreated: 1446959295
-licenseType: Pro
+timeCreated: 1482381791
+licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: tiles_0
@@ -37,12 +37,12 @@ TextureImporter:
     21300060: tiles_30
     21300062: tiles_31
     21300064: tiles_32
-  serializedVersion: 2
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -50,14 +50,12 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 8
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 2048
@@ -68,22 +66,68 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 10
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: tiles_0
+    - serializedVersion: 2
+      name: tiles_0
       rect:
         serializedVersion: 2
         x: 0
@@ -91,12 +135,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_1
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_1
       rect:
         serializedVersion: 2
         x: 64
@@ -104,12 +157,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_2
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_2
       rect:
         serializedVersion: 2
         x: 128
@@ -117,12 +179,23 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_3
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 30.967741}
+        - {x: 31.578129, y: 32}
+      physicsShape:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -29.935484}
+        - {x: -30.296871, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_3
       rect:
         serializedVersion: 2
         x: 192
@@ -130,12 +203,22 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_4
+      outline:
+      - - {x: -31.26562, y: 32}
+        - {x: -32, y: 30.967741}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_4
       rect:
         serializedVersion: 2
         x: 256
@@ -143,12 +226,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_5
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_5
       rect:
         serializedVersion: 2
         x: 320
@@ -156,12 +248,22 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_6
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -29.935484}
+        - {x: -27.015615, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_6
       rect:
         serializedVersion: 2
         x: 384
@@ -169,12 +271,24 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_7
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 28.734386, y: -32}
+        - {x: 32, y: -30.967741}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -32, y: 32}
+        - {x: -32, y: -32}
+        - {x: 26.671886, y: -32}
+        - {x: 31.828136, y: -29.935484}
+        - {x: 32, y: -28.903225}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_7
       rect:
         serializedVersion: 2
         x: 448
@@ -182,12 +296,25 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_8
+      outline:
+      - - {x: -25.859362, y: 32}
+        - {x: -25.859362, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      - - {x: -28.953112, y: -29.935484}
+        - {x: -28.953112, y: 32}
+        - {x: -32, y: 32}
+        - {x: -32, y: -30.967741}
+      physicsShape:
+      - - {x: -25.859362, y: 32}
+        - {x: -25.859362, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_8
       rect:
         serializedVersion: 2
         x: 512
@@ -195,12 +322,25 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_9
+      outline:
+      - - {x: 26.79689, y: -32}
+        - {x: 26.79689, y: 32}
+        - {x: -31.98436, y: 32}
+        - {x: -31.98436, y: -32}
+      - - {x: 29.89064, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: -24.774193}
+        - {x: 29.89064, y: -25.806452}
+      physicsShape:
+      - - {x: 26.79689, y: -32}
+        - {x: 26.79689, y: 32}
+        - {x: -31.98436, y: 32}
+        - {x: -31.98436, y: -32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_9
       rect:
         serializedVersion: 2
         x: 576
@@ -208,12 +348,27 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_10
+      outline:
+      - - {x: 21.703142, y: 32}
+        - {x: -31.921858, y: -23.741936}
+        - {x: -31.921858, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: 26.859392, y: 32}
+        - {x: -13.359358, y: -8.258064}
+        - {x: -16.453108, y: -9.290322}
+        - {x: -20.578108, y: -13.419354}
+        - {x: -24.703108, y: -19.612904}
+        - {x: -31.921858, y: -26.838709}
+        - {x: -31.921858, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_10
       rect:
         serializedVersion: 2
         x: 640
@@ -221,12 +376,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_11
+      outline:
+      - - {x: -31.859356, y: 32}
+        - {x: -31.859356, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -31.859356, y: 32}
+        - {x: -31.859356, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_11
       rect:
         serializedVersion: 2
         x: 704
@@ -234,12 +398,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_12
+      outline:
+      - - {x: -31.796854, y: 32}
+        - {x: -31.796854, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -31.796854, y: 32}
+        - {x: -31.796854, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_12
       rect:
         serializedVersion: 2
         x: 768
@@ -247,12 +420,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_13
+      outline:
+      - - {x: -31.734352, y: 32}
+        - {x: -31.734352, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -31.734352, y: 32}
+        - {x: -31.734352, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_13
       rect:
         serializedVersion: 2
         x: 832
@@ -260,12 +442,28 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_14
+      outline:
+      - - {x: -23.42185, y: 32}
+        - {x: -31.67185, y: 32}
+        - {x: -31.67185, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: -22.709677}
+        - {x: 6.4844, y: 4.129032}
+      physicsShape:
+      - - {x: 25.0469, y: -18.580645}
+        - {x: -23.42185, y: 29.935484}
+        - {x: -25.48435, y: 29.935484}
+        - {x: -25.48435, y: 32}
+        - {x: -31.67185, y: 32}
+        - {x: -31.67185, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: -25.806452}
+        - {x: 30.20315, y: -22.709677}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_14
       rect:
         serializedVersion: 2
         x: 896
@@ -273,12 +471,26 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_15
+      outline:
+      - - {x: -17.171848, y: -17.548388}
+        - {x: -25.421848, y: -18.580645}
+        - {x: -31.609348, y: -24.774193}
+        - {x: -31.609348, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: -22.709677}
+        - {x: 24.078152, y: -17.548388}
+      physicsShape:
+      - - {x: -23.359348, y: -18.580645}
+        - {x: -31.609348, y: -25.806452}
+        - {x: -31.609348, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: -21.67742}
+        - {x: 20.984402, y: -18.580645}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_15
       rect:
         serializedVersion: 2
         x: 960
@@ -286,12 +498,34 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_16
+      outline:
+      - - {x: -31.546846, y: -32}
+        - {x: -27.421846, y: -32}
+        - {x: -27.421846, y: -27.870968}
+        - {x: -30.515596, y: -24.774193}
+        - {x: -31.546846, y: -24.774193}
+      - - {x: 25.171904, y: 6.193548}
+        - {x: -1.6405964, y: -8.258064}
+        - {x: -1.6405964, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 6.193548}
+      physicsShape:
+      - - {x: -31.546846, y: -32}
+        - {x: -28.453096, y: -32}
+        - {x: -28.453096, y: -28.903225}
+        - {x: -30.515596, y: -26.838709}
+        - {x: -31.546846, y: -26.838709}
+      - - {x: 20.015654, y: 2.064516}
+        - {x: -0.6093464, y: -17.548388}
+        - {x: -0.6093464, y: -29.935484}
+        - {x: 1.4531536, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 2.064516}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_16
       rect:
         serializedVersion: 2
         x: 1024
@@ -299,12 +533,30 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_17
+      outline:
+      - - {x: 22.65628, y: 32}
+        - {x: -20.65622, y: 32}
+        - {x: -22.71872, y: 29.935484}
+        - {x: -31.99997, y: 14.451612}
+        - {x: -31.99997, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 18.580645}
+        - {x: 31.93753, y: 29.935484}
+      physicsShape:
+      - - {x: 25.75003, y: 23.741936}
+        - {x: 11.3125305, y: 32}
+        - {x: -11.3749695, y: 32}
+        - {x: -19.62497, y: 27.870968}
+        - {x: -25.81247, y: 20.64516}
+        - {x: -31.99997, y: 7.225806}
+        - {x: -31.99997, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 14.451612}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_17
       rect:
         serializedVersion: 2
         x: 1088
@@ -312,12 +564,27 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_18
+      outline:
+      - - {x: -32, y: 14.451612}
+        - {x: -32, y: -32}
+        - {x: -0.48440552, y: -32}
+        - {x: 2.6093445, y: -29.935484}
+        - {x: 2.6093445, y: -5.16129}
+        - {x: -20.078156, y: 14.451612}
+      physicsShape:
+      - - {x: -7.7031555, y: -1.032258}
+        - {x: -14.9219055, y: 2.064516}
+        - {x: -32, y: 2.064516}
+        - {x: -32, y: -32}
+        - {x: -0.48440552, y: -32}
+        - {x: 1.5780945, y: -30.967741}
+        - {x: 1.5780945, y: -10.32258}
+        - {x: 0.5468445, y: -5.16129}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_18
       rect:
         serializedVersion: 2
         x: 1152
@@ -325,12 +592,25 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_19
+      outline:
+      - - {x: 4.7344093, y: 32}
+        - {x: 4.7344093, y: 21.67742}
+        - {x: 15.046909, y: 7.225806}
+        - {x: 29.48441, y: 5.16129}
+        - {x: 32, y: 5.16129}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: 5.7656593, y: 32}
+        - {x: 5.7656593, y: 19.612904}
+        - {x: 8.859409, y: 12.387096}
+        - {x: 26.39066, y: 6.193548}
+        - {x: 32, y: 6.193548}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_19
       rect:
         serializedVersion: 2
         x: 1216
@@ -338,12 +618,26 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_20
+      outline:
+      - - {x: -32, y: 32}
+        - {x: -32, y: 1.032258}
+        - {x: -28.203026, y: -3.096774}
+        - {x: 29.546974, y: -3.096774}
+        - {x: 32, y: 0}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -32, y: 32}
+        - {x: -32, y: 5.16129}
+        - {x: -29.234276, y: 0}
+        - {x: -24.078026, y: -2.064516}
+        - {x: 28.515724, y: -2.064516}
+        - {x: 32, y: -1.032258}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_20
       rect:
         serializedVersion: 2
         x: 1280
@@ -351,12 +645,28 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_21
+      outline:
+      - - {x: -2.3593369, y: 32}
+        - {x: -32, y: 32}
+        - {x: -32, y: 1.032258}
+        - {x: -13.703087, y: 1.032258}
+        - {x: 1.7656631, y: 8.258064}
+        - {x: 2.7969131, y: 14.451612}
+        - {x: 2.7969131, y: 26.838709}
+      physicsShape:
+      - - {x: -4.421837, y: 32}
+        - {x: -32, y: 32}
+        - {x: -32, y: 6.193548}
+        - {x: -28.140587, y: 2.064516}
+        - {x: -17.828087, y: 2.064516}
+        - {x: -3.3905869, y: 9.290322}
+        - {x: 1.7656631, y: 18.580645}
+        - {x: 1.7656631, y: 27.870968}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_21
       rect:
         serializedVersion: 2
         x: 1344
@@ -364,12 +674,27 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_22
+      outline:
+      - - {x: 13.171852, y: 1.032258}
+        - {x: -2.296898, y: -18.580645}
+        - {x: -2.296898, y: -29.935484}
+        - {x: -0.23439789, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 7.225806}
+        - {x: 28.640602, y: 6.193548}
+      physicsShape:
+      - - {x: -1.2656479, y: -15.4838705}
+        - {x: -1.2656479, y: -28.903225}
+        - {x: -0.23439789, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 2.064516}
+        - {x: 20.390602, y: 2.064516}
+        - {x: 13.171852, y: 1.032258}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_22
       rect:
         serializedVersion: 2
         x: 1408
@@ -377,12 +702,28 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_23
+      outline:
+      - - {x: -18.734333, y: 32}
+        - {x: -32, y: 27.870968}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 16.516129}
+        - {x: 22.515667, y: 32}
+      physicsShape:
+      - - {x: 24.578167, y: 22.709677}
+        - {x: 11.171917, y: 32}
+        - {x: -12.546833, y: 32}
+        - {x: -20.796833, y: 27.870968}
+        - {x: -26.984333, y: 20.64516}
+        - {x: -32, y: 8.258064}
+        - {x: -32, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 14.451612}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_23
       rect:
         serializedVersion: 2
         x: 1472
@@ -390,12 +731,26 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_24
+      outline:
+      - - {x: -31.046768, y: 14.451612}
+        - {x: -32, y: 14.451612}
+        - {x: -32, y: -32}
+        - {x: 1.9532318, y: -32}
+        - {x: 2.9844818, y: -29.935484}
+        - {x: 2.9844818, y: -5.16129}
+        - {x: -12.484268, y: 8.258064}
+      physicsShape:
+      - - {x: -12.484268, y: 2.064516}
+        - {x: -32, y: 2.064516}
+        - {x: -32, y: -32}
+        - {x: -2.1717682, y: -32}
+        - {x: 1.9532318, y: -27.870968}
+        - {x: 1.9532318, y: -14.451612}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_24
       rect:
         serializedVersion: 2
         x: 1536
@@ -403,12 +758,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_25
+      outline:
+      - - {x: 7.171921, y: -32}
+        - {x: 7.171921, y: 32}
+        - {x: -6.234329, y: 32}
+        - {x: -6.234329, y: -32}
+      physicsShape:
+      - - {x: 6.140671, y: -32}
+        - {x: 6.140671, y: 32}
+        - {x: -5.203079, y: 32}
+        - {x: -5.203079, y: -32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_25
       rect:
         serializedVersion: 2
         x: 1600
@@ -416,12 +780,33 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_26
+      outline:
+      - - {x: -15.45314, y: 3.096774}
+        - {x: -18.54689, y: -3.096774}
+        - {x: -18.54689, y: -32}
+        - {x: 19.60936, y: -32}
+        - {x: 19.60936, y: 2.064516}
+        - {x: 14.45311, y: 3.096774}
+      - - {x: 29.92186, y: 32}
+        - {x: 29.92186, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: 12.39061, y: 2.064516}
+        - {x: -7.2031403, y: 2.064516}
+        - {x: -14.42189, y: 1.032258}
+        - {x: -17.51564, y: -3.096774}
+        - {x: -17.51564, y: -24.774193}
+        - {x: -16.48439, y: -30.967741}
+        - {x: -13.39064, y: -32}
+        - {x: 10.32811, y: -32}
+        - {x: 18.57811, y: -23.741936}
+        - {x: 18.57811, y: -6.193548}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_26
       rect:
         serializedVersion: 2
         x: 1664
@@ -429,12 +814,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_27
+      outline:
+      - - {x: -31.890575, y: 32}
+        - {x: -31.890575, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -31.890575, y: 32}
+        - {x: -31.890575, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_27
       rect:
         serializedVersion: 2
         x: 1728
@@ -442,12 +836,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_28
+      outline:
+      - - {x: -31.82801, y: 32}
+        - {x: -31.82801, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -31.82801, y: 32}
+        - {x: -31.82801, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_28
       rect:
         serializedVersion: 2
         x: 1792
@@ -455,12 +858,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_29
+      outline:
+      - - {x: -31.765572, y: 32}
+        - {x: -31.765572, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -31.765572, y: 32}
+        - {x: -31.765572, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_29
       rect:
         serializedVersion: 2
         x: 1856
@@ -468,12 +880,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_30
+      outline:
+      - - {x: -31.703133, y: 32}
+        - {x: -31.703133, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -31.703133, y: 32}
+        - {x: -31.703133, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_30
       rect:
         serializedVersion: 2
         x: 1920
@@ -481,12 +902,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_31
+      outline:
+      - - {x: -31.640568, y: 32}
+        - {x: -31.640568, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -31.640568, y: 32}
+        - {x: -31.640568, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_31
       rect:
         serializedVersion: 2
         x: 1984
@@ -494,12 +924,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
-    - name: tiles_32
+      outline:
+      - - {x: -31.578003, y: 32}
+        - {x: -31.578003, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -31.578003, y: 32}
+        - {x: -31.578003, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: tiles_32
       rect:
         serializedVersion: 2
         x: 2048
@@ -507,11 +946,19 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      packingTag: 
+      outline:
+      - - {x: -31.515564, y: 32}
+        - {x: -31.515564, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      physicsShape:
+      - - {x: -31.515564, y: 32}
+        - {x: -31.515564, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: -1
     outline: []
     physicsShape: []
   spritePackingTag: 
