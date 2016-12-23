@@ -11,10 +11,10 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
     public const int DIR_RIGHT = 1;
 
     [SerializeField]
-    float m_WalkSpeed;
+    LevelObjectData m_data;
 
     [SerializeField]
-    Rect m_colliderRect;
+    float m_WalkSpeed;
 
     [SerializeField]
     float m_PushCollisionSpeed = 24.0f;
@@ -23,10 +23,12 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
     float m_GravityScale = 1.0f;
 
     protected Vector3 m_Velocity;
+    Rect m_colliderRect;
+    Rect m_hitRect;
     
     ColliderPosition m_LastPosition;
-    Collider2D m_Collider;
-    Animator m_Animator;
+    BoxCollider2D m_hitCollider;
+    Animator m_animator;
 
     /// <summary>
     /// Waiting to become visible. Won't move or participate in collisions if sleeping.
@@ -44,11 +46,6 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
     bool m_MapCollisionsEnabled = true;
 
     #region MonoBehaviour callbacks
-
-    protected override void OnStart()
-    {
-        sleeping = true;
-    }
 
     void FixedUpdate()
     {
@@ -84,20 +81,24 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
         var rigidBody = gameObject.AddComponent<Rigidbody2D>();
         rigidBody.isKinematic = true;
 
-        var collider = gameObject.AddComponent<BoxCollider2D>();
-        collider.isTrigger = true;
-        collider.offset = m_colliderRect.position;
-        collider.size = m_colliderRect.size;
+        m_hitCollider = gameObject.AddComponent<BoxCollider2D>();
+        m_hitCollider.isTrigger = true;
+        m_animator = GetComponent<Animator>();
 
-        m_Collider = collider;
-        m_Animator = GetComponent<Animator>();
+        this.colliderRect = m_data.colliderRect;
+        this.hitRect = m_data.hitRect;
+    }
+
+    protected override void OnStart()
+    {
+        sleeping = true;
     }
 
     protected override void OnEnabled()
     {
         m_LastPosition = new ColliderPosition(transform.localPosition, m_colliderRect);
 
-        m_Collider.enabled = true;
+        m_hitCollider.enabled = true;
         m_Velocity = Vector3.zero;
         m_Direction = DIR_RIGHT;
         m_Grounded = false;
@@ -262,7 +263,7 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
     {
         assert.IsFalse(m_Dead);
 
-        m_Animator.enabled = false;
+        m_animator.enabled = false;
         collisionsEnabled = false;
         m_Dead = true;
         m_Velocity = Vector2.zero;
@@ -386,6 +387,11 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
 
     #region Properties
 
+    protected LevelObjectData data
+    {
+        get { return m_data; }
+    }
+
     /// <summary>
     /// True if object is invisible and won't move or participate in collisions
     /// </summary>
@@ -426,13 +432,19 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
     public Rect colliderRect
     {
         get { return m_colliderRect; }
+        set { m_colliderRect = value; }
+    }
+
+    public Rect hitRect
+    {
+        get { return m_hitRect; }
         set
         {
-            m_colliderRect = value;
+            m_hitRect = value;
 
-            BoxCollider2D collider = GetRequiredComponent<BoxCollider2D>();
-            collider.offset = m_colliderRect.position;
-            collider.size = m_colliderRect.size;
+            var  hitCollider = GetRequiredComponent<BoxCollider2D>();
+            hitCollider.offset = m_hitRect.position;
+            hitCollider.size = m_hitRect.size;
         }
     }
 
@@ -476,8 +488,8 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
 
     public bool objectCollisionsEnabled
     {
-        get { return m_Collider.enabled; }
-        protected set { m_Collider.enabled = value; }
+        get { return m_hitCollider.enabled; }
+        protected set { m_hitCollider.enabled = value; }
     }
 
     public float gravityScale
@@ -494,7 +506,7 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
 
     protected Animator animator
     {
-        get { return m_Animator; }
+        get { return m_animator; }
     }
 
     protected Map map

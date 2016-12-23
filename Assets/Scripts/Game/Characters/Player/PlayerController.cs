@@ -35,7 +35,7 @@ public class PlayerController : LevelObjectСontroller
     }
 
     [SerializeField]
-    Rect m_BigColliderRect;
+    LevelObjectData m_bigData;
 
     [SerializeField]
     private float m_JumpHighSpeed = 120.0f;
@@ -60,6 +60,7 @@ public class PlayerController : LevelObjectСontroller
     /* User move input */
     Vector2 m_moveInput;
 
+    bool m_running;
     bool m_jumping;
     bool m_invincible;
 
@@ -93,6 +94,7 @@ public class PlayerController : LevelObjectСontroller
 
         m_moveInput.x = Input.GetAxisRaw("Horizontal");
         m_moveInput.y = Input.GetAxisRaw("Vertical");
+        m_running = Input.GetButton("Shoot"); 
         
         if (Input.GetButtonDown("Jump") && grounded && !m_jumping)
         {
@@ -238,13 +240,15 @@ public class PlayerController : LevelObjectСontroller
         {
             case State.Small:
                 animator.runtimeAnimatorController = m_initialAnimatorController;
-                colliderRect = m_initialColliderRect;
+                colliderRect = data.colliderRect;
+                hitRect = data.hitRect;
                 StartInvincibility();
                 break;
             case State.Big:
             case State.Super:
                 animator.runtimeAnimatorController = m_BigAnimatorController;
-                colliderRect = m_BigColliderRect;
+                colliderRect = m_bigData.colliderRect;
+                hitRect = m_bigData.hitRect;
                 break;
         }
 
@@ -345,10 +349,10 @@ public class PlayerController : LevelObjectСontroller
 
     private void Shot()
     {
-        var shotObject = Instantiate(m_shot.prefab) as FireBallController;
-        shotObject.transform.parent = transform.parent;
-        shotObject.transform.position = m_shot.origin.position;
-        shotObject.Launch(direction);
+//        var shotObject = Instantiate(m_shot.prefab) as FireBallController;
+//        shotObject.transform.parent = transform.parent;
+//        shotObject.transform.position = m_shot.origin.position;
+//        shotObject.Launch(direction);
     }
 
     #endregion
