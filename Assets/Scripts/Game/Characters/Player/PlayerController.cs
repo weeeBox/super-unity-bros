@@ -126,11 +126,11 @@ public class PlayerController : LevelObjectСontroller
             vx += moveX * m_WalkAcc * deltaTime;
             if (vx > 0)
             {
-                vx = Mathf.Min(vx, walkSpeed);
+                vx = Mathf.Min(vx, CVars.g_playerWalkSpeed.FloatValue);
             }
             else if (vx < 0)
             {
-                vx = Mathf.Max(vx, -walkSpeed);
+                vx = Mathf.Max(vx, -CVars.g_playerWalkSpeed.FloatValue);
             }
         }
         

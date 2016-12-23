@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_WalkSpeed: 36
-  m_ColliderRect:
+  m_colliderRect:
     serializedVersion: 2
     x: 0
     y: 0
