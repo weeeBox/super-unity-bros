@@ -35,7 +35,7 @@ public class PlayerController : LevelObjectСontroller
     }
 
     [SerializeField]
-    LevelObjectData m_bigData;
+    PlayerBigData m_bigData;
 
     [SerializeField]
     private float m_JumpHighSpeed = 120.0f;
@@ -63,9 +63,9 @@ public class PlayerController : LevelObjectСontroller
     bool m_running;
     bool m_jumping;
     bool m_invincible;
+    bool m_ducking;
 
     RuntimeAnimatorController m_initialAnimatorController;
-    Rect m_initialColliderRect;
 
     #region Lifecycle
 
@@ -76,7 +76,6 @@ public class PlayerController : LevelObjectСontroller
         assert.IsNotNull(m_BigAnimatorController);
 
         m_initialAnimatorController = animator.runtimeAnimatorController;
-        m_initialColliderRect = colliderRect;
         m_state = State.Small;
     }
 
@@ -94,8 +93,22 @@ public class PlayerController : LevelObjectСontroller
 
         m_moveInput.x = Input.GetAxisRaw("Horizontal");
         m_moveInput.y = Input.GetAxisRaw("Vertical");
-        m_running = Input.GetButton("Shoot"); 
-        
+        m_running = Input.GetButton("Shoot");
+
+        if (m_state != State.Small)
+        {
+            bool wasDucking = m_ducking;
+            m_ducking = m_moveInput.y < -0.01f;
+            if (m_ducking && !wasDucking && grounded)
+            {
+                SetDucking(true);
+            }
+            else if (wasDucking && !m_ducking)
+            {
+                SetDucking(false);
+            }
+        }
+
         if (Input.GetButtonDown("Jump") && grounded && !m_jumping)
         {
             StartJump(m_JumpHighSpeed);
@@ -236,12 +249,16 @@ public class PlayerController : LevelObjectСontroller
 
     void ChangeState(State state)
     {
+        animator.SetBool("Jump", false);
+
         switch (state)
         {
             case State.Small:
+                m_ducking = false;
                 animator.runtimeAnimatorController = m_initialAnimatorController;
                 colliderRect = data.colliderRect;
                 hitRect = data.hitRect;
+                animator.SetTrigger("Shrink");
                 StartInvincibility();
                 break;
             case State.Big:
@@ -249,12 +266,11 @@ public class PlayerController : LevelObjectСontroller
                 animator.runtimeAnimatorController = m_BigAnimatorController;
                 colliderRect = m_bigData.colliderRect;
                 hitRect = m_bigData.hitRect;
+                animator.SetTrigger("Grow");
                 break;
         }
 
         m_state = state;
-        animator.SetBool("Jump", false);
-        animator.SetTrigger("ChangeState");
     }
 
     void StartInvincibility()
@@ -298,7 +314,10 @@ public class PlayerController : LevelObjectСontroller
         m_Velocity.y = velocity;
 
         assert.IsTrue(animator.enabled);
-        animator.SetBool("Jump", true);
+        if (!m_ducking)
+        {
+            animator.SetBool("Jump", true);
+        }
     }
 
     void EndJump()
@@ -306,6 +325,11 @@ public class PlayerController : LevelObjectСontroller
         m_jumping = false;
         assert.IsTrue(animator.enabled);
         animator.SetBool("Jump", false);
+
+        if (m_ducking)
+        {
+            SetDucking(true);
+        }
     }
 
     void StartFall()
@@ -319,6 +343,11 @@ public class PlayerController : LevelObjectСontroller
     {
         assert.IsFalse(m_jumping);
         animator.enabled = true;
+
+        if (m_ducking)
+        {
+            SetDucking(true);
+        }
     }
 
     #endregion
@@ -330,6 +359,7 @@ public class PlayerController : LevelObjectСontroller
         animator.SetBool("Stop", false);
         animator.SetBool("Jump", false);
         animator.SetBool("Dead", true);
+        animator.SetBool("Duck", false);
 
         movementEnabled = false;
 
@@ -353,6 +383,19 @@ public class PlayerController : LevelObjectСontroller
 //        shotObject.transform.parent = transform.parent;
 //        shotObject.transform.position = m_shot.origin.position;
 //        shotObject.Launch(direction);
+    }
+
+    #endregion
+
+    #region Duck
+
+    private void SetDucking(bool ducking)
+    {
+        animator.SetBool("Duck", ducking);
+        if (m_jumping)
+        {
+            animator.SetBool("Jump", true);
+        }
     }
 
     #endregion

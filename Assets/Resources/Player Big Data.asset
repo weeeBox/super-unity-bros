@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e5f18570a69547f0927ac0e1919d3a5, type: 3}
+  m_Script: {fileID: 11500000, guid: ea33bb359f1064e92b85d998c9c65e34, type: 3}
   m_Name: Player Big Data
   m_EditorClassIdentifier: 
   m_colliderRect:
@@ -23,3 +23,15 @@ MonoBehaviour:
     y: 1.8
     width: 4.8
     height: 10
+  m_duckColliderRect:
+    serializedVersion: 2
+    x: 0
+    y: -0.6
+    width: 4.8
+    height: 5.2
+  m_duckHitRect:
+    serializedVersion: 2
+    x: 0
+    y: -0.6
+    width: 4.8
+    height: 5.2
