@@ -143,6 +143,8 @@ public class PlayerController : LevelObjectСontroller
             m_Velocity.y += CVars.g_playerGravity.FloatValue * deltaTime;
         }
 
+        m_Velocity.y = Mathf.Clamp(m_Velocity.y, -CVars.g_playerJumpSpeed.FloatValue, CVars.g_playerJumpSpeed.FloatValue);
+
         float vx = m_Velocity.x;
         float moveX = m_moveInput.x;
         
