@@ -64,6 +64,7 @@ public class PlayerController : LevelObjectСontroller
     bool m_jumping;
     bool m_invincible;
     bool m_ducking;
+    bool m_longJump;
 
     RuntimeAnimatorController m_initialAnimatorController;
 
@@ -112,6 +113,13 @@ public class PlayerController : LevelObjectСontroller
         if (Input.GetButtonDown("Jump") && grounded && !m_jumping)
         {
             StartJump(CVars.g_playerJumpSpeed.FloatValue);
+            m_longJump = true;
+        }
+
+        // stop "long" jump if player stopped jumping or started falling or released "Jump" button
+        if (m_longJump && (!m_jumping || m_Velocity.y < 0.001f || !Input.GetButton("Jump")))
+        {
+            m_longJump = false;
         }
 
         if (Input.GetButtonDown("Shoot"))
@@ -126,7 +134,14 @@ public class PlayerController : LevelObjectСontroller
 
     protected override void UpdateVelocity(float deltaTime)
     {
-        m_Velocity.y += CVars.g_playerGravity.FloatValue * deltaTime;
+        if (m_longJump)
+        {
+            m_Velocity.y += CVars.g_playerGravityLongJump.FloatValue * deltaTime;
+        }
+        else
+        {   
+            m_Velocity.y += CVars.g_playerGravity.FloatValue * deltaTime;
+        }
 
         float vx = m_Velocity.x;
         float moveX = m_moveInput.x;
