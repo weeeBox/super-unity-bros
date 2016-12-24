@@ -64,12 +64,7 @@ MonoBehaviour:
   m_WalkSpeed: 36
   m_PushCollisionSpeed: 24
   m_GravityScale: 1
-  m_BigColliderRect:
-    serializedVersion: 2
-    x: 0
-    y: 3.2
-    width: 4.8
-    height: 12.8
+  m_bigData: {fileID: 11400000, guid: 354c84e7f74e34058869e6758b063532, type: 2}
   m_JumpHighSpeed: 129
   m_JumpSquashSpeed: 70
   m_WalkAcc: 112

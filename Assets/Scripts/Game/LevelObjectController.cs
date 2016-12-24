@@ -375,12 +375,10 @@ public abstract class LevelObjectСontroller : BaseBehaviour2D
 
     void OnDrawGizmosSelected()
     {
-        if (!Application.isPlaying)
-        {
-            var pos = transform.position;
-            var color = ColorUtils.FromRGB(0x91ef8c);
-            GizmosEx.DrawRect(pos.x + m_colliderRect.x - 0.5f * m_colliderRect.width, pos.y + m_colliderRect.y - 0.5f * m_colliderRect.height, m_colliderRect.width, m_colliderRect.height, color);
-        }
+        var pos = transform.position;
+        var color = ColorUtils.FromRGB(0x91ef8c);
+
+        GizmosEx.DrawRect(pos.x + m_colliderRect.x - 0.5f * m_colliderRect.width, pos.y + m_colliderRect.y - 0.5f * m_colliderRect.height, m_colliderRect.width, m_colliderRect.height, color);
     }
 
     #endregion
