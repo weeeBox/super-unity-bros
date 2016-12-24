@@ -111,7 +111,7 @@ public class PlayerController : LevelObjectСontroller
 
         if (Input.GetButtonDown("Jump") && grounded && !m_jumping)
         {
-            StartJump(m_JumpHighSpeed);
+            StartJump(CVars.g_playerJumpSpeed.FloatValue);
         }
 
         if (Input.GetButtonDown("Shoot"))
@@ -126,7 +126,7 @@ public class PlayerController : LevelObjectСontroller
 
     protected override void UpdateVelocity(float deltaTime)
     {
-        base.UpdateVelocity(deltaTime);
+        m_Velocity.y += CVars.g_playerGravity.FloatValue * deltaTime;
 
         float vx = m_Velocity.x;
         float moveX = m_moveInput.x;

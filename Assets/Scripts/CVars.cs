@@ -8,6 +8,8 @@ public static class CVars
 {
     public static CVar g_playerWalkSpeed        = new CVar("g_playerWalkSpeed", 48.0f);
     public static CVar g_playerRunSpeed         = new CVar("g_playerRunSpeed", 72.0f);
+    public static CVar g_playerGravity          = new CVar("g_playerGravity", -455.0f);
+    public static CVar g_playerJumpSpeed        = new CVar("g_jumpSpeed", 96.0f);
 
     public static CVar g_enemySpeed             = new CVar("g_enemySpeed", 12.0f);
     public static CVar g_powerupSpeed           = new CVar("g_powerupSpeed", 24.0f);
