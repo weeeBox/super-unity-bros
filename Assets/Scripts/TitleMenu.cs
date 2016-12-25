@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+
 using System.Collections;
 
 public class TitleMenu : MonoBehaviour
@@ -7,12 +9,11 @@ public class TitleMenu : MonoBehaviour
 
     public void OnStartGameButton()
     {
-        Application.LoadLevel(Scenes.Main);
+        SceneManager.LoadScene(Scenes.World_1_1);
     }
 
     public void OnStartTestButton()
     {
-        Application.LoadLevel(Scenes.TestSelection);
     }
 
     #endregion

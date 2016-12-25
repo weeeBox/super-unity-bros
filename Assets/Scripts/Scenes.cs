@@ -3,7 +3,9 @@ using System.Collections;
 
 public static class Scenes
 {
-    public static readonly string Title         = "Title";
-    public static readonly string Main          = "Main";
-    public static readonly string TestSelection = "TestSelection";
+    private static readonly string ScenesDir    = "Scenes";
+    private static readonly string WorldsDir    = ScenesDir + "/Worlds";
+
+    public static readonly string Title         = ScenesDir + "/ScenesTitleScreen";
+    public static readonly string World_1_1     = WorldsDir + "/world-1-1";
 }
