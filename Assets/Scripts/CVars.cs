@@ -6,8 +6,14 @@ using LunarPlugin;
 [CVarContainer]
 public static class CVars
 {
-    public static CVar g_playerWalkSpeed        = new CVar("g_playerWalkSpeed", 48.0f);
-    public static CVar g_playerRunSpeed         = new CVar("g_playerRunSpeed", 72.0f);
+    public static CVar g_playerWalkSpeed        = new CVar("g_playerWalkSpeed", 35.0f);
+    public static CVar g_playerWalkAcc          = new CVar("g_playerWalkAcceleration", 52.0f);
+    public static CVar g_playerWalkBreakAcc     = new CVar("g_playerWalkBreakAcc", 150.0f);
+
+    public static CVar g_playerRunSpeed         = new CVar("g_playerRunSpeed", 58.0f);
+    public static CVar g_playerRunAcc           = new CVar("g_playerRunAcceleration", 76.0f);
+    public static CVar g_playerRunBreakAcc      = new CVar("g_playerRunBreakAcc", 174.0f);
+
     public static CVar g_playerGravity          = new CVar("g_playerGravity", -455.0f);
     public static CVar g_playerGravityLongJump  = new CVar("g_playerGravityLongJump", -174.0f);
     public static CVar g_playerJumpSpeed        = new CVar("g_jumpSpeed", 96.0f);

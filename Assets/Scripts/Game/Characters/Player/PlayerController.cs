@@ -44,12 +44,6 @@ public class PlayerController : LevelObjectСontroller
     private float m_JumpSquashSpeed = 70.0f;
 
     [SerializeField]
-    private float m_WalkAcc = 112.0f;
-
-    [SerializeField]
-    private float m_WalkSlowAcc = 57.0f;
-
-    [SerializeField]
     private RuntimeAnimatorController m_BigAnimatorController;
 
     [SerializeField]
@@ -142,7 +136,6 @@ public class PlayerController : LevelObjectСontroller
         {   
             m_Velocity.y += CVars.g_playerGravity.FloatValue * deltaTime;
         }
-
         m_Velocity.y = Mathf.Clamp(m_Velocity.y, -CVars.g_playerJumpSpeed.FloatValue, CVars.g_playerJumpSpeed.FloatValue);
 
         float vx = m_Velocity.x;
@@ -150,34 +143,44 @@ public class PlayerController : LevelObjectСontroller
         
         if (Mathf.Approximately(moveX, 0.0f))
         {
-            vx += -direction * m_WalkSlowAcc * deltaTime;
+            vx += -direction * CVars.g_playerWalkAcc.FloatValue * deltaTime;
             vx = direction > 0 ? Mathf.Max(vx, 0) : Mathf.Min(vx, 0);
         }
         else
         {
-            vx += moveX * m_WalkAcc * deltaTime;
-            if (vx > 0)
+            bool breaking = moveX > Mathf.Epsilon && vx < -Mathf.Epsilon ||
+                            moveX < -Mathf.Epsilon && vx > Mathf.Epsilon;
+            float maxVelocity = m_running ? CVars.g_playerRunSpeed.FloatValue : CVars.g_playerWalkSpeed.FloatValue;
+            float acceleration;
+            if (m_running)
             {
-                vx = Mathf.Min(vx, CVars.g_playerWalkSpeed.FloatValue);
+                acceleration = breaking ? CVars.g_playerRunBreakAcc.FloatValue : CVars.g_playerRunAcc.FloatValue;
             }
-            else if (vx < 0)
+            else
             {
-                vx = Mathf.Max(vx, -CVars.g_playerWalkSpeed.FloatValue);
+                acceleration = breaking ? CVars.g_playerWalkBreakAcc.FloatValue : CVars.g_playerWalkAcc.FloatValue;
             }
+
+            vx += moveX * acceleration * deltaTime;
+            vx = Mathf.Clamp(vx, -maxVelocity, maxVelocity);
         }
+        m_Velocity.x = vx;
         
         if (moveX >  Mathf.Epsilon && direction == DIR_LEFT ||
             moveX < -Mathf.Epsilon && direction == DIR_RIGHT)
         {
             Flip();
         }
-        
-        m_Velocity.x = vx;
 
         if (!dead && grounded)
         {
+            animator.speed = m_running ? Mathf.Abs(m_Velocity.x) / CVars.g_playerWalkSpeed.FloatValue : 1;
             animator.SetFloat("Speed", Mathf.Abs(m_Velocity.x));
             animator.SetBool("Stop", m_moveInput.x > Mathf.Epsilon && m_Velocity.x < 0 || m_moveInput.x < -Mathf.Epsilon && m_Velocity.x > 0);
+        }
+        else
+        {
+            animator.speed = 1;
         }
     }
 
