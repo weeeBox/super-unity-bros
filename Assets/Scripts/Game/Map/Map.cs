@@ -80,7 +80,7 @@ public class Map : BaseBehaviour
                     else if (tile is QuestionTile)
                     {
                         var questionTile = tile as QuestionTile;
-                        if (questionTile.type == QuestionTileType.Mushroom)
+                        if (questionTile.type == HittableTileType.Mushroom)
                         {
                             cell = new PowerCell(this, i, j, PowerupType.Mushroom);
                         }

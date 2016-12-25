@@ -7,6 +7,6 @@ using UnityEngine.Tilemaps;
 using UnityEditor;
 
 [CustomEditor(typeof(BrickTile))]
-public class BrickTileEditor : TileEditor<BrickTile>
+public class BrickTileEditor : HittableTileEditor<BrickTile>
 {
 }

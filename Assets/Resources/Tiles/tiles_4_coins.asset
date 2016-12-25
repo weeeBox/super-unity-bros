@@ -8,10 +8,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 730b4d7b5eb4446f2ad613cef3344ea9, type: 3}
-  m_Name: tiles_3_coins
+  m_Script: {fileID: 11500000, guid: 8844b5919c22b4bb897d1dddfebf3343, type: 3}
+  m_Name: tiles_4_coins
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300006, guid: cca801c682d344dffba7274e68cab6d6, type: 3}
+  sprite: {fileID: 21300008, guid: cca801c682d344dffba7274e68cab6d6, type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}
   transform:
     e00: 1

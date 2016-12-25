@@ -6,38 +6,38 @@ using UnityEngine.Tilemaps;
 
 using UnityEditor;
 
-[CustomEditor(typeof(HittableTile))]
-public class HittableTileEditor : Editor
+public class HittableTileEditor<T> : TileEditor<T> where T : HittableTile
 {
-    public override void OnInspectorGUI ()
+    public override void OnInspectorGUI()
     {
-        Rect totalPosition = EditorGUILayout.GetControlRect (false, 32, new GUILayoutOption[0]);
-        totalPosition = EditorGUI.PrefixLabel (totalPosition, new GUIContent ("Preview"));
-        Rect position = new Rect (totalPosition.xMin, totalPosition.yMin, 32, 32);
-        Rect position2 = new Rect (totalPosition.xMin - 1, totalPosition.yMin - 1, 34, 34);
-        if (Event.current.type == EventType.Repaint) {
-            EditorStyles.textField.Draw (position2, false, false, false, false);
-        }
-        Sprite sprite = this.tile.sprite;
-        if (sprite != null) {
-            Texture2D image = SpriteUtility.RenderStaticPreview(sprite, this.tile.color, 32, 32, this.tile.transform);
-            EditorGUI.DrawTextureTransparent (position, image, ScaleMode.StretchToFill);
-        }
-        EditorGUI.BeginChangeCheck ();
-        EditorGUI.BeginChangeCheck ();
-        Object obj = EditorGUILayout.ObjectField ("Sprite", this.tile.sprite, typeof(Sprite), false, new GUILayoutOption[] {
-            GUILayout.Height (16)
-        });
-        if (EditorGUI.EndChangeCheck ()) {
-            this.tile.sprite = (Sprite)obj;
-        }
-        if (EditorGUI.EndChangeCheck ()) {
-            EditorUtility.SetDirty (this.tile);
-        }
-    }
+        base.OnInspectorGUI();
 
-    private HittableTile tile
-    {
-        get { return target as HittableTile; }
+        EditorGUI.BeginChangeCheck();
+        var type = EditorGUILayout.EnumPopup("Type", this.tile.type, new GUILayoutOption[]
+            {
+                GUILayout.Height(16)
+            });
+        if (EditorGUI.EndChangeCheck())
+        {
+            this.tile.type = (HittableTileType)type;
+        }
+
+        if (this.tile.type == HittableTileType.Coins)
+        {
+            EditorGUI.BeginChangeCheck();
+            var cointCount = EditorGUILayout.IntField("Coins", this.tile.cointCount, new GUILayoutOption[]
+                {
+                    GUILayout.Height(16)
+                });
+            if (EditorGUI.EndChangeCheck())
+            {
+                this.tile.cointCount = cointCount;
+            }
+        }
+
+        if (EditorGUI.EndChangeCheck())
+        {
+            EditorUtility.SetDirty(this.tile);
+        }
     }
 }

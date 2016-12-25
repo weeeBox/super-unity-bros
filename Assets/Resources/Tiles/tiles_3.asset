@@ -33,3 +33,5 @@ MonoBehaviour:
   gameObject: {fileID: 0}
   flags: 2
   colliderType: 1
+  m_type: 1
+  m_coinCount: 1

@@ -31,5 +31,7 @@ MonoBehaviour:
     e32: 0
     e33: 1
   gameObject: {fileID: 0}
-  flags: 1
+  flags: 2
   colliderType: 1
+  m_type: 0
+  m_coinCount: 1
