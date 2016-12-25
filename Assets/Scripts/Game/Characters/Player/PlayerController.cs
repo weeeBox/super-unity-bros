@@ -116,7 +116,7 @@ public class PlayerController : LevelObjectСontroller
             m_longJump = false;
         }
 
-        if (Input.GetButtonDown("Shoot"))
+        if (Input.GetButtonDown("Shoot") && canShot)
         {
             Shot();
         }
@@ -399,10 +399,10 @@ public class PlayerController : LevelObjectСontroller
 
     private void Shot()
     {
-//        var shotObject = Instantiate(m_shot.prefab) as FireBallController;
-//        shotObject.transform.parent = transform.parent;
-//        shotObject.transform.position = m_shot.origin.position;
-//        shotObject.Launch(direction);
+        var shotObject = Instantiate(m_shot.prefab) as FireBallController;
+        shotObject.transform.parent = transform.parent;
+        shotObject.transform.position = m_shot.origin.position;
+        shotObject.Launch(direction);
     }
 
     #endregion
@@ -525,6 +525,11 @@ public class PlayerController : LevelObjectСontroller
     public bool isSmall
     {
         get { return m_state == State.Small; }
+    }
+
+    public bool canShot
+    {
+        get { return m_state == State.Super; }
     }
 
     #endregion
