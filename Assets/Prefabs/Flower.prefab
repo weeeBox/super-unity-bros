@@ -53,13 +53,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf20df27e043840eda6eefbf30587f0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_data: {fileID: 11400000, guid: dc199a63d6c1646989999d58cbe6d3e6, type: 2}
   m_WalkSpeed: 0
-  m_ColliderRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 4.8
-    height: 6.4
   m_PushCollisionSpeed: 0
   m_GravityScale: 0
 --- !u!114 &114931187911122860

@@ -8,6 +8,7 @@ public class Prefabs
 {
     public GameObject coin;
     public GameObject mushroom;
+    public GameObject flower;
     public GameObject brokenBrick;
 }
 
@@ -48,7 +49,7 @@ public class GameManager : BaseBehaviour
         switch (type)
         {
             case PowerupType.Mushroom:
-                return GameObject.Instantiate(instance.m_Prefabs.mushroom) as GameObject;
+                return GameObject.Instantiate(player.isSmall ? instance.m_Prefabs.mushroom : instance.m_Prefabs.flower) as GameObject;
 
             default:
                 assert.Fail("Not supported: " + type);

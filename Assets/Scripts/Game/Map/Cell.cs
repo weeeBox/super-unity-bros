@@ -127,8 +127,9 @@ class HittableCell : Cell
 
     void JumpFinished()
     {
+        var attacker = jumpAttacker;
         jumpAttacker = null;
-        OnHitFinished();
+        OnHitFinished(attacker);
     }
 
     protected void SetBlank()
@@ -139,7 +140,7 @@ class HittableCell : Cell
         map.SetTile(i, j, Map.CELL_BLANK);
     }
 
-    protected virtual void OnHitFinished()
+    protected virtual void OnHitFinished(LevelObjectСontroller attacker)
     {
     }
 }
@@ -217,7 +218,7 @@ class PowerupCell : HittableCell
         SetBlank();
     }
 
-    protected override void OnHitFinished()
+    protected override void OnHitFinished(LevelObjectСontroller attacker)
     {
         GameObject powerup = GameManager.CreatePowerup(m_PowerupType);
         powerup.transform.parent = map.transform;
