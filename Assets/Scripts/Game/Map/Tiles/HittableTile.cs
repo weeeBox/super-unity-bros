@@ -9,7 +9,7 @@ public enum HittableTileType
     Empty,
     Coins,
     Mushroom,
-    Start,
+    Star,
     Life
 }
 

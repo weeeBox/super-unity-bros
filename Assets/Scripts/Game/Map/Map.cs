@@ -73,20 +73,25 @@ public class Map : BaseBehaviour
                     {
                         cell = new Cell(this, i, j);
                     }
-                    else if (tile is BrickTile)
+                    else if (tile is HittableTile)
                     {
-                        cell = new BrickCell(this, i, j);
-                    }
-                    else if (tile is QuestionTile)
-                    {
-                        var questionTile = tile as QuestionTile;
-                        if (questionTile.type == HittableTileType.Mushroom)
+                        var hittableTile = tile as HittableTile;
+                        if (hittableTile.type == HittableTileType.Empty)
                         {
-                            cell = new PowerCell(this, i, j, PowerupType.Mushroom);
+                            cell = new BrickCell(this, i, j);
+                        }
+                        else if (hittableTile.type == HittableTileType.Mushroom)
+                        {
+                            cell = new PowerupCell(this, i, j, PowerupType.Mushroom);
+                        }
+                        else if (hittableTile.type == HittableTileType.Coins)
+                        {
+                            cell = new CoinsCell(this, i, j, hittableTile.cointCount);
                         }
                         else
                         {
-                            cell = new CoinsCell(this, i, j, questionTile.cointCount);
+                            Debug.LogWarning("Unexpected type: " + hittableTile.type);
+                            cell = new Cell(this, i, j);
                         }
                     }
 

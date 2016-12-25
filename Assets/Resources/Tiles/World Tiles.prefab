@@ -103,6 +103,17 @@ Tilemap:
         m_TileFlags: 2
         m_ColliderType: 1
     data:
+      first: {x: 4, y: -3, z: 0}
+      second:
+        serializedVersion: 2
+        m_TileIndex: 35
+        m_TileSpriteIndex: 4
+        m_TileMatrixIndex: 0
+        m_TileColorIndex: 0
+        m_ObjectToInstantiate: {fileID: 0}
+        m_TileFlags: 2
+        m_ColliderType: 1
+    data:
       first: {x: 0, y: -2, z: 0}
       second:
         serializedVersion: 2
@@ -133,7 +144,7 @@ Tilemap:
         m_TileMatrixIndex: 0
         m_TileColorIndex: 0
         m_ObjectToInstantiate: {fileID: 0}
-        m_TileFlags: 1
+        m_TileFlags: 3
         m_ColliderType: 1
     data:
       first: {x: 3, y: -2, z: 0}
@@ -572,6 +583,9 @@ Tilemap:
   - serializedVersion: 1
     m_RefCount: 1
     m_Data: {fileID: 11400000, guid: e3da98de872ee4658bf46c400de213f4, type: 2}
+  - serializedVersion: 1
+    m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 1ead7af0023ae41e089b274a06dfe78c, type: 2}
   m_TileSpriteArray:
   - serializedVersion: 1
     m_RefCount: 1
@@ -586,7 +600,7 @@ Tilemap:
     m_RefCount: 3
     m_Data: {fileID: 21300006, guid: cca801c682d344dffba7274e68cab6d6, type: 3}
   - serializedVersion: 1
-    m_RefCount: 1
+    m_RefCount: 2
     m_Data: {fileID: 21300008, guid: cca801c682d344dffba7274e68cab6d6, type: 3}
   - serializedVersion: 1
     m_RefCount: 1
@@ -674,7 +688,7 @@ Tilemap:
     m_Data: {fileID: 21300064, guid: cca801c682d344dffba7274e68cab6d6, type: 3}
   m_TileMatrixArray:
   - serializedVersion: 1
-    m_RefCount: 35
+    m_RefCount: 36
     m_Data:
       e00: 1
       e01: 0
@@ -694,7 +708,7 @@ Tilemap:
       e33: 1
   m_TileColorArray:
   - serializedVersion: 1
-    m_RefCount: 35
+    m_RefCount: 36
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -787,9 +801,11 @@ Tilemap:
   - serializedVersion: 1
     m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 4
+    m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 2
+    m_DirtyIndex: 0
+  - serializedVersion: 1
+    m_DirtyIndex: 0
 --- !u!329 &329236541252291746
 TilemapRenderer:
   m_ObjectHideFlags: 1

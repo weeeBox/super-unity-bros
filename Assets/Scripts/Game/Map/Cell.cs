@@ -201,11 +201,11 @@ class CoinsCell : HittableCell
     }
 }
 
-class PowerCell : HittableCell
+class PowerupCell : HittableCell
 {
     PowerupType m_PowerupType;
 
-    public PowerCell(Map map, int i, int j, PowerupType powerup)
+    public PowerupCell(Map map, int i, int j, PowerupType powerup)
         : base(map, i, j)
     {
         m_PowerupType = powerup;
