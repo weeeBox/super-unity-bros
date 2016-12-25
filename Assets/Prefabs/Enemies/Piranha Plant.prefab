@@ -145,20 +145,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 419aa6c93a835428893c6a158ab41b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_data: {fileID: 11400000, guid: fd6bc79ea07e249eeb0daf07ad9036a2, type: 2}
   m_WalkSpeed: 0
-  m_ColliderRect:
-    serializedVersion: 2
-    x: 0
-    y: -0.7
-    width: 4.8
-    height: 5
   m_PushCollisionSpeed: 24
   m_GravityScale: 0
   m_DamageJumpSpeed: 50
   m_DamageImpactSpeed: 24
-  m_Speed: 12
-  m_IdleTime: 1
-  m_HiddenTime: 1.25
 --- !u!114 &114348808236843062
 MonoBehaviour:
   m_ObjectHideFlags: 1
