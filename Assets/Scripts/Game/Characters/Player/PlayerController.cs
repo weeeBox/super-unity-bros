@@ -174,7 +174,7 @@ public class PlayerController : LevelObjectСontroller
 
         if (!dead && grounded)
         {
-            animator.speed = m_running ? Mathf.Abs(m_Velocity.x) / CVars.g_playerWalkSpeed.FloatValue : 1;
+            animator.speed = m_running ? Mathf.Clamp(Mathf.Abs(m_Velocity.x) / CVars.g_playerWalkSpeed.FloatValue, 0.5f, 2.0f) : 1;
             animator.SetFloat("Speed", Mathf.Abs(m_Velocity.x));
             animator.SetBool("Stop", m_moveInput.x > Mathf.Epsilon && m_Velocity.x < 0 || m_moveInput.x < -Mathf.Epsilon && m_Velocity.x > 0);
         }
