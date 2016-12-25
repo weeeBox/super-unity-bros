@@ -28,6 +28,7 @@ public class Map : BaseBehaviour
     [SerializeField]
     private Tile[] m_tiles;
 
+    [SerializeField]
     private Tilemap m_tileMap;
 
     [SerializeField]
@@ -39,9 +40,8 @@ public class Map : BaseBehaviour
     float m_Width;
     float m_Height;
 
-    protected override void OnStart()
+    protected override void OnAwake()
     {
-        m_tileMap = GetComponent<Tilemap>();
         GenerateCells();
     }
 
@@ -80,7 +80,14 @@ public class Map : BaseBehaviour
                     else if (tile is QuestionTile)
                     {
                         var questionTile = tile as QuestionTile;
-                        cell = new CoinsCell(this, i, j, 1);
+                        if (questionTile.type == QuestionTileType.Mushroom)
+                        {
+                            cell = new PowerCell(this, i, j, PowerupType.Mushroom);
+                        }
+                        else
+                        {
+                            cell = new CoinsCell(this, i, j, questionTile.cointCount);
+                        }
                     }
 
                     m_cells[i, j] = cell;

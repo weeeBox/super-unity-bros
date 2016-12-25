@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 3
+  serializedVersion: 2
   tags:
   - Enemy
   layers:
@@ -51,4 +51,6 @@ TagManager:
   - name: Players
     uniqueID: 3577875067
     locked: 0
-  m_SpritePackingTags: []
+  - name: Foreground
+    uniqueID: 903448639
+    locked: 0

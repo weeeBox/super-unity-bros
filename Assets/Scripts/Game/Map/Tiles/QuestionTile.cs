@@ -20,10 +20,12 @@ public class QuestionTile : HittableTile
     public QuestionTileType type
     {
         get { return m_type; }
+        set { m_type = value; }
     }
 
     public int cointCount
     {
         get { return m_coinCount; }
+        set { m_coinCount = value; }
     }
 }
