@@ -67,14 +67,20 @@ MonoBehaviour:
   m_bigData: {fileID: 11400000, guid: 8a16a58a7411e41928fdebd3a68cb569, type: 2}
   m_JumpHighSpeed: 129
   m_JumpSquashSpeed: 70
-  m_WalkAcc: 112
-  m_WalkSlowAcc: 57
   m_BigAnimatorController: {fileID: 22100000, guid: e14d229e3cab54ff8828ac73840b4cea,
     type: 2}
   m_shot:
     m_prefab: {fileID: 114652299272886144, guid: c41165db0337044fb86b53282045b574,
       type: 2}
     m_origin: {fileID: 4184590108337202}
+  m_palettes:
+    m_normal: {fileID: 2800000, guid: 7c9f7591b7efd4310a1036604cb46dfc, type: 3}
+    m_super: {fileID: 2800000, guid: dbb23bef593fa430293e32472547e94d, type: 3}
+    m_starPalettes:
+    - {fileID: 2800000, guid: 1e026b3f6f51044c8ba9ed2f055db7d6, type: 3}
+    - {fileID: 2800000, guid: 7c007fafd09bb425bb72880128f79a16, type: 3}
+    - {fileID: 2800000, guid: 423c249bb5c4c423a8e4f7dad6a5b692, type: 3}
+    - {fileID: 2800000, guid: 42857b1aa7840496ebe8a0fe7da6e870, type: 3}
 --- !u!212 &21222322
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -88,7 +94,7 @@ SpriteRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 107f03fa411084425a32650fbe2b3e1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

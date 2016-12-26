@@ -25,6 +25,29 @@ public class PlayerShotInfo
     }
 }
 
+[Serializable]
+public class PlayerPalettes
+{
+    [SerializeField]
+    Texture2D m_normal;
+
+    [SerializeField]
+    Texture2D m_super;
+
+    [SerializeField]
+    Texture2D[] m_starPalettes;
+
+    public Texture2D normal
+    {
+        get { return m_normal; }
+    }
+
+    public Texture2D super
+    {
+        get { return m_super; }
+    }
+}
+
 public interface IPlayerControllerDelegate
 {
     void OnPlayerDied(PlayerController player);
@@ -53,6 +76,9 @@ public class PlayerController : LevelObjectСontroller
 
     [SerializeField]
     private PlayerShotInfo m_shot;
+
+    [SerializeField]
+    private PlayerPalettes m_palettes;
 
     State m_state;
 
@@ -272,6 +298,8 @@ public class PlayerController : LevelObjectСontroller
         {
             animator.SetBool("Jump", true);
         }
+
+        UpdatePalette();
     }
 
     void ChangeState(State state)
@@ -287,6 +315,7 @@ public class PlayerController : LevelObjectСontroller
                 hitRect = data.hitRect;
                 animator.SetTrigger("Shrink");
                 StartInvincibility();
+                UpdatePalette();
                 break;
             case State.Big:
             case State.Super:
@@ -518,6 +547,20 @@ public class PlayerController : LevelObjectСontroller
         
         bottom = bottomTargetY;
         m_Velocity.y = m_JumpSquashSpeed;
+    }
+
+    #endregion
+
+    #region Palettes
+
+    void UpdatePalette()
+    {
+        SetPalette(m_state == State.Super ? m_palettes.super : m_palettes.normal);
+    }
+
+    private void SetPalette(Texture2D palette)
+    {
+        GetComponent<SpriteRenderer>().material.SetTexture("_SwapTex", palette);
     }
 
     #endregion
