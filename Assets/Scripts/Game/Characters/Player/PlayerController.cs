@@ -25,6 +25,11 @@ public class PlayerShotInfo
     }
 }
 
+public interface IPlayerControllerDelegate
+{
+    void OnPlayerDied(PlayerController player);
+}
+
 public class PlayerController : LevelObjectСontroller
 {
     enum State
@@ -237,6 +242,8 @@ public class PlayerController : LevelObjectСontroller
     protected override void OnDie()
     {
         m_moveInput = Vector2.zero;
+        MessageCenter.Send<IPlayerControllerDelegate>(target => target.OnPlayerDied(this));
+
         StartCoroutine(DieCoroutine());
     }
 

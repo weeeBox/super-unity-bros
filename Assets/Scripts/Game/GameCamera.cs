@@ -26,26 +26,25 @@ public class GameCamera : BaseBehaviour
 
     protected override void OnFixedUpdate(float deltaTime)
     {
-        float playerX = player.transform.position.x;
-        Vector3 cameraPos = transform.position;
-
-        float distance = cameraPos.x - playerX;
-        if (distance < m_BorderLow)
+        var player = GameManager.player;
+        if (player != null)
         {
-            cameraPos.x = playerX + m_BorderLow;
+            float playerX = player.transform.position.x;
+            Vector3 cameraPos = transform.position;
+
+            float distance = cameraPos.x - playerX;
+            if (distance < m_BorderLow)
+            {
+                cameraPos.x = playerX + m_BorderLow;
+            }
+
+            cameraPos.x = Mathf.Min(cameraPos.x, m_MaxPos);
+
+            transform.position = cameraPos;
         }
-
-        cameraPos.x = Mathf.Min(cameraPos.x, m_MaxPos);
-
-        transform.position = cameraPos;
     }
 
     #region Properties
-
-    protected PlayerController player
-    {
-        get { return GameManager.player; }
-    }
 
     protected Map map
     {

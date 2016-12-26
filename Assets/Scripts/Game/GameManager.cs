@@ -12,7 +12,7 @@ public class Prefabs
     public GameObject brokenBrick;
 }
 
-public class GameManager : BaseBehaviour
+public class GameManager : BaseBehaviour, IPlayerControllerDelegate
 {
     static GameManager s_Instance;
 
@@ -35,6 +35,15 @@ public class GameManager : BaseBehaviour
     {
         s_Instance = null;
     }
+
+    #region IPlayerControllerDelegate implementation
+
+    public void OnPlayerDied(PlayerController player)
+    {
+        m_Player = null;
+    }
+
+    #endregion
 
     public static GameObject CreateJumpingCoin()
     {
@@ -71,7 +80,7 @@ public class GameManager : BaseBehaviour
         get { return existingInstance.m_Map; }
     }
 
-    public static GameCamera camera
+    public static new GameCamera camera
     {
         get { return existingInstance.m_Camera; }
     }
