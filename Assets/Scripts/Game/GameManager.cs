@@ -49,7 +49,7 @@ public class GameManager : BaseBehaviour, IPlayerControllerDelegate
     IEnumerator ReturnToTitleScreen()
     {
         yield return new WaitForSeconds(5);
-        SceneManager.LoadScene(Scenes.TitleScreen);
+        SceneManager.LoadScene(Scenes.World_1_1);
     }
 
     #endregion
