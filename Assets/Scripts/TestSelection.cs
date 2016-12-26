@@ -12,7 +12,7 @@ public class TestSelection : MonoBehaviour
 
     public void OnBackButton()
     {
-        Application.LoadLevel(Scenes.Title);
+        Application.LoadLevel(Scenes.TitleScreen);
     }
 
     #endregion

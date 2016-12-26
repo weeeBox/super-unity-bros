@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 using System.Collections;
 
 using LunarCore;
@@ -41,6 +43,13 @@ public class GameManager : BaseBehaviour, IPlayerControllerDelegate
     public void OnPlayerDied(PlayerController player)
     {
         m_Player = null;
+        StartCoroutine(ReturnToTitleScreen());
+    }
+
+    IEnumerator ReturnToTitleScreen()
+    {
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene(Scenes.TitleScreen);
     }
 
     #endregion
